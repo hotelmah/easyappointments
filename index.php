@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -48,9 +49,7 @@
  */
 
 if (!file_exists(__DIR__ . '/config.php')) {
-    die(
-        'The root "config.php" file is missing, please copy "config-sample.php" to "config.php" and update it with your server data.'
-    );
+    die('The root "config.php" file is missing, please copy "config-sample.php" to "config.php" and update it with your server data.');
 }
 
 require_once __DIR__ . '/config.php';
@@ -66,9 +65,7 @@ require_once __DIR__ . '/config.php';
  */
 
 if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
-    die(
-        'The "vendor/autoload.php" file is missing, please install the Composer dependencies with "composer install" before using the app.'
-    );
+    die('The "vendor/autoload.php" file is missing, please install the Composer dependencies with "composer install" before using the app.');
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -295,7 +292,7 @@ if (is_dir($application_folder)) {
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        self;
+        SELF;
     exit(3); // EXIT_CONFIG
 }
 
@@ -315,7 +312,7 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        self;
+        SELF;
     exit(3); // EXIT_CONFIG
 }
 
