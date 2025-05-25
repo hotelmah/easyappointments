@@ -275,6 +275,7 @@ define('FCPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 // Name of the "system" directory
 define('SYSDIR', basename(BASEPATH));
 
+
 // The path to the "application" directory
 if (is_dir($application_folder)) {
     if (($_temp = realpath($application_folder)) !== false) {
@@ -297,6 +298,7 @@ if (is_dir($application_folder)) {
 }
 
 define('APPPATH', $application_folder . DIRECTORY_SEPARATOR);
+
 
 // The path to the "views" directory
 if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) {
