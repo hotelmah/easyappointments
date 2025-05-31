@@ -7,7 +7,7 @@
     // "image": "mcr.microsoft.com/devcontainers/php:1-8.3",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "php-fpm",
-    "workspaceFolder": "/var/www/html",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
