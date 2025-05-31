@@ -1,7 +1,6 @@
-FROM mcr.microsoft.com/devcontainers/php:1-8.3-bullseye
-# FROM php:8.4-fpm
+FROM php:8.4-fpm
 
-# WORKDIR "/var/www/html"
+WORKDIR "/var/www/html"
 
 # Install php-mysql driver
 RUN docker-php-ext-install mysqli pdo pdo_mysql
@@ -30,4 +29,4 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# CMD ["bash", "docker/php-fpm/start-container"]
+CMD ["bash", "docker/php-fpm/start-container"]
