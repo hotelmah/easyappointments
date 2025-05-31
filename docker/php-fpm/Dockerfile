@@ -29,4 +29,4 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["bash", "docker/php-fpm/start-container"]
+# CMD ["bash", "docker/php-fpm/start-container"]
