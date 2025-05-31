@@ -6,22 +6,22 @@
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
     // "image": "mcr.microsoft.com/devcontainers/php:1-8.3",
     "dockerComposeFile": "../docker-compose.yml",
-    "service": "php-fpm",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
 
     // Configure tool-specific properties.
-    "customizations": {
-        // Configure properties specific to VS Code.
-        "vscode": {
-            "settings": {},
-            "extensions": [
-                // "streetsidesoftware.code-spell-checker"
-            ]
-        }
-    },
+    // "customizations": {
+    //     // Configure properties specific to VS Code.
+    //     "vscode": {
+    //         "settings": {},
+    //         "extensions": [
+    //             // "streetsidesoftware.code-spell-checker"
+    //         ]
+    //     }
+    // },
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [8000],
@@ -30,15 +30,15 @@
     // "forwardPorts": [8080, 3306]
 
     // Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
-    "portsAttributes": {
-        "8000": {
-            "label": "Easy Appointments",
-            "onAutoForward": "notify"
-        }
-    },
-    "features": {
+    // "portsAttributes": {
+    //     "8000": {
+    //         "label": "Easy Appointments",
+    //         "onAutoForward": "notify"
+    //     }
+    // },
+    // "features": {
         // "ghcr.io/devcontainers-extra/features/mysql-homebrew:1": {}
-    }
+    // }
 
     // Use 'postCreateCommand' to run commands after the container is created.
     // "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
