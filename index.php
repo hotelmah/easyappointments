@@ -1,6 +1,6 @@
 <?php
 
-/**
+/* *
  * CodeIgniter
  *
  * An open source application development framework for PHP
@@ -200,7 +200,8 @@ $view_folder = '';
  * to call functions dynamically via the URI.
  *
  * Un-comment the $routing array below to use this feature
- */
+*/
+
 // The directory name, relative to the "controllers" directory.  Leave blank
 // if your controller is not in a sub-directory within the "controllers" one
 // $routing['directory'] = '';
@@ -209,7 +210,7 @@ $view_folder = '';
 // $routing['controller'] = '';
 
 // The controller function you wish to be called.
-// $routing['function']	= '';
+// $routing['function'] = '';
 
 /*
  * -------------------------------------------------------------------
@@ -225,6 +226,7 @@ $view_folder = '';
  *
  * Un-comment the $assign_to_config array below to use this feature
  */
+
 // $assign_to_config['name_of_config_item'] = 'value of config item';
 
 // --------------------------------------------------------------------
@@ -293,7 +295,7 @@ if (is_dir($application_folder)) {
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        SELF;
+        self;
     exit(3); // EXIT_CONFIG
 }
 
@@ -314,7 +316,7 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        SELF;
+        self;
     exit(3); // EXIT_CONFIG
 }
 

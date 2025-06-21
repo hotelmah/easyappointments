@@ -15,12 +15,11 @@ html {
 
 select {
     -webkit-appearance: none;
+    appearance: none;
 }
 
-@-moz-document url-prefix() {
-    body .checkbox input[type='checkbox'] {
-        float: left;
-    }
+body .checkbox input[type='checkbox'] {
+    float: left;
 }
 
 body .ui-widget {
@@ -478,6 +477,7 @@ body .clearfix {
         background: #429a82;
         color: white;
         -webkit-appearance: none;
+        appearance: none;
     }
 
     .flatpickr-day.endRange,

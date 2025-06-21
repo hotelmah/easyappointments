@@ -29,4 +29,5 @@
 !/storage/uploads/index.html
 /vendor/
 /metafile
-.DS_Store
+.vscode
+web.config

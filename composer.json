@@ -1,7 +1,6 @@
 {
     "name": "alextselegidis/easyappointments",
     "description": "Open Source Web Scheduler",
-    "version": "1.5.1",
     "homepage": "https://easyappointments.org",
     "type": "project",
     "license": "GPL-3.0",
