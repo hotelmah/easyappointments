@@ -16,7 +16,7 @@
         </div>
 
         <div id="calendar-actions" class="col-md-9">
-            <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT): ?>
+            <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT) : ?>
                 <button
                     id="enable-sync"
                     class="btn btn-light"
@@ -27,9 +27,7 @@
                 </button>
 
                 <div class="btn-group" id="sync-button-group" hidden>
-                    <button type="button" class="btn btn-light" id="trigger-sync" data-tippy-content="<?= lang(
-                        'trigger_sync_hint',
-                    ) ?>">
+                    <button type="button" class="btn btn-light" id="trigger-sync" data-tippy-content="<?= lang('trigger_sync_hint') ?>">
                         <i class="fas fa-rotate me-2"></i>
                         <?= lang('synchronize') ?>
                     </button>
@@ -49,7 +47,7 @@
                 </div>
             <?php endif; ?>
 
-            <?php if (can('add', PRIV_APPOINTMENTS)): ?>
+            <?php if (can('add', PRIV_APPOINTMENTS)) : ?>
                 <div class="dropdown d-sm-inline-block">
                     <button class="btn btn-light" type="button" data-bs-toggle="dropdown">
                         <i class="fas fa-plus-square"></i>
@@ -82,14 +80,14 @@
                 <i class="fas fa-sync-alt"></i>
             </button>
 
-            <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT): ?>
+            <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT) : ?>
                 <a class="btn btn-light mb-0" href="<?= site_url('calendar?view=table') ?>"
                    data-tippy-content="<?= lang('table') ?>">
                     <i class="fas fa-table"></i>
                 </a>
             <?php endif; ?>
 
-            <?php if (vars('calendar_view') === CALENDAR_VIEW_TABLE): ?>
+            <?php if (vars('calendar_view') === CALENDAR_VIEW_TABLE) : ?>
                 <a class="btn btn-light mb-0" href="<?= site_url('calendar?view=default') ?>"
                    data-tippy-content="<?= lang('default') ?>">
                     <i class="fas fa-calendar-alt"></i>
@@ -132,9 +130,10 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/vendor/fullcalendar/index.global.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/fullcalendar-moment/index.global.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/jquery-jeditable/jquery.jeditable.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/index.global.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/fullcalendar-moment/index.global.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/jquery.jeditable.min.js') ?>"></script>
+
 <script src="<?= asset_url('assets/js/utils/date.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/message.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/validation.js') ?>"></script>
@@ -145,7 +144,7 @@
 <script src="<?= asset_url('assets/js/utils/calendar_event_popover.js') ?>"></script>
 <script src="<?= asset_url('assets/js/http/calendar_http_client.js') ?>"></script>
 <script src="<?= asset_url('assets/js/http/customers_http_client.js') ?>"></script>
-<?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT): ?>
+<?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT) : ?>
     <script src="<?= asset_url('assets/js/utils/calendar_sync.js') ?>"></script>
     <script src="<?= asset_url('assets/js/http/google_http_client.js') ?>"></script>
     <script src="<?= asset_url('assets/js/http/caldav_http_client.js') ?>"></script>

@@ -16,7 +16,7 @@
                                 <?= lang('booking_settings') ?>
                             </h4>
 
-                            <?php if (can('edit', PRIV_SYSTEM_SETTINGS)): ?>
+                            <?php if (can('edit', PRIV_SYSTEM_SETTINGS)) : ?>
                                 <button type="button" id="save-settings" class="btn btn-primary">
                                     <i class="fas fa-check-square me-2"></i>
                                     <?= lang('save') ?>
@@ -251,7 +251,7 @@
                         </h5>
 
                         <div class="row mb-5 fields-row">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <?php for ($i = 1; $i <= 5; $i++) : ?>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-5">
                                         <label for="first-name" class="form-label">

@@ -688,17 +688,17 @@ class Calendar extends EA_Controller
                 $start_date .
                 ' AND start_datetime < ' .
                 $end_date .
-                ') 
+                ')
                 or (end_datetime > ' .
                 $start_date .
                 ' AND end_datetime < ' .
                 $end_date .
-                ') 
+                ')
                 or (start_datetime <= ' .
                 $start_date .
                 ' AND end_datetime >= ' .
                 $end_date .
-                ')) 
+                '))
                 AND is_unavailability = 0
             ';
 
@@ -725,17 +725,17 @@ class Calendar extends EA_Controller
                     $start_date .
                     ' AND start_datetime < ' .
                     $end_date .
-                    ') 
+                    ')
                     or (end_datetime > ' .
                     $start_date .
                     ' AND end_datetime < ' .
                     $end_date .
-                    ') 
+                    ')
                     or (start_datetime <= ' .
                     $start_date .
                     ' AND end_datetime >= ' .
                     $end_date .
-                    ')) 
+                    '))
                     AND is_unavailability = 1
                 ';
 

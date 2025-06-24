@@ -20,9 +20,10 @@
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
     <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo.png') ?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/vendor/cookieconsent/cookieconsent.min.css') ?>">
-    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/vendor/flatpickr/flatpickr.min.css') ?>">
-    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/vendor/flatpickr/material_green.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/cookieconsent.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/flatpickr.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/material_green.min.css') ?>">
+
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/themes/' . vars('theme') . '.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/layouts/booking_layout.css') ?>">
@@ -50,30 +51,30 @@
     </div>
 </div>
 
-<?php if (vars('display_cookie_notice') === '1'): ?>
+<?php if (vars('display_cookie_notice') === '1') : ?>
     <?php component('cookie_notice_modal', ['cookie_notice_content' => vars('cookie_notice_content')]); ?>
 <?php endif; ?>
 
-<?php if (vars('display_terms_and_conditions') === '1'): ?>
+<?php if (vars('display_terms_and_conditions') === '1') : ?>
     <?php component('terms_and_conditions_modal', [
         'terms_and_conditions_content' => vars('terms_and_conditions_content'),
     ]); ?>
 <?php endif; ?>
 
-<?php if (vars('display_privacy_policy') === '1'): ?>
+<?php if (vars('display_privacy_policy') === '1') : ?>
     <?php component('privacy_policy_modal', ['privacy_policy_content' => vars('privacy_policy_content')]); ?>
 <?php endif; ?>
 
-<script src="<?= asset_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/cookieconsent/cookieconsent.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/@popperjs-core/popper.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/bootstrap/bootstrap.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/moment/moment.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/moment-timezone/moment-timezone-with-data.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/@fortawesome-fontawesome-free/fontawesome.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/@fortawesome-fontawesome-free/solid.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/tippy.js/tippy-bundle.umd.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/flatpickr/flatpickr.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/jquery.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/cookieconsent.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/popper.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/bootstrap.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/moment.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/moment-timezone-with-data.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/fontawesome.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/solid.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/tippy-bundle.umd.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/flatpickr.min.js') ?>"></script>
 
 <script src="<?= asset_url('assets/js/app.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/date.js') ?>"></script>

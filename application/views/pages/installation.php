@@ -109,7 +109,7 @@
                 <select id="language" class="form-select required">
                     <?php
                     $config_lang = config('language');
-                    foreach (vars('available_languages') as $lang): ?>
+                    foreach (vars('available_languages') as $lang) : ?>
                         <option value="<?= $lang ?>"<?= $lang == $config_lang ? ' selected' : '' ?>>
                             <?= ucfirst($lang) ?>
                         </option>
@@ -198,9 +198,9 @@
 <?php component('js_vars_script'); ?>
 <?php component('js_lang_script'); ?>
 
-<script src="<?= asset_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/@popperjs-core/popper.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/bootstrap/bootstrap.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/jquery.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/popper.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/bootstrap.min.js') ?>"></script>
 
 <script src="<?= asset_url('assets/js/app.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/message.js') ?>"></script>

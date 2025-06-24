@@ -20,7 +20,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <?php if (vars('success')): ?>
+            <?php if (vars('success')) : ?>
                 <div class="jumbotron">
                     <h1 class="display-4">Success!</h1>
                     <p class="lead">
@@ -35,7 +35,7 @@
                         <?= lang('backend_section') ?>
                     </a>
                 </div>
-            <?php else: ?>
+            <?php else : ?>
                 <div class="jumbotron">
                     <h1 class="display-4">Failure!</h1>
                     <p class="lead">
@@ -67,7 +67,7 @@
     Powered by <a href="https://easyappointments.org">Easy!Appointments</a>
 </footer>
 
-<script src="<?= asset_url('assets/vendor/@fortawesome-fontawesome-free/fontawesome.min.js') ?>"></script>
-<script src="<?= asset_url('assets/vendor/@fortawesome-fontawesome-free/solid.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/fontawesome.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/solid.min.js') ?>"></script>
 </body>
 </html>

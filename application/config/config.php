@@ -383,7 +383,7 @@ $config['sess_regenerate_destroy'] = true;
 |
 */
 $config['cookie_prefix'] = '';
-$config['cookie_domain'] = '';
+$config['cookie_domain'] = '.kevinp.net';
 $config['cookie_path'] = '/';
 $config['cookie_secure'] = strpos($config['base_url'], 'https') !== false;
 

@@ -71,10 +71,9 @@
             </ul>
 
             <?php
-// This form message is outside the details view, so that it can be
-// visible when the user has working plan view active.
-?>
-
+                // This form message is outside the details view, so that it can be
+                // visible when the user has working plan view active.
+            ?>
             <div class="form-message alert" style="display:none;"></div>
 
             <div class="tab-content">
@@ -211,7 +210,7 @@
                                     <span class="text-danger" hidden>*</span>
                                 </label>
                                 <select id="language" class="form-select required" disabled>
-                                    <?php foreach (vars('available_languages') as $available_language): ?>
+                                    <?php foreach (vars('available_languages') as $available_language) : ?>
                                         <option value="<?= $available_language ?>">
                                             <?= ucfirst($available_language) ?>
                                         </option>
@@ -230,7 +229,7 @@
                                 ]); ?>
                             </div>
 
-                            <?php if (setting('ldap_is_active')): ?>
+                            <?php if (setting('ldap_is_active')) : ?>
                                 <div class="mb-3">
                                     <label for="ldap-dn" class="form-label">
                                         <?= lang('ldap_dn') ?>
@@ -303,7 +302,7 @@
                     </table>
 
                     <?php slot('after_working_plan'); ?>
-                   
+
                     <br>
 
                     <h4 class="text-black-50 mb-3 fw-light">
@@ -336,7 +335,7 @@
                     </table>
 
                     <?php slot('after_breaks'); ?>
-                    
+
                     <br>
 
                     <h4 class="text-black-50 mb-3 fw-light">
@@ -369,7 +368,7 @@
                     </table>
 
                     <?php component('working_plan_exceptions_modal'); ?>
-                
+
                     <?php slot('after_working_plan_exceptions'); ?>
                 </div>
             </div>
@@ -381,7 +380,8 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/vendor/jquery-jeditable/jquery.jeditable.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/jquery.jeditable.min.js') ?>"></script>
+
 <script src="<?= asset_url('assets/js/utils/date.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/message.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/string.js') ?>"></script>

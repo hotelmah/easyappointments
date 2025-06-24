@@ -16,7 +16,7 @@
                                 <?= lang('business_logic') ?>
                             </h4>
 
-                            <?php if (can('edit', PRIV_SYSTEM_SETTINGS)): ?>
+                            <?php if (can('edit', PRIV_SYSTEM_SETTINGS)) : ?>
                                 <button type="button" id="save-settings" class="btn btn-primary">
                                     <i class="fas fa-check-square me-2"></i>
                                     <?= lang('save') ?>
@@ -75,7 +75,7 @@
                             <tbody><!-- Dynamic Content --></tbody>
                         </table>
 
-                        <?php if (can('view', PRIV_BLOCKED_PERIODS)): ?>
+                        <?php if (can('view', PRIV_BLOCKED_PERIODS)) : ?>
                             <h5 class="text-black-50 mb-3 fw-light"><?= lang('blocked_periods') ?></h5>
 
                             <p class="form-text text-muted">
@@ -148,7 +148,7 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/vendor/jquery-jeditable/jquery.jeditable.min.js') ?>"></script>
+<script src="<?= asset_url('assets/js/core/jquery.jeditable.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/date.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/string.js') ?>"></script>
 <script src="<?= asset_url('assets/js/utils/ui.js') ?>"></script>
@@ -158,4 +158,3 @@
 <script src="<?= asset_url('assets/js/pages/business_settings.js') ?>"></script>
 
 <?php end_section('scripts'); ?>
-
