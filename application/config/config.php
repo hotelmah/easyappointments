@@ -19,10 +19,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 $protocol =
     (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
-    (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443) ||
-    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
-        ? 'https://'
-        : 'http://';
+    (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443) ||
+    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https://' : 'http://';
 
 $domain = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
@@ -44,7 +42,7 @@ $config['base_url'] = !is_cli() ? trim($protocol . $domain . $request_uri, '/') 
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

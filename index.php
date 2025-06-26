@@ -37,6 +37,10 @@
  * @filesource
  */
 
+// NOTE: The index.php serves as the front controller, initializing the base resources needed to run CodeIgniter.
+
+/* ===================================================================================================================== */
+
 /*
  *---------------------------------------------------------------
  * EASY!APPOINTMENTS CONFIGURATION
@@ -47,7 +51,6 @@
  * through the static Config class.
  *
  */
-
 if (!file_exists(__DIR__ . '/config.php')) {
     die('The root "config.php" file is missing, please copy "config-sample.php" to "config.php" and update it with your server data.');
 }
@@ -63,7 +66,6 @@ require_once __DIR__ . '/config.php';
  * libraries directly in every section of the application.
  *
  */
-
 if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     die('The "vendor/autoload.php" file is missing, please install the Composer dependencies with "composer install" before using the app.');
 }
@@ -78,7 +80,6 @@ require_once __DIR__ . '/vendor/autoload.php';
  * Some vendor files might mistakenly request source map files.
  *
  */
-
 if (str_contains($_SERVER['REQUEST_URI'] ?? '', '.min.js.map')) {
     http_response_code(404);
     exit();
@@ -101,7 +102,6 @@ if (str_contains($_SERVER['REQUEST_URI'] ?? '', '.min.js.map')) {
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-
 $app_env = getenv('APP_ENV');
 
 if ($app_env) {
@@ -125,6 +125,7 @@ switch (ENVIRONMENT) {
         break;
 
     case 'testing':
+        // fall-through
     case 'production':
         ini_set('display_errors', 0);
         if (version_compare(PHP_VERSION, '5.3', '>=')) {
@@ -248,15 +249,13 @@ if (($_temp = realpath($system_path)) !== false) {
     $system_path = $_temp . DIRECTORY_SEPARATOR;
 } else {
     // Ensure there's a trailing slash
-    $system_path =
-        strtr(rtrim($system_path, '/\\'), '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    $system_path = strtr(rtrim($system_path, '/\\'), '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 }
 
 // Is the system path correct?
 if (!is_dir($system_path)) {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
-    echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        pathinfo(__FILE__, PATHINFO_BASENAME);
+    echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: ' . pathinfo(__FILE__, PATHINFO_BASENAME);
     exit(3); // EXIT_CONFIG
 }
 
@@ -290,12 +289,10 @@ if (is_dir($application_folder)) {
         );
     }
 } elseif (is_dir(BASEPATH . $application_folder . DIRECTORY_SEPARATOR)) {
-    $application_folder =
-        BASEPATH . strtr(trim($application_folder, '/\\'), '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
+    $application_folder = BASEPATH . strtr(trim($application_folder, '/\\'), '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
-    echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        self;
+    echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' . __FILE__;
     exit(3); // EXIT_CONFIG
 }
 
@@ -315,8 +312,7 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
     $view_folder = APPPATH . strtr(trim($view_folder, '/\\'), '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
-    echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: ' .
-        self;
+    echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: ' . __FILE__;
     exit(3); // EXIT_CONFIG
 }
 
