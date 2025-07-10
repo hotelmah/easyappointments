@@ -159,7 +159,7 @@ $pagination-disabled-border-color: $pagination-border-color !default;
 // Buttons
 
 .btn {
-    font-size: $font-size-sm;
+    // font-size: $font-size-sm;
     text-transform: uppercase;
 
     &-sm {
@@ -224,15 +224,15 @@ body {
     letter-spacing: 0.05rem;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//     text-transform: uppercase;
+//     letter-spacing: 3px;
+// }
 
 .text-secondary {
     color: $body-color !important;
@@ -299,7 +299,3 @@ th {
 }
 
 // Forms
-
-.form-label {
-    font-weight: bold;
-}

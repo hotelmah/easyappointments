@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Local variables.
  *
@@ -6,7 +7,7 @@
  */
 ?>
 
-<div id="header">
+<header>
     <div id="company-name">
         <img src="<?= vars('company_logo') ?: base_url('assets/img/logo.png') ?>" alt="logo" id="company-logo">
 
@@ -40,4 +41,4 @@
             <strong>4</strong>
         </div>
     </div>
-</div>
+</header>

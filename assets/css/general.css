@@ -1,0 +1,203 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ----------------------------------------------------------------------------
+ * Easy!Appointments - Online Appointment Scheduler
+ *
+ * @package     EasyAppointments
+ * @author      A.Tselegidis <alextselegidis@gmail.com>
+ * @copyright   Copyright (c) Alex Tselegidis
+ * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
+ * @link        https://easyappointments.org
+ * @since       v1.5.0
+ * ---------------------------------------------------------------------------- */
+
+/* ===================================================================================================================== */
+
+.working-plan td {
+    vertical-align: middle;
+}
+
+.breaks td {
+    vertical-align: middle;
+}
+
+.breaks tr:hover td {
+    background: #ffffc2 !important;
+}
+
+/* ===================================================================================================================== */
+
+li.language {
+    cursor: pointer;
+}
+
+li.language:hover {
+    color: #005580;
+}
+
+#select-language {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+}
+
+#language-list {
+    list-style: none;
+    padding-left: 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* LOADING SPINNER
+   ------------------------------------------------------------------------- */
+.is-loading {
+    position: relative;
+}
+
+.is-loading:before,
+.is-loading:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.animation:after {
+    width: 60px;
+    height: 60px;
+    margin: -25px 0 0 -25px;
+    border: 5px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50px;
+
+    border-bottom-color: transparent;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* ===================================================================================================================== */
+
+.any-element {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    margin-left: -30px;
+    margin-bottom: -30px;
+}
+
+#message-box pre,
+#message-box .card {
+    max-height: 250px;
+    max-width: 500px;
+}
+
+
+/* ===================================================================================================================== */
+
+body .clearfix {
+    clear: both;
+}
+
+/* ===================================================================================================================== */
+
+.flatpickr-calendar {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.flatpickr-calendar .flatpickr-monthDropdown-months:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.flatpickr-calendar .flatpickr-months {
+    padding: 12px 0;
+    background-color: #449a82;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.flatpickr-calendar .flatpickr-current-month {
+    padding: 4px;
+}
+
+.flatpickr-calendar .flatpickr-innerContainer {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.flatpickr-calendar .dayContainer {
+    padding: 10px 0;
+}
+
+.flatpickr-calendar .flatpickr-months .flatpickr-month,
+.flatpickr-calendar .flatpickr-weekdays,
+.flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-calendar span.flatpickr-weekday {
+    color: white;
+    background-color: #429a82;
+}
+
+.flatpickr-calendar .flatpickr-day.endRange,
+.flatpickr-calendar .flatpickr-day.endRange.inRange,
+.flatpickr-calendar .flatpickr-day.endRange.nextMonthDay,
+.flatpickr-calendar .flatpickr-day.endRange.prevMonthDay,
+.flatpickr-calendar .flatpickr-day.endRange:focus,
+.flatpickr-calendar .flatpickr-day.endRange:hover,
+.flatpickr-calendar .flatpickr-day.selected,
+.flatpickr-calendar .flatpickr-day.selected.inRange,
+.flatpickr-calendar .flatpickr-day.selected.nextMonthDay,
+.flatpickr-calendar .flatpickr-day.selected.prevMonthDay,
+.flatpickr-calendar .flatpickr-day.selected:focus,
+.flatpickr-calendar .flatpickr-day.selected:hover,
+.flatpickr-calendar .flatpickr-day.startRange,
+.flatpickr-calendar .flatpickr-day.startRange.inRange,
+.flatpickr-calendar .flatpickr-day.startRange.nextMonthDay,
+.flatpickr-calendar .flatpickr-day.startRange.prevMonthDay,
+.flatpickr-calendar .flatpickr-day.startRange:focus,
+.flatpickr-calendar .flatpickr-day.startRange:hover {
+    background-color: #429a82;
+    border-color: #429a82;
+    color: white;
+}
+
+.flatpickr-calendar .flatpickr-day.prevMonthDay,
+.flatpickr-calendar .flatpickr-day.nextMonthDay {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.flatpickr-calendar .flatpickr-day.disabled {
+    background-color: #706161 !important; /* light gray background */
+    color: #3f3c3c !important;            /* muted text color */
+    cursor: not-allowed;
+}
+
+/* ===================================================================================================================== */
+
+.cc-revoke,
+.cc-window {
+    z-index: 999 !important;
+}
+
+/* ===================================================================================================================== */

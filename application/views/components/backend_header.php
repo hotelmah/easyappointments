@@ -94,14 +94,14 @@
                     <?= e(vars('user_display_name')) ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <?php if (can('view', PRIV_SYSTEM_SETTINGS)): ?>
+                    <?php if (can('view', PRIV_SYSTEM_SETTINGS)) : ?>
                         <a class="dropdown-item" href="<?= site_url('general_settings') ?>">
                             <?= lang('settings') ?>
                         </a>
                     <?php endif; ?>
-                    
+
                     <?php slot('after_settings_dropdown_item'); ?>
-                    
+
                     <a class="dropdown-item" href="<?= site_url('account') ?>">
                         <?= lang('account') ?>
                     </a>

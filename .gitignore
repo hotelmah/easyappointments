@@ -1,18 +1,9 @@
-/*.zip
-/.idea/
-/.tmp-package/
-/build/
 /docs/apigen/html
 /docs/jsdoc/html
 /docs/plato/html
-/docker/mysql/
-/docker/baikal/
-/docker/openldap/
 /node_modules/
-/npm-debug.log
 /assets/js/**/*.min.js
-/assets/css/**/*.css
-/assets/vendor
+/assets/css/**/*.min.css
 /storage/backups/*
 !/storage/backups/.htaccess
 !/storage/backups/index.html
@@ -28,6 +19,5 @@
 /storage/uploads/*
 !/storage/uploads/index.html
 /vendor/
-/metafile
 .vscode
 web.config

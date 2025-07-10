@@ -8,18 +8,15 @@
  * @link        https://easyappointments.org
  * @since       v1.5.0
  * ---------------------------------------------------------------------------- */
-
 /**
  * BACKEND CSS FILE FOR EASY!APPOINTMENTS
  */
-
 root {
     display: block;
 }
 
 /* BACKEND GENERAL ELEMENTS
    -------------------------------------------------------------------- */
-
 #header {
     background-color: #429a82;
     box-shadow: none;
@@ -170,7 +167,8 @@ body .modal.full-screen .modal-content {
 
 body .modal.full-screen .wrapper {
     min-height: 100%;
-    margin-bottom: -67px; /* modal-footer height */
+    margin-bottom: -67px;
+    /* modal-footer height */
 }
 
 body .modal.full-screen .modal-footer {
@@ -209,7 +207,6 @@ body legend {
 
 /* BACKEND COMPONENTS
    -------------------------------------------------------------------- */
-
 .backend-page {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -255,6 +252,11 @@ body legend {
     margin-bottom: 20px;
 }
 
+.record-details input:-moz-read-only:not(.custom-control-input),
+.record-details textarea:-moz-read-only {
+    box-shadow: none;
+}
+
 .record-details input:read-only:not(.custom-control-input),
 .record-details select:disabled,
 .record-details textarea:read-only {
@@ -296,7 +298,6 @@ body legend {
 
 /* BACKEND CALENDAR PAGE
    -------------------------------------------------------------------- */
-
 #calendar-page {
     padding-top: 0;
     padding-bottom: 0;
@@ -394,7 +395,7 @@ body legend {
 }
 
 #calendar-page #calendar .fc-unavailability {
-    background-image: url('../../img/unavailability.jpg');
+    background-image: url("../../img/unavailability.jpg");
     font-size: 14px;
     border-radius: 0;
     font-weight: bold;
@@ -428,11 +429,11 @@ body legend {
 }
 
 #calendar-page #calendar .fc-break {
-    background-image: url('../../img/break.jpg');
+    background-image: url("../../img/break.jpg");
 }
 
 #calendar-page #calendar .fc-custom {
-    background-image: url('../../img/custom.jpg');
+    background-image: url("../../img/custom.jpg");
 }
 
 #calendar-page .fc-header {
@@ -517,7 +518,8 @@ body legend {
 
 #appointment-notes,
 #customer-notes {
-    height: 37px; /* Align with location field */
+    height: 37px;
+    /* Align with location field */
 }
 
 body .form-horizontal .control-label {
@@ -575,7 +577,7 @@ body .form-horizontal .controls {
 }
 
 #calendar .fc-unavailability {
-    background: #eaeaea url('../../img/unavailability.jpg');
+    background: #eaeaea url("../../img/unavailability.jpg");
 }
 
 #calendar .calendar-view .date-column .provider-column {
@@ -696,7 +698,6 @@ body .form-horizontal .controls {
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
-
 #customers-page #customer-appointments {
     min-height: 400px;
     max-height: 800px;
@@ -720,7 +721,6 @@ body .form-horizontal .controls {
 
 /* BACKEND SERVICES PAGE
    -------------------------------------------------------------------- */
-
 #services-page h2 {
     color: #525252;
 }
@@ -754,7 +754,6 @@ body .form-horizontal .controls {
 
 /* BACKEND USERS PAGE
    -------------------------------------------------------------------- */
-
 #users-page h2 {
     color: #525252;
 }
@@ -847,20 +846,20 @@ body .form-horizontal .controls {
 
 #working-plan-exceptions-breaks {
     table-layout: fixed;
+}
 
-    .form-control,
-    .form-select {
-        width: 100% !important;
-    }
+#working-plan-exceptions-breaks .form-control,
+#working-plan-exceptions-breaks .form-select {
+    width: 100% !important;
 }
 
 #providers-page .working-plan .checkbox,
-#providers-page .working-plan input[type='text'],
+#providers-page .working-plan input[type=text],
 #providers-page .working-plan button {
     margin: 2px 0;
 }
 
-#providers-page .working-plan td input[type='text'] {
+#providers-page .working-plan td input[type=text] {
     width: 55px;
 }
 
@@ -892,7 +891,6 @@ body .form-horizontal .controls {
 
 /* BACKEND SETTINGS PAGE
    -------------------------------------------------------------------- */
-
 #settings-page h2 {
     color: #525252;
 }
@@ -903,12 +901,12 @@ body .form-horizontal .controls {
 }
 
 #business-logic .working-plan .checkbox,
-#business-logic .working-plan input[type='text'],
+#business-logic .working-plan input[type=text],
 #business-logic .working-plan button {
     margin: 2px 0;
 }
 
-#business-logic .working-plan td input[type='text'] {
+#business-logic .working-plan td input[type=text] {
     max-width: 100px;
 }
 

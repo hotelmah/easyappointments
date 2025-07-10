@@ -34,6 +34,8 @@ if (!function_exists('setting')) {
      */
     function setting(array|string|null $key = null, mixed $default = null): mixed
     {
+        static $cache = [];
+
         /** @var EA_Controller $CI */
         $CI = &get_instance();
 
@@ -60,9 +62,17 @@ if (!function_exists('setting')) {
                 $setting['value'] = $value;
 
                 $CI->settings_model->save($setting);
+
+                // Update cache after saving
+                $cache[$name] = $value;
             }
 
             return null;
+        }
+
+        // Check cache first to avoid repeated DB queries
+        if (isset($cache[$key])) {
+            return $cache[$key];
         }
 
         $setting = $CI->settings_model
@@ -71,6 +81,10 @@ if (!function_exists('setting')) {
             ->get()
             ->row_array();
 
-        return $setting['value'] ?? $default;
+        // Cache the result for future calls
+        $result = $setting['value'] ?? $default;
+        $cache[$key] = $result;
+
+        return $result;
     }
 }

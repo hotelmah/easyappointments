@@ -52,7 +52,7 @@ App.Http.Booking = (function () {
         let serviceDuration = 15;
 
         const service = vars('available_services').find(
-            (availableService) => Number(availableService.id) === Number(serviceId),
+            (availableService) => Number(availableService.id) === Number(serviceId)
         );
 
         if (service) {
@@ -85,7 +85,7 @@ App.Http.Booking = (function () {
 
                 if (providerId === 'any-provider') {
                     for (const availableProvider of vars('available_providers')) {
-                        if (availableProvider.services.indexOf(Number(serviceId)) !== -1) {
+                        if (Array.isArray(availableProvider.services) && availableProvider.services.indexOf(Number(serviceId)) !== -1) {
                             providerId = availableProvider.id; // Use first available provider.
                             break;
                         }
@@ -93,7 +93,7 @@ App.Http.Booking = (function () {
                 }
 
                 const provider = vars('available_providers').find(
-                    (availableProvider) => Number(providerId) === Number(availableProvider.id),
+                    (availableProvider) => Number(providerId) === Number(availableProvider.id)
                 );
 
                 if (!provider) {

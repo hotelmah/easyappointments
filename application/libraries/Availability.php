@@ -36,7 +36,6 @@ class Availability
         $this->CI->load->model('appointments_model');
         $this->CI->load->model('providers_model');
         $this->CI->load->model('secretaries_model');
-        $this->CI->load->model('secretaries_model');
         $this->CI->load->model('settings_model');
         $this->CI->load->model('unavailabilities_model');
         $this->CI->load->model('blocked_periods_model');

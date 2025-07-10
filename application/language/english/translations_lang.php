@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 // English
 $lang['page_title'] = 'Book Appointment With';
 $lang['service_and_provider'] = 'Service & Provider';
@@ -8,7 +10,7 @@ $lang['duration'] = 'Duration';
 $lang['minutes'] = 'Minutes';
 $lang['price'] = 'Price';
 $lang['back'] = 'Back';
-$lang['appointment_date_and_time'] = 'Appointment Date & Time';
+$lang['appointment_date_and_time'] = 'Hello and welcome to ' . setting('company_name') . '\'s Appointment Scheduler. To schedule an appointment, please select a Date & Time and click Next to continue.';
 $lang['no_available_hours'] = 'There are no available appointment hours for the selected date. Please choose another date.';
 $lang['appointment_hour_missing'] = 'Please select an appointment hour before continuing.';
 $lang['customer_information'] = 'Customer Information';
@@ -318,7 +320,7 @@ $lang['require_phone_number'] = 'Require phone number';
 $lang['require_phone_number_hint'] = 'When enabled, customers and users will need to enter the customer\'s phone number when booking an appointment';
 $lang['check_spam_folder'] = 'Please check your spam folder if the email does not arrive within a few minutes.';
 $lang['api_token_hint'] = 'Set a secret token in order to enable the token based authentication of the Easy!Appointments API.';
-$lang['timezone'] = 'Timezone';
+$lang['timezone'] = 'My Timezone';
 $lang['overwrite_existing_working_plans'] = 'This will overwrite the existing provider working plans, are you sure that you want to continue?';
 $lang['working_plans_got_updated'] = 'All the working plans got updated.';
 $lang['apply_to_all_providers'] = 'Apply To All Providers';

@@ -28,7 +28,10 @@ function asset_url(string $uri = '', ?string $protocol = null): string
 {
     $debug = config('debug');
 
-    $cache_busting_token = !$debug ? '?' . config('cache_busting_token') : '';
+
+    // Only add cache busting to JS and CSS files
+    $extension = pathinfo($uri, PATHINFO_EXTENSION);
+    $cache_busting_token = (!$debug && in_array($extension, ['js', 'css'])) ? '?' . config('cache_busting_token') : '';
 
     if (str_contains(basename($uri), '.js') && !str_contains(basename($uri), '.min.js') && !$debug) {
         $uri = str_replace('.js', '.min.js', $uri);

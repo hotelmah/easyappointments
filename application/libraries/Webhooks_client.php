@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Open Source Web Scheduler
@@ -35,7 +37,6 @@ class Webhooks_client
         $this->CI = &get_instance();
 
         $this->CI->load->model('providers_model');
-        $this->CI->load->model('secretaries_model');
         $this->CI->load->model('secretaries_model');
         $this->CI->load->model('admins_model');
         $this->CI->load->model('appointments_model');
