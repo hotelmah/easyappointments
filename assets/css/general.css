@@ -129,6 +129,10 @@ body .clearfix {
     background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
+.flatpickr-calendar .flatpickr-monthDropdown-month {
+    color: #1f1f1f;
+}
+
 .flatpickr-calendar .flatpickr-months {
     padding: 12px 0;
     background-color: #449a82;
@@ -187,10 +191,20 @@ body .clearfix {
     visibility: hidden;
 }
 
-.flatpickr-calendar .flatpickr-day.disabled {
-    background-color: #706161 !important; /* light gray background */
-    color: #3f3c3c !important;            /* muted text color */
+.flatpickr-calendar .flatpickr-day.flatpickr-disabled  {
+    background-color: #fffefe !important; /* light gray background */
+    color: #b7b7b7 !important;            /* muted text color */
     cursor: not-allowed;
+}
+
+/* Change the year color in Flatpickr */
+.flatpickr-calendar .flatpickr-current-month .numInputWrapper .numInput {
+    color: #ffffff; /* Your desired color */
+}
+
+/* Optionally, style the wrapper for more control */
+.flatpickr-calendar .flatpickr-current-month .numInputWrapper {
+    color: #ffffff;
 }
 
 /* ===================================================================================================================== */

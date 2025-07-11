@@ -23,7 +23,7 @@
 
 <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
     <div class="frame-container">
-        <h5 class="frame-title"><?= lang('customer_information') ?></h5>
+        <h4 class="frame-title"><?= lang('customer_information') ?></h4>
 
         <div class="row">
             <div class="col-12 col-md-6 field-col mx-auto">
