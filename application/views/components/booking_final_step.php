@@ -10,8 +10,8 @@
 
 <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
     <div class="frame-container">
-        <h2 class="frame-title"><?= lang('appointment_confirmation') ?></h2>
-        
+        <h4 class="frame-title"><?= lang('appointment_confirmation_title') ?></h4>
+
         <div class="row frame-content m-auto pt-md-4 mb-4">
             <div id="appointment-details" class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
                 <!-- JS -->
@@ -20,12 +20,12 @@
             <div id="customer-details" class="col-12 col-md-6 text-center text-md-end">
                 <!-- JS -->
             </div>
-       
+
         </div>
 
         <?php slot('after_details'); ?>
-        
-        <?php if (setting('require_captcha')): ?>
+
+        <?php if (setting('require_captcha')) : ?>
             <div class="row frame-content m-auto">
                 <div class="col">
                     <label class="captcha-title" for="captcha-text">
@@ -35,17 +35,17 @@
                         </button>
                     </label>
                     <img class="captcha-image" src="<?= site_url('captcha') ?>" alt="CAPTCHA">
-                    <input id="captcha-text" class="captcha-text form-control" type="text" value=""/>
+                    <input id="captcha-text" type="text" value="" class="captcha-text form-control border border-primary"/>
                     <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
                 </div>
             </div>
         <?php endif; ?>
-        
+
         <?php slot('after_captcha'); ?>
     </div>
 
     <div class="d-flex fs-6 justify-content-around">
-        <?php if ($display_terms_and_conditions): ?>
+        <?php if ($display_terms_and_conditions) : ?>
             <div class="form-check mb-3">
                 <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
                 <label class="form-check-label" for="accept-to-terms-and-conditions">
@@ -57,7 +57,7 @@
             </div>
         <?php endif; ?>
 
-        <?php if ($display_privacy_policy): ?>
+        <?php if ($display_privacy_policy) : ?>
             <div class="form-check mb-3">
                 <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
                 <label class="form-check-label" for="accept-to-privacy-policy">
@@ -73,8 +73,7 @@
     </div>
 
     <div class="command-buttons">
-        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
-                data-step_index="4">
+        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary" data-step_index="4">
             <i class="fas fa-chevron-left me-2"></i>
             <?= lang('back') ?>
         </button>

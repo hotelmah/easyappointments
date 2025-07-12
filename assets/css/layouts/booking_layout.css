@@ -159,24 +159,24 @@ main {
     margin-right: 0;
 }
 
-/* #book-appointment-wizard .wizard-frame .flatpickr-calendar {
-    margin: 25px auto;
-} */
-
 #book-appointment-wizard .wizard-frame #select-time {
     max-width: 288px;
-    margin: auto;
 }
 
 #book-appointment-wizard #available-hours {
-    overflow: auto;
-    padding-right: 10px;
-    width: auto;
+    max-width: 17vw;
+    padding-left: 5px;
+    padding-right: 5px;
     max-height: 250px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    box-shadow: 0 1px 8px rgba(0,0,0,0.2);
 }
 
-#book-appointment-wizard #available-hours div {
-    margin-right: 30px;
+#book-appointment-wizard #available-hours button {
+    max-width: 15vw;
 }
 
 .form-label {
@@ -195,6 +195,7 @@ main {
 }
 
 #book-appointment-wizard #select-timezone {
+    max-width: 17vw;
     margin-bottom: 5px;
     box-shadow: 0 1px 8px rgba(0,0,0,0.2);
 }
@@ -291,6 +292,29 @@ footer .backend-link {
     display: block;
     min-width: 30px;
     padding: 5px;
+}
+
+/* ===================================================================================================================== */
+
+/* Make Bootstrap 5 button hover effect more pronounced, override */
+/* stylelint-disable-next-line no-descending-specificity */
+.btn:hover, .btn:focus {
+    filter: brightness(0.85);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    transform: scale(1.03);
+    transition: all 0.2s;
+}
+
+/* ===================================================================================================================== */
+
+#booking-alert {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 1050 !important;
+    max-width: 90% !important;
+    width: auto !important;
 }
 
 /* ===================================================================================================================== */
