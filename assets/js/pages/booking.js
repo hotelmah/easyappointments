@@ -721,9 +721,14 @@ App.Pages.Booking = (function () {
         $('#appointment-details').html(`
             <div>
                 <div class="mb-2 fw-bold fs-3">
+                    <u>Service & Provider</u>
+                </div>
+                <div class="mb-2 fw-bold">
+                    <i class="fas fa-concierge-bell me-2"></i>
                     ${serviceOptionText}
                 </div>
                 <div class="mb-2 fw-bold text-muted">
+                    <i class="fas fa-user me-2"></i>
                     ${providerOptionText}
                 </div>
                 <div class="mb-2">
@@ -740,7 +745,7 @@ App.Pages.Booking = (function () {
                 </div>
                 <div class="mb-2" ${!Number(service.price) ? 'hidden' : ''}>
                     <i class="fas fa-cash-register me-2"></i>
-                    ${Number(service.price).toFixed(2)} ${service.currency}
+                    $${Number(service.price).toFixed(2)} ${service.currency}
                 </div>
             </div>
         `);
@@ -755,6 +760,19 @@ App.Pages.Booking = (function () {
         const address = App.Utils.String.escapeHtml($address.val());
         const city = App.Utils.String.escapeHtml($city.val());
         const zipCode = App.Utils.String.escapeHtml($zipCode.val());
+        const notes = App.Utils.String.escapeHtml($notes.val());
+
+        const customField1Value = $customField1.length ? App.Utils.String.escapeHtml($customField1.val()) : '';
+        const customField2Value = $customField2.length ? App.Utils.String.escapeHtml($customField2.val()) : '';
+        const customField3Value = $customField3.length ? App.Utils.String.escapeHtml($customField3.val()) : '';
+        const customField4Value = $customField4.length ? App.Utils.String.escapeHtml($customField4.val()) : '';
+        const customField5Value = $customField5.length ? App.Utils.String.escapeHtml($customField5.val()) : '';
+
+        const customField1Name = $customField1.length ? $customField1.attr('name') : '';
+        const customField2Name = $customField2.length ? $customField2.attr('name') : '';
+        const customField3Name = $customField3.length ? $customField3.attr('name') : '';
+        const customField4Name = $customField4.length ? $customField4.attr('name') : '';
+        const customField5Name = $customField5.length ? $customField5.attr('name') : '';
 
         const addressParts = [];
 
@@ -767,24 +785,56 @@ App.Pages.Booking = (function () {
         }
 
         $('#customer-details').html(`
-            <div>
+            <div class="text-end">
                 <div class="mb-2 fw-bold fs-3">
+                    <u>Customer</u>
+                </div>
+                <div class="mb-2 fw-bold">
                     ${lang('contact_info')}
                 </div>
                 <div class="mb-2 fw-bold text-muted" ${!fullName ? 'hidden' : ''}>
                     ${fullName}
+                    <i class="fas fa-user me-2"></i>
                 </div>
                 <div class="mb-2" ${!email ? 'hidden' : ''}>
                     ${email}
+                    <i class="fas fa-envelope me-2"></i>
                 </div>
-                <div class="mb-2" ${!email ? 'hidden' : ''}>
+                <div class="mb-2" ${!phoneNumber ? 'hidden' : ''}>
                     ${phoneNumber}
+                    <i class="fas fa-phone me-2"></i>
                 </div>
                 <div class="mb-2" ${!address ? 'hidden' : ''}>
                     ${address}
+                    <i class="fas fa-map-marker-alt me-2"></i>
                 </div>
                 <div class="mb-2" ${!addressParts.length ? 'hidden' : ''}>
                     ${addressParts.join(', ')}
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                </div>
+                <div class="mb-2" ${!notes.length ? 'hidden' : ''}>
+                    Notes: ${notes}
+                    <i class="fas fa-sticky-note me-2"></i>
+                </div>
+                <div class="mb-2" ${!customField1Value.length ? 'hidden' : ''}>
+                    ${customField1Name}: ${customField1Value}
+                    <i class="fas fa-asterisk me-2"></i>
+                </div>
+                <div class="mb-2" ${!customField2Value.length ? 'hidden' : ''}>
+                    ${customField2Name}: ${customField2Value}
+                    <i class="fas fa-asterisk me-2"></i>
+                </div>
+                <div class="mb-2" ${!customField3Value.length ? 'hidden' : ''}>
+                    ${customField3Name}: ${customField3Value}
+                    <i class="fas fa-asterisk me-2"></i>
+                </div>
+                <div class="mb-2" ${!customField4Value.length ? 'hidden' : ''}>
+                    ${customField4Name}: ${customField4Value}
+                    <i class="fas fa-asterisk me-2"></i>
+                </div>
+                <div class="mb-2" ${!customField5Value.length ? 'hidden' : ''}>
+                    ${customField5Name}: ${customField5Value}
+                    <i class="fas fa-asterisk me-2"></i>
                 </div>
             </div>
         `);

@@ -14,7 +14,8 @@
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
     <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo.png') ?>">
 
-    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/trumbowyg.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/trumbowyg.min.css') ?>"> -->
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/select2.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/flatpickr.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/core/material_green.min.css') ?>">
@@ -39,6 +40,7 @@
 <?php component('backend_footer', ['user_display_name' => vars('user_display_name')]); ?>
 
 <script src="<?= asset_url('assets/js/core/jquery.min.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-jeditable@2.0.19/dist/jquery.jeditable.min.js" type="text/javascript"></script>
 <script src="<?= asset_url('assets/js/core/popper.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/core/bootstrap.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/core/moment.min.js') ?>"></script>
@@ -47,6 +49,7 @@
 <script src="<?= asset_url('assets/js/core/solid.min.js') ?>"></script>
 
 <script src="<?= asset_url('assets/js/core/tippy-bundle.umd.min.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/trumbowyg.min.js" type="text/javascript"></script>
 <script src="<?= asset_url('assets/js/core/trumbowyg.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/core/select2.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/core/flatpickr.min.js') ?>"></script>

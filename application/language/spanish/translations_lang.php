@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 // Spanish
-$lang['page_title'] = 'Agendar una cita con';
+$lang['page_title'] = 'Programar una cita con';
 $lang['service_and_provider'] = 'Seleccione Servicio y Proveedor';
 $lang['select_service'] = 'Seleccione Servicio';
 $lang['select_provider'] = 'Seleccione Proveedor';
@@ -29,6 +29,7 @@ $lang['language'] = 'Idioma';
 $lang['no_language'] = 'Sin idioma';
 $lang['fields_are_required'] = 'Los campos con * son obligatorios';
 $lang['appointment_confirmation'] = 'Confirme la cita';
+$lang['appointment_confirmation_title'] = 'Por favor revise la información ingresada. Si todo se ve bien, haga clic en Confirmar para continuar con la confirmación de la cita.';
 $lang['confirm'] = 'Confirmar';
 $lang['update'] = 'Actualizar';
 $lang['cancel_appointment_hint'] = 'Presione el botón "Cancelar" para eliminar la cita de la agenda de la empresa.';
@@ -275,6 +276,7 @@ $lang['sync_calendar_selected'] = 'Se ha seleccionado el calendario de Google Ca
 $lang['oops_something_went_wrong'] = '¡Ups! ¡Algo ha salido mal.';
 $lang['ea_update_success'] = 'Easy!Appointments ha sido actualizado exitosamente';
 $lang['require_captcha'] = 'Requiere CAPTCHA';
+$lang['captcha_title'] = 'Para verificación, complete el CAPTCHA ingresando el código mostrado a continuación.';
 $lang['require_captcha_hint'] = 'Cuando se habilita, el cliente tendrá que escribir el código CAPTCHA antes de reservar/actualizar una cita.';
 $lang['captcha_is_wrong'] = 'Verificación de CAPTCHA fallida, por favor intentelo nuevamente.';
 $lang['any_provider'] = 'Cualquier Proveedor';

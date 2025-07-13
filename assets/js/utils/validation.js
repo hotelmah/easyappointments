@@ -75,12 +75,21 @@ window.App.Utils.Validation = (function () {
      *
      * @return {Boolean}
      */
-    function isValidUSTelephone(phone) {
-        // Accepts formats like:
-        // (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890, +1 123 456 7890
-        const regex = /^(?:\+1\s?)?(?:\([2-9]\d{2}\)|[2-9]\d{2}|[2-9]\d{2})[\s.-]?\d{3}[\s.-]?\d{4}$|^(?:\+1\s?)?[2-9]\d{2}[2-9]\d{6}$/;
-        return regex.test(phone.trim());
-    }
+function isValidUSTelephone(phone) {
+    // Normalize input
+    if (!phone || typeof phone !== 'string') return false;
+    phone = phone.trim();
+
+    // This regex allows:
+    // - Optional country code (+1 or 1)
+    // - Area code in parentheses, with or without space after
+    // - Area code and exchange code cannot start with 0 or 1 (per NANP)
+    // - Separators: space, dot, dash, or nothing
+    // - (123)456-7890, (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890, +1 123 456 7890, etc.
+    const regex = /^(?:\+?1[\s.-]?)?(?:\(([2-9][0-9]{2})\)[\s.-]?|([2-9][0-9]{2})[\s.-]?)([2-9][0-9]{2})[\s.-]?([0-9]{4})$/;
+
+    return regex.test(phone);
+}
 
 
 

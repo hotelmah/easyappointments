@@ -21,7 +21,6 @@ App.Http.Booking = (function () {
     const $selectService = $('#select-service');
     const $selectProvider = $('#select-provider');
     const $availableHours = $('#available-hours');
-    const $captchaHint = $('#captcha-hint');
     const $captchaTitle = $('.captcha-title');
 
     const MONTH_SEARCH_LIMIT = 2; // Months in the future
@@ -158,9 +157,14 @@ App.Http.Booking = (function () {
         const $captchaText = $('.captcha-text');
 
         if ($captchaText.length > 0) {
-            $captchaText.removeClass('is-invalid');
+            $captchaText.removeClass('is-invalid').addClass('border border-primary');
             if ($captchaText.val() === '') {
+                $captchaText.removeClass('border');
+                $captchaText.removeClass('border-primary');
                 $captchaText.addClass('is-invalid');
+                $captchaTitle.find('button').trigger('click');
+                App.Utils.Validation.showBookingAlert(lang('captcha_is_wrong'));
+
                 return;
             }
         }
@@ -184,6 +188,9 @@ App.Http.Booking = (function () {
 
         const $layer = $('<div/>');
 
+        // Create a Bootstrap spinner element
+        const $spinner = $('<div class="d-flex justify-content-center align-items-center" style="height: 100vh;"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+
         $.ajax({
             url: url,
             method: 'post',
@@ -198,32 +205,39 @@ App.Http.Booking = (function () {
                     height: '100vh',
                     width: '100vw',
                     opacity: '0.5',
+                    'z-index': 1050,
                 });
+                $spinner.css({
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
+                    width: '100vw',
+                    height: '100vh',
+                    'z-index': 1060,
+                }).appendTo('body');
             },
         })
-            .done((response) => {
-                if (response.captcha_verification === false) {
-                    $captchaHint.text(lang('captcha_is_wrong')).fadeTo(400, 1);
-
-                    setTimeout(() => {
-                        $captchaHint.fadeTo(400, 0);
-                    }, 3000);
-
-                    $captchaTitle.find('button').trigger('click');
-
-                    $captchaText.addClass('is-invalid');
-
-                    return false;
-                }
-
-                window.location.href = App.Utils.Url.siteUrl('booking_confirmation/of/' + response.appointment_hash);
-            })
-            .fail(() => {
+        .done((response) => {
+            if (response.captcha_verification === false) {
                 $captchaTitle.find('button').trigger('click');
-            })
-            .always(() => {
-                $layer.remove();
-            });
+
+                $captchaText.removeClass('border');
+                $captchaText.removeClass('border-primary');
+                $captchaText.addClass('is-invalid');
+
+                App.Utils.Validation.showBookingAlert(lang('captcha_is_wrong'));
+                return false;
+            }
+
+            window.location.href = App.Utils.Url.siteUrl('booking_confirmation/of/' + response.appointment_hash);
+        })
+        .fail(() => {
+            $captchaTitle.find('button').trigger('click');
+        })
+        .always(() => {
+            $layer.remove();
+            $spinner.remove();
+        });
     }
 
     /**

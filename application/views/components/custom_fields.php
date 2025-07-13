@@ -18,7 +18,7 @@ $disabled = $disabled ?? false;
                     <span class="text-danger" <?= $disabled ? 'hidden' : '' ?>>*</span>
                 <?php endif; ?>
             </label>
-            <input type="text" id="custom-field-<?= $i ?>" class="<?= setting('require_custom_field_' . $i) ? 'required' : '' ?> form-control border border-primary" maxlength="60" <?= $disabled ? 'disabled' : '' ?>/>
+            <input type="text" id="custom-field-<?= $i ?>" name="<?= setting('label_custom_field_' . $i) ?>" class="<?= setting('require_custom_field_' . $i) ? 'required' : '' ?> form-control border border-primary" maxlength="60" <?= $disabled ? 'disabled' : '' ?>/>
         </div>
     <?php endif; ?>
 <?php endfor; ?>

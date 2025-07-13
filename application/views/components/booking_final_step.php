@@ -12,6 +12,10 @@
     <div class="frame-container">
         <h4 class="frame-title"><?= lang('appointment_confirmation_title') ?></h4>
 
+        <?php if (setting('require_captcha')) : ?>
+            <h5 class="frame-title"><?= lang('captcha_title') ?></h5>
+        <?php endif; ?>
+
         <div class="row frame-content m-auto pt-md-4 mb-4">
             <div id="appointment-details" class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
                 <!-- JS -->
@@ -26,6 +30,7 @@
         <?php slot('after_details'); ?>
 
         <?php if (setting('require_captcha')) : ?>
+            <hr class="my-2" />
             <div class="row frame-content m-auto">
                 <div class="col">
                     <label class="captcha-title" for="captcha-text">
@@ -36,7 +41,6 @@
                     </label>
                     <img class="captcha-image" src="<?= site_url('captcha') ?>" alt="CAPTCHA">
                     <input id="captcha-text" type="text" value="" class="captcha-text form-control border border-primary"/>
-                    <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
                 </div>
             </div>
         <?php endif; ?>

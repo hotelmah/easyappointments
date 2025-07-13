@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 // English
-$lang['page_title'] = 'Book Appointment With';
+$lang['page_title'] = 'Schedule an Appointment | ';
 $lang['service_and_provider'] = 'Service & Provider';
 $lang['select_service'] = 'Select Service';
 $lang['select_provider'] = 'Select Provider';
@@ -11,7 +11,7 @@ $lang['minutes'] = 'Minutes';
 $lang['price'] = 'Price';
 $lang['back'] = 'Back';
 $lang['appointment_date_and_time'] = 'Appointment Date & Time';
-$lang['appointment_date_and_time_title'] = 'Hello and welcome to ' . setting('company_name') . '\'s Appointment Scheduler. To schedule an appointment, please select a Date & Time and click next to continue.';
+$lang['appointment_date_and_time_title'] = 'Hello and welcome to ' . setting('company_name') . ' Appointments. To schedule an appointment, please select a Date & Time and click next to continue.';
 $lang['no_available_hours'] = 'There are no available appointment hours for the selected date. Please choose another date.';
 $lang['appointment_hour_missing'] = 'Please select an appointment hour before continuing.';
 $lang['customer_information'] = 'Customer Information';
@@ -29,6 +29,7 @@ $lang['language'] = 'Language';
 $lang['no_language'] = 'No language';
 $lang['fields_are_required'] = 'Fields with * are required.';
 $lang['appointment_confirmation'] = 'Appointment Confirmation';
+$lang['appointment_confirmation_title'] = 'Please review the information entered. If everything looks good, click Confirm to proceed with Appointment Confirmation.';
 $lang['confirm'] = 'Confirm';
 $lang['update'] = 'Update';
 $lang['cancel_appointment_hint'] = 'Press the "Cancel" button to remove the appointment from the company schedule.';
@@ -275,7 +276,8 @@ $lang['sync_calendar_selected'] = 'Sync calendar has been successfully selected.
 $lang['oops_something_went_wrong'] = 'Oops! Something Went Wrong.';
 $lang['ea_update_success'] = 'Easy!Appointments has been successfully updated.';
 $lang['require_captcha'] = 'Require CAPTCHA';
-$lang['require_captcha_hint'] = 'When enabled, the customers will have to type a random generated CAPTCHA string before booking/updating an appointment.';
+$lang['captcha_title'] = 'For verification, please complete the CAPTCHA by entering the displayed code below.';
+$lang['require_captcha_hint'] = 'When enabled, the customer will have to type a random generated CAPTCHA string before scheduling/updating an appointment.';
 $lang['captcha_is_wrong'] = 'CAPTCHA verification failed, please try again.';
 $lang['any_provider'] = 'Any Provider';
 $lang['requested_hour_is_unavailable'] = 'The requested appointment is unfortunately not available. Please select a different hour for your appointment.';
@@ -453,7 +455,7 @@ $lang['label'] = 'Label';
 $lang['webhook_saved'] = 'Webhook saved successfully.';
 $lang['webhook_deleted'] = 'Webhook deleted successfully.';
 $lang['delete_webhook'] = 'Delete Webhook';
-$lang['contact_info'] = 'Contact Info';
+$lang['contact_info'] = 'Contact Information';
 $lang['hide_from_public'] = 'Hide From Public';
 $lang['matomo_analytics_site_id'] = 'Matomo Analytics Site ID';
 $lang['matomo_analytics_site_id_hint'] = 'Set the site ID that will be tracked by Matomo (the default site has the ID "1").';
