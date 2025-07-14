@@ -346,6 +346,10 @@ class Booking extends EA_Controller
                 $customer['city'] = '';
             }
 
+            if (!array_key_exists('state', $customer)) {
+                $customer['state'] = '';
+            }
+
             if (!array_key_exists('zip_code', $customer)) {
                 $customer['zip_code'] = '';
             }
@@ -358,10 +362,23 @@ class Booking extends EA_Controller
                 $customer['phone_number'] = '';
             }
 
-            // Check appointment availability before registering it to the database.
-            $appointment['id_users_provider'] = $this->check_datetime_availability();
+            $client_selected_provider = $appointment['id_users_provider'];
 
-            if (!$appointment['id_users_provider']) {
+            // Check appointment availability before registering it to the database.
+            // $appointment['id_users_provider'] = $this->check_datetime_availability();
+
+            // Check availability without overwriting
+            $available_provider_id = $this->check_datetime_availability();
+
+            if (!$available_provider_id) {
+                throw new RuntimeException(lang('requested_hour_is_unavailable'));
+            }
+
+            // Only update if different (for "any-provider" case)
+            if ($client_selected_provider === ANY_PROVIDER) {
+                $appointment['id_users_provider'] = $available_provider_id;
+            } elseif ($client_selected_provider != $available_provider_id) {
+                // Client's choice is no longer available
                 throw new RuntimeException(lang('requested_hour_is_unavailable'));
             }
 

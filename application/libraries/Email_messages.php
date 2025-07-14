@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -232,6 +234,10 @@ class Email_messages
         $php_mailer->CharSet = 'UTF-8';
         $php_mailer->SMTPDebug = config('smtp_debug') ? SMTP::DEBUG_SERVER : null;
 
+        // Add timeout settings
+        $php_mailer->Timeout = 60;       // Increase timeout
+        $php_mailer->SMTPKeepAlive = false; // Don't keep connection alive
+
         if (config('protocol') === 'smtp') {
             $php_mailer->isSMTP();
             $php_mailer->Host = config('smtp_host');
@@ -240,6 +246,11 @@ class Email_messages
             $php_mailer->Password = config('smtp_pass');
             $php_mailer->SMTPSecure = config('smtp_crypto');
             $php_mailer->Port = config('smtp_port');
+        } elseif (config('protocol') === 'sendmail') {
+            $php_mailer->isSendmail();
+            $php_mailer->Sendmail = 'c:\PHP\lib\sendmail\sendmail.exe -t'; // Adjust path
+        } else {
+            $php_mailer->isMail(); // Use PHP mail() function
         }
 
         $from_name = config('from_name') ?: setting('company_name');

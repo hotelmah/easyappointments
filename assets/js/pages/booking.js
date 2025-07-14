@@ -689,6 +689,7 @@ App.Pages.Booking = (function () {
         }
 
         if (!$availableHours.find('.selected-hour').text()) {
+            // App.Utils.Validation.showBookingAlert(lang('appointment_hour_missing'));
             return; // No time is selected, skip the rest of this function...
         }
 
@@ -699,6 +700,7 @@ App.Pages.Booking = (function () {
         );
 
         if (!service) {
+            // App.Utils.Validation.showBookingAlert(lang('service_not_found'));
             return; // Service was not found
         }
 
@@ -720,8 +722,8 @@ App.Pages.Booking = (function () {
 
         $('#appointment-details').html(`
             <div>
-                <div class="mb-2 fw-bold fs-3">
-                    <u>Service & Provider</u>
+                <div class="mb-2 fw-bold fs-4">
+                    <u>${lang('service_and_provider')}</u>
                 </div>
                 <div class="mb-2 fw-bold">
                     <i class="fas fa-concierge-bell me-2"></i>
@@ -740,12 +742,20 @@ App.Pages.Booking = (function () {
                     ${service.duration} ${lang('minutes')}
                 </div>
                 <div class="mb-2">
-                    <i class="fas fa-globe me-2"></i>
-                    ${timezoneOptionText}
+                    <i class="fas fa-info-circle me-2"></i>
+                    ${service.description}
+                </div>
+                <div class="mb-2">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    ${service.location}
                 </div>
                 <div class="mb-2" ${!Number(service.price) ? 'hidden' : ''}>
                     <i class="fas fa-cash-register me-2"></i>
                     $${Number(service.price).toFixed(2)} ${service.currency}
+                </div>
+                <div class="mb-2">
+                    <i class="fas fa-globe me-2"></i>
+                    ${timezoneOptionText}
                 </div>
             </div>
         `);
@@ -786,11 +796,8 @@ App.Pages.Booking = (function () {
 
         $('#customer-details').html(`
             <div class="text-end">
-                <div class="mb-2 fw-bold fs-3">
-                    <u>Customer</u>
-                </div>
-                <div class="mb-2 fw-bold">
-                    ${lang('contact_info')}
+                <div class="mb-2 fw-bold fs-4">
+                    <u>${lang('customer')} ${' '} ${lang('contact_info')}</u>
                 </div>
                 <div class="mb-2 fw-bold text-muted" ${!fullName ? 'hidden' : ''}>
                     ${fullName}

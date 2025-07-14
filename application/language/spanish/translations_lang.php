@@ -234,6 +234,7 @@ $lang['end_date_time'] = 'Fecha y hora final';
 $lang['licensed_under'] = 'Bajo licencia de';
 $lang['unexpected_issues_occurred'] = 'Se encontraron problemas inesperados.';
 $lang['service_communication_error'] = 'Ha ocurrido un error de comunicación con el servidor, por favor, inténtelo nuevamente.';
+$lang['service_not_found'] = 'El servicio solicitado no se pudo encontrar y/o el servicio seleccionado no está en la base de datos. Actualice y vuelva a intentarlo.';
 $lang['no_privileges_edit_appointments'] = 'Usted no posee los permisos necesarios para editar citas.';
 $lang['unavailability_updated'] = 'Periodo No disponible actualizado exitosamente';
 $lang['appointments'] = 'Citas';

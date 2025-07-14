@@ -1,19 +1,24 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // Add custom values by settings them to the $config array.
 // Example: $config['smtp_host'] = 'smtp.gmail.com';
 // @link https://codeigniter.com/user_guide/libraries/email.html
 
 $config['useragent'] = 'Easy!Appointments';
-$config['protocol'] = 'mail'; // or 'smtp'
+$config['protocol'] = 'smtp'; // or 'mail'
 $config['mailtype'] = 'html'; // or 'text'
+$config['charset'] = 'utf-8';
 // $config['smtp_debug'] = '0'; // or '1'
 // $config['smtp_auth'] = TRUE; //or FALSE for anonymous relay.
-// $config['smtp_host'] = '';
+$config['smtp_host'] = 'localhost';
 // $config['smtp_user'] = '';
 // $config['smtp_pass'] = '';
 // $config['smtp_crypto'] = 'ssl'; // or 'tls'
-// $config['smtp_port'] = 25;
+$config['smtp_port'] = 25;
+$config['smtp_timeout'] = 60;
+$config['smtp_auth'] = false;
 // $config['from_name'] = '';
 // $config['from_address'] = '';
 // $config['reply_to'] = '';

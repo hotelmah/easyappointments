@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 // English
-$lang['page_title'] = 'Schedule an Appointment | ';
+$lang['page_title'] = 'Book an Appointment | ';
 $lang['service_and_provider'] = 'Service & Provider';
 $lang['select_service'] = 'Select Service';
 $lang['select_provider'] = 'Select Provider';
@@ -11,7 +11,7 @@ $lang['minutes'] = 'Minutes';
 $lang['price'] = 'Price';
 $lang['back'] = 'Back';
 $lang['appointment_date_and_time'] = 'Appointment Date & Time';
-$lang['appointment_date_and_time_title'] = 'Hello and welcome to ' . setting('company_name') . ' Appointments. To schedule an appointment, please select a Date & Time and click next to continue.';
+$lang['appointment_date_and_time_title'] = 'Hello and welcome to ' . setting('company_name') . ' Appointments. To book an appointment, please select a Date & Time and click next to continue.';
 $lang['no_available_hours'] = 'There are no available appointment hours for the selected date. Please choose another date.';
 $lang['appointment_hour_missing'] = 'Please select an appointment hour before continuing.';
 $lang['customer_information'] = 'Customer Information';
@@ -234,6 +234,7 @@ $lang['end_date_time'] = 'End Date / Time';
 $lang['licensed_under'] = 'Licensed Under';
 $lang['unexpected_issues_occurred'] = 'Unexpected issues occurred.';
 $lang['service_communication_error'] = 'A server communication error occurred, please try again.';
+$lang['service_not_found'] = 'The requested service could not be found and/or the service selected is not in the database. Refresh and try again.';
 $lang['no_privileges_edit_appointments'] = 'You do not have the required privileges to edit appointments.';
 $lang['unavailability_updated'] = 'Unavailability updated successfully.';
 $lang['appointments'] = 'Appointments';
