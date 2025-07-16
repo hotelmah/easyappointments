@@ -101,7 +101,7 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="mobile-number">
-                            <?= lang('mobile_number') ?>
+                            <?= lang('mobile_phone_number') ?>
 
                         </label>
                         <input id="mobile-number" class="form-control" maxlength="128" disabled>
@@ -231,7 +231,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                     <?php slot('after_secondary_fields'); ?>
                 </div>
             </div>

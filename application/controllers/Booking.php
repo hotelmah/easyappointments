@@ -30,7 +30,8 @@ class Booking extends EA_Controller
         'first_name',
         'last_name',
         'email',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
@@ -154,12 +155,16 @@ class Booking extends EA_Controller
         $require_last_name = setting('require_last_name');
         $display_email = setting('display_email');
         $require_email = setting('require_email');
-        $display_phone_number = setting('display_phone_number');
-        $require_phone_number = setting('require_phone_number');
+        $display_mobile_number = setting('display_mobile_number');
+        $require_mobile_number = setting('require_mobile_number');
+        $display_work_number = setting('display_work_number');
+        $require_work_number = setting('require_work_number');
         $display_address = setting('display_address');
         $require_address = setting('require_address');
         $display_city = setting('display_city');
         $require_city = setting('require_city');
+        $display_state = setting('display_state');
+        $require_state = setting('require_state');
         $display_zip_code = setting('display_zip_code');
         $require_zip_code = setting('require_zip_code');
         $display_notes = setting('display_notes');
@@ -286,12 +291,16 @@ class Booking extends EA_Controller
             'require_last_name' => $require_last_name,
             'display_email' => $display_email,
             'require_email' => $require_email,
-            'display_phone_number' => $display_phone_number,
-            'require_phone_number' => $require_phone_number,
+            'display_mobile_number' => $display_mobile_number,
+            'require_mobile_number' => $require_mobile_number,
+            'display_work_number' => $display_work_number,
+            'require_work_number' => $require_work_number,
             'display_address' => $display_address,
             'require_address' => $require_address,
             'display_city' => $display_city,
             'require_city' => $require_city,
+            'display_state' => $display_state,
+            'require_state' => $require_state,
             'display_zip_code' => $display_zip_code,
             'require_zip_code' => $require_zip_code,
             'display_notes' => $display_notes,
@@ -358,8 +367,12 @@ class Booking extends EA_Controller
                 $customer['notes'] = '';
             }
 
-            if (!array_key_exists('phone_number', $customer)) {
-                $customer['phone_number'] = '';
+            if (!array_key_exists('mobile_phone_number', $customer)) {
+                $customer['mobile_phone_number'] = '';
+            }
+
+            if (!array_key_exists('work_phone_number', $customer)) {
+                $customer['work_phone_number'] = '';
             }
 
             $client_selected_provider = $appointment['id_users_provider'];

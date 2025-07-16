@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -92,7 +94,8 @@ class Ics_file
             '',
             lang('name') . ': ' . $provider['first_name'] . ' ' . $provider['last_name'],
             lang('email') . ': ' . $provider['email'],
-            lang('phone_number') . ': ' . $provider['phone_number'],
+            lang('mobile_phone_number') . ': ' . ($provider['mobile_phone_number'] ?? '-'),
+            lang('work_phone_number') . ': ' . ($provider['work_phone_number'] ?? '-'),
             lang('address') . ': ' . $provider['address'],
             lang('city') . ': ' . $provider['city'],
             lang('zip_code') . ': ' . $provider['zip_code'],
@@ -101,9 +104,11 @@ class Ics_file
             '',
             lang('name') . ': ' . $customer['first_name'] . ' ' . $customer['last_name'],
             lang('email') . ': ' . $customer['email'],
-            lang('phone_number') . ': ' . ($customer['phone_number'] ?? '-'),
+            lang('mobile_phone_number') . ': ' . ($customer['mobile_phone_number'] ?? '-'),
+            lang('work_phone_number') . ': ' . ($customer['work_phone_number'] ?? '-'),
             lang('address') . ': ' . $customer['address'],
             lang('city') . ': ' . $customer['city'],
+            lang('state') . ': ' . $customer['state'],
             lang('zip_code') . ': ' . $customer['zip_code'],
             '',
             lang('notes'),

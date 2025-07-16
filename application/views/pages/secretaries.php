@@ -21,7 +21,7 @@
             </h4>
 
             <?php slot('after_page_title'); ?>
-            
+
             <div class="results">
                 <!-- JS -->
             </div>
@@ -101,7 +101,7 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="mobile-number">
-                            <?= lang('mobile_number') ?>
+                            <?= lang('mobile_phone_number') ?>
 
                         </label>
                         <input id="mobile-number" class="form-control" maxlength="128" disabled>

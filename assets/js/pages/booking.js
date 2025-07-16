@@ -24,9 +24,11 @@ App.Pages.Booking = (function () {
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $phoneNumber = $('#phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
+    const $state = $('#state');
     const $zipCode = $('#zip-code');
     const $notes = $('#notes');
     const $captchaTitle = $('.captcha-title');
@@ -262,9 +264,11 @@ App.Pages.Booking = (function () {
             prefillFromQueryParam('#first-name', 'first_name');
             prefillFromQueryParam('#last-name', 'last_name');
             prefillFromQueryParam('#email', 'email');
-            prefillFromQueryParam('#phone-number', 'phone');
+            prefillFromQueryParam('#mobile-phone-number', 'mobile_phone_number');
+            prefillFromQueryParam('#work-phone-number', 'work_phone_number');
             prefillFromQueryParam('#address', 'address');
             prefillFromQueryParam('#city', 'city');
+            prefillFromQueryParam('#state', 'state');
             prefillFromQueryParam('#zip-code', 'zip');
         }
     }
@@ -657,12 +661,23 @@ App.Pages.Booking = (function () {
         }
 
         // Validate phone number.
-        const phoneNumber = $phoneNumber.val();
+        const mobilePhoneNumber = $mobilePhoneNumber.val();
 
-        if (phoneNumber && !App.Utils.Validation.isValidUSTelephone(phoneNumber)) {
-            $phoneNumber.removeClass('border');
-            $phoneNumber.removeClass('border-primary');
-            $phoneNumber.addClass('is-invalid');
+        if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
+            $mobilePhoneNumber.removeClass('border');
+            $mobilePhoneNumber.removeClass('border-primary');
+            $mobilePhoneNumber.addClass('is-invalid');
+            App.Utils.Validation.showBookingAlert(lang('invalid_phone'));
+
+            return false;
+        }
+
+        const workPhoneNumber = $workPhoneNumber.val();
+
+        if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
+            $workPhoneNumber.removeClass('border');
+            $workPhoneNumber.removeClass('border-primary');
+            $workPhoneNumber.addClass('is-invalid');
             App.Utils.Validation.showBookingAlert(lang('invalid_phone'));
 
             return false;
@@ -766,9 +781,11 @@ App.Pages.Booking = (function () {
         const lastName = App.Utils.String.escapeHtml($lastName.val());
         const fullName = `${firstName} ${lastName}`.trim();
         const email = App.Utils.String.escapeHtml($email.val());
-        const phoneNumber = App.Utils.String.escapeHtml($phoneNumber.val());
+        const mobilePhoneNumber = App.Utils.String.escapeHtml($mobilePhoneNumber.val());
+        const workPhoneNumber = App.Utils.String.escapeHtml($workPhoneNumber.val());
         const address = App.Utils.String.escapeHtml($address.val());
         const city = App.Utils.String.escapeHtml($city.val());
+        const state = App.Utils.String.escapeHtml($state.val());
         const zipCode = App.Utils.String.escapeHtml($zipCode.val());
         const notes = App.Utils.String.escapeHtml($notes.val());
 
@@ -790,9 +807,26 @@ App.Pages.Booking = (function () {
             addressParts.push(city);
         }
 
+        if (state) {
+            addressParts.push(state);
+        }
+
         if (zipCode) {
             addressParts.push(zipCode);
         }
+
+        // Format the address properly when displaying
+        const formattedAddress = (() => {
+            const parts = [];
+            if (city) parts.push(city);
+            if (state) parts.push(state);
+            const cityState = parts.join(', ');
+
+            if (zipCode) {
+                return cityState ? `${cityState} ${zipCode}` : zipCode;
+            }
+            return cityState;
+        })();
 
         $('#customer-details').html(`
             <div class="text-end">
@@ -807,16 +841,20 @@ App.Pages.Booking = (function () {
                     ${email}
                     <i class="fas fa-envelope me-2"></i>
                 </div>
-                <div class="mb-2" ${!phoneNumber ? 'hidden' : ''}>
-                    ${phoneNumber}
+                <div class="mb-2" ${!mobilePhoneNumber ? 'hidden' : ''}>
+                    ${mobilePhoneNumber}
+                    <i class="fas fa-phone me-2"></i>
+                </div>
+                <div class="mb-2" ${!workPhoneNumber ? 'hidden' : ''}>
+                    ${workPhoneNumber}
                     <i class="fas fa-phone me-2"></i>
                 </div>
                 <div class="mb-2" ${!address ? 'hidden' : ''}>
                     ${address}
                     <i class="fas fa-map-marker-alt me-2"></i>
                 </div>
-                <div class="mb-2" ${!addressParts.length ? 'hidden' : ''}>
-                    ${addressParts.join(', ')}
+                <div class="mb-2" ${!formattedAddress ? 'hidden' : ''}>
+                    ${formattedAddress}
                     <i class="fas fa-map-marker-alt me-2"></i>
                 </div>
                 <div class="mb-2" ${!notes.length ? 'hidden' : ''}>
@@ -854,9 +892,11 @@ App.Pages.Booking = (function () {
             last_name: $lastName.val(),
             first_name: $firstName.val(),
             email: $email.val(),
-            phone_number: $phoneNumber.val(),
+            mobile_phone_number: $mobilePhoneNumber.val(),
+            work_phone_number: $workPhoneNumber.val(),
             address: $address.val(),
             city: $city.val(),
+            state: $state.val(),
             zip_code: $zipCode.val(),
             timezone: $selectTimezone.val(),
             custom_field_1: $customField1.val(),
@@ -947,9 +987,11 @@ App.Pages.Booking = (function () {
             $lastName.val(customer.last_name);
             $firstName.val(customer.first_name);
             $email.val(customer.email);
-            $phoneNumber.val(customer.phone_number);
+            $mobilePhoneNumber.val(customer.mobile_phone_number);
+            $workPhoneNumber.val(customer.work_phone_number);
             $address.val(customer.address);
             $city.val(customer.city);
+            $state.val(customer.state);
             $zipCode.val(customer.zip_code);
             if (customer.timezone) {
                 $selectTimezone.val(customer.timezone);

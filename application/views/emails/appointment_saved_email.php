@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Local variables.
  *
@@ -9,7 +10,7 @@
  * @var array $provider
  * @var array $customer
  * @var array $settings
- * @var array $timezone
+ * @var string $timezone
  * @var string $appointment_link
  */
 ?>
@@ -18,105 +19,259 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-            <?= lang('appointment_details_title') ?> | <?= e($settings['company_name']) ?>
-        </title>
         <style>
+            #header {
+                height: 125px;
+                padding: 10px 15px;
+                position: relative;
+                background-color: <?= $settings['company_color'] ?? '#429a82' ?>;
+                background: linear-gradient(135deg, <?= $settings['company_color'] ?? '#429a82' ?>, #357a66);
+            }
+
+            #header::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: rgba(255,255,255,0.3);
+            }
+
             body {
-                font: 13px arial, helvetica, tahoma;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                font-size: 14px;
+                line-height: 1.6;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                background-color: #f8f9fa;
+            }
+
+            #logo {
+                margin-top: 15px;
+                display: inline-block;
+                color: white;
+                font-size: 24px;
+                font-weight: 300;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+
+            .label {
+                padding: 3px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .email-container {
+                max-width: 650px;
+                width: 90%;
+                border: 1px solid #eee;
+                margin: 30px auto;
+            }
+
+            #content {
+                min-height: 400px;
+                padding: 25px 20px;
+                background: white;
+            }
+
+            h2 {
+                margin: 25px 0 15px 0;
+                padding-left: 12px;
+                color: #2c3e50;
+                font-size: 20px;
+                font-weight: 600;
+                border-left: 4px solid <?= $settings['company_color'] ?? '#429a82' ?>;
+            }
+
+            #appointment-details, #customer-details {
+                width: 100%;
+                margin: 15px 0 25px 0;
+                overflow: hidden;
+                background: white;
+                border: none;
+                border-collapse: collapse;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            #appointment-details td, #customer-details td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #eee;
+                vertical-align: top;
+            }
+
+            #appointment-details .label, #customer-details .label {
+                width: 35%;
+                font-weight: 600;
+                color: #555;
+                background-color: #f8f9fa;
+                border-right: 1px solid #eee;
+            }
+
+            #appointment-details tr:last-child td,
+            #customer-details tr:last-child td {
+                border-bottom: none;
+            }
+
+            #footer {
+                margin-top: 30px;
+                padding: 20px;
+                text-align: center;
+                color: #6c757d;
+                font-size: 12px;
+                background-color:rgb(193, 186, 186);
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                border-top: 1px solid #dee2e6;
+            }
+
+            #footer a {
+                text-decoration: none;
+                color: #429a82;
+            }
+
+            #footer a:hover {
+                text-decoration: underline;
+            }
+
+            a {
+                color: #429a82;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+            /* Responsive styles */
+            /* Enhanced mobile compatibility */
+            @media (max-width: 600px) {
+                .email-container {
+                    width: 100% !important;
+                    margin: 0 !important;
+                    border-radius: 0 !important;
+                }
+
+                #content {
+                    padding: 15px !important;
+                }
+
+                #appointment-details .label,
+                #customer-details .label {
+                    width: 40% !important;
+                    font-size: 12px !important;
+                }
+
+                #header {
+                    padding: 15px !important;
+                    text-align: center;
+                }
+
+                #logo {
+                    font-size: 18px !important;
+                }
             }
         </style>
     </head>
     <body>
-        <div class="email-container" style="width: 650px; border: 1px solid #eee; margin: 30px auto;">
-            <div id="header" style="background-color: <?= $settings['company_color'] ?? '#429a82' ?>; height: 45px; padding: 10px 15px;">
-                <strong id="logo" style="color: white; font-size: 20px; margin-top: 10px; display: inline-block">
-                    <?= e($settings['company_name']) ?>
-                </strong>
-            </div>
+        <div id="header">
+            <strong id="logo">
+                <?= e($settings['company_name']) ?>
+                <span>&nbsp; &nbsp;<?= lang('appointment') ?>s</span>
+            </strong>
+        </div>
 
-            <div id="content" style="padding: 10px 15px; min-height: 400px;">
-                <h2>
-                    <?= $subject ?>
-                </h2>
+        <div class="email-container">
+            <div id="content">
+                <h2><?= $subject ?></h2>
 
                 <p>
                     <?= $message ?>
                 </p>
 
-                <h2>
-                    <?= lang('appointment_details_title') ?>
-                </h2>
+                <h2><?= lang('appointment_details_title') ?></h2>
 
                 <table id="appointment-details">
-                    <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('service') ?>
-                        </td>
-                        <td style="padding: 3px;">
-                            <?= e($service['name']) ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('provider') ?>
-                        </td>
-                        <td style="padding: 3px;">
-                            <?= e($provider['first_name'] . ' ' . $provider['last_name']) ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('start') ?>
-                        </td>
-                        <td style="padding: 3px;">
-                            <?= format_date_time($appointment['start_datetime']) ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('end') ?>
-                        </td>
-                        <td style="padding: 3px;">
-                            <?= format_date_time($appointment['end_datetime']) ?>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('timezone') ?>
-                        </td>
-                        <td style="padding: 3px;">
-                            <?= format_timezone($timezone) ?>
-                        </td>
-                    </tr>
-
                     <?php if (!empty($appointment['status'])) : ?>
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
+                        <td class="label">
                             <?= lang('status') ?>
                         </td>
-                        <td style="padding: 3px;">
-                            <?= e($appointment['status']) ?>
+                        <td>
+                            <span style="display: inline-block;
+                                        background-color: #28a745;
+                                        color: white;
+                                        padding: 4px 12px;
+                                        border-radius: 12px;
+                                        font-size: 12px;
+                                        font-weight: 600;">
+                                ✓ <?= e($appointment['status']) ?>
+                            </span>
                         </td>
                     </tr>
                     <?php endif; ?>
 
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
+                        <td class="label">
+                            <?= lang('service') ?>
+                        </td>
+                        <td>
+                            <?= e($service['name']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            <?= lang('provider') ?>
+                        </td>
+                        <td>
+                            <?= e($provider['first_name'] . ' ' . $provider['last_name']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            <?= lang('start') ?>
+                        </td>
+                        <td>
+                            <?= format_date_time($appointment['start_datetime']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            <?= lang('end') ?>
+                        </td>
+                        <td>
+                            <?= format_date_time($appointment['end_datetime']) ?>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            <?= lang('price') ?>
+                        </td>
+                        <td>
+                            <?= e($service['price']) ?> &nbsp; <?= e($service['currency']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
                             <?= lang('description') ?>
                         </td>
-                        <td style="padding: 3px;">
+                        <td>
                             <?= e($service['description']) ?>
                         </td>
                     </tr>
 
                     <?php if (!empty($appointment['location'])) : ?>
                         <tr>
-                            <td class="label" style="padding: 3px;font-weight: bold;">
+                            <td class="label">
                                 <?= lang('location') ?>
                             </td>
-                            <td style="padding: 3px;">
+                            <td>
                                 <?= e($appointment['location']) ?>
                             </td>
                         </tr>
@@ -124,74 +279,129 @@
 
                     <?php if (!empty($appointment['notes'])) : ?>
                         <tr>
-                            <td class="label" style="padding: 3px;font-weight: bold;">
+                            <td class="label">
                                 <?= lang('notes') ?>
                             </td>
-                            <td style="padding: 3px;">
+                            <td>
                                 <?= e($appointment['notes']) ?>
                             </td>
                         </tr>
                     <?php endif; ?>
+
+                    <tr>
+                        <td class="label">
+                            <?= lang('timezone') ?>
+                        </td>
+                        <td>
+                            <?= format_timezone($timezone) ?>
+                        </td>
+                    </tr>
                 </table>
 
-                <h2>
-                    <?= lang('customer_details_title') ?>
-                </h2>
+                <h2><?= lang('customer_details_title') ?></h2>
 
                 <table id="customer-details">
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
+                        <td class="label">
                             <?= lang('name') ?>
                         </td>
-                        <td style="padding: 3px;">
+                        <td>
                             <?= e($customer['first_name'] . ' ' . $customer['last_name']) ?>
                         </td>
                     </tr>
+
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
+                        <td class="label">
                             <?= lang('email') ?>
                         </td>
-                        <td style="padding: 3px;">
+                        <td>
                             <?= e($customer['email']) ?>
                         </td>
                     </tr>
+
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
-                            <?= lang('phone_number') ?>
+                        <td class="label">
+                            <?= lang('mobile_phone_number') ?>
                         </td>
-                        <td style="padding: 3px;">
-                            <?= e($customer['phone_number']) ?>
+                        <td>
+                            <?= e($customer['mobile_phone_number']) ?>
                         </td>
                     </tr>
+
                     <tr>
-                        <td class="label" style="padding: 3px;font-weight: bold;">
+                        <td class="label">
+                            <?= lang('work_phone_number') ?>
+                        </td>
+                        <td>
+                            <?= e($customer['work_phone_number']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
                             <?= lang('address') ?>
                         </td>
-                        <td style="padding: 3px;">
-                            <?= e($customer['address']) ?>
+                        <td>
+                            <?= e($customer['address']) . ' ' . e($customer['city']) . ', ' . e($customer['state']) . ' ' . e($customer['zip_code']) ?>
                         </td>
                     </tr>
+
+                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                        <?php if (setting('display_custom_field_' . $i)) : ?>
+                            <tr>
+                                <td>
+                                    <?= setting('label_custom_field_' . $i) ?: lang('custom_field') . ' #' . $i ?>
+                                </td>
+                                <td>
+                                    <?= $customer['custom_field_' . $i] ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endfor; ?>
                 </table>
 
-                <h2>
-                    <?= lang('appointment_link_title') ?>
-                </h2>
+                <h2><?= lang('appointment_link_title') ?></h2>
 
-                <a href="<?= e($appointment_link) ?>" style="width: 600px;">
-                    <?= e($appointment_link) ?>
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="<?= e($appointment_link) ?>"
+                    style="display: inline-block;
+                            background-color: <?= $settings['company_color'] ?? '#429a82' ?>;
+                            color: white;
+                            padding: 12px 25px;
+                            text-decoration: none;
+                            border-radius: 5px;
+                            font-weight: 600;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                            transition: all 0.3s ease;">
+                        📅 Manage Your Appointment
+                    </a>
+                </div>
+
+                <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px;">
+                    <a href="<?= e($appointment_link) ?>" style="color: #666; text-decoration: underline;">
+                        <?= e($appointment_link) ?>
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div style="margin-bottom: 15px;">
+                <strong style="color: <?= $settings['company_color'] ?? '#429a82' ?>;">
+                    <?= e($settings['company_name']) ?>
+                </strong>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                📧 Need help? Reply to this email or visit our
+                <a href="<?= e($settings['company_link']) ?>"
+                style="color: <?= $settings['company_color'] ?? '#429a82' ?>; text-decoration: none;">
+                    website
                 </a>
             </div>
 
-            <div id="footer" style="padding: 10px; text-align: center; margin-top: 10px;
-                        border-top: 1px solid #EEE; background: #FAFAFA;">
-                Powered by
-                <a href="https://easyappointments.org" style="text-decoration: none;">
-                    Easy!Appointments
-                </a>
-                |
-                <a href="<?= e($settings['company_link']) ?>" style="text-decoration: none;">
-                    <?= e($settings['company_name']) ?>
-                </a>
+            <div style="border-top: 1px solid #dee2e6; padding-top: 15px; margin-top: 15px;">
+                &copy; <?= date('Y') ?> <?= e($settings['company_name']) ?>. <?= lang('all_rights_reserved') ?>
             </div>
         </div>
     </body>

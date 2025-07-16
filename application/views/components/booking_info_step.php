@@ -8,12 +8,16 @@
  * @var string $require_last_name
  * @var string $display_email
  * @var string $require_email
- * @var string $display_phone_number
- * @var string $require_phone_number
+ * @var string $display_mobile_number
+ * @var string $require_mobile_number
+ * @var string $display_work_number
+ * @var string $require_work_number
  * @var string $display_address
  * @var string $require_address
  * @var string $display_city
  * @var string $require_city
+* @var string $display_state
+ * @var string $require_state
  * @var string $display_zip_code
  * @var string $require_zip_code
  * @var string $display_notes
@@ -60,14 +64,25 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if ($display_phone_number) : ?>
+                <?php if ($display_mobile_number) : ?>
                     <div class="mb-1">
-                        <label for="phone-number" class="form-label"><?= lang('phone_number') ?>
-                            <?php if ($require_phone_number) : ?>
+                        <label for="mobile-phone-number" class="form-label"><?= lang('mobile_phone_number') ?>
+                            <?php if ($require_mobile_number) : ?>
                                 <span class="text-danger">*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="tel" id="phone-number" maxlength="15" class="<?= $require_phone_number ? 'required' : '' ?> form-control border border-primary"/>
+                        <input type="tel" id="mobile-phone-number" maxlength="15" class="<?= $require_mobile_number ? 'required' : '' ?> form-control border border-primary"/>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($display_work_number) : ?>
+                    <div class="mb-1">
+                        <label for="work-phone-number" class="form-label"><?= lang('work_phone_number') ?>
+                            <?php if ($require_work_number) : ?>
+                                <span class="text-danger">*</span>
+                            <?php endif; ?>
+                        </label>
+                        <input type="tel" id="work-phone-number" maxlength="15" class="<?= $require_work_number ? 'required' : '' ?> form-control border border-primary"/>
                     </div>
                 <?php endif; ?>
 
@@ -98,6 +113,17 @@
                             <?php endif; ?>
                         </label>
                         <input type="text" id="city" class="<?= $require_city ? 'required' : '' ?> form-control border border-primary" maxlength="120"/>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($display_state) : ?>
+                    <div class="mb-1">
+                        <label for="state" class="form-label"><?= lang('state') ?>
+                            <?php if ($require_state) : ?>
+                                <span class="text-danger">*</span>
+                            <?php endif; ?>
+                        </label>
+                        <input type="text" id="state" class="<?= $require_state ? 'required' : '' ?> form-control border border-primary" maxlength="120"/>
                     </div>
                 <?php endif; ?>
 
