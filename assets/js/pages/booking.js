@@ -756,6 +756,10 @@ App.Pages.Booking = (function () {
                     <i class="fas fa-clock me-2"></i>
                     ${service.duration} ${lang('minutes')}
                 </div>
+                <div class="mb-2" ${!Number(service.price) ? 'hidden' : ''}>
+                    <i class="fas fa-cash-register me-2"></i>
+                    ${getCurrencySymbol(service.currency)}${Number(service.price).toFixed(2)} ${service.currency}
+                </div>
                 <div class="mb-2">
                     <i class="fas fa-info-circle me-2"></i>
                     ${service.description}
@@ -763,10 +767,6 @@ App.Pages.Booking = (function () {
                 <div class="mb-2">
                     <i class="fas fa-map-marker-alt me-2"></i>
                     ${service.location}
-                </div>
-                <div class="mb-2" ${!Number(service.price) ? 'hidden' : ''}>
-                    <i class="fas fa-cash-register me-2"></i>
-                    $${Number(service.price).toFixed(2)} ${service.currency}
                 </div>
                 <div class="mb-2">
                     <i class="fas fa-globe me-2"></i>
@@ -1072,6 +1072,28 @@ App.Pages.Booking = (function () {
                 </div>
             `).appendTo($serviceDescription);
         }
+    }
+
+    /**
+     * Get the currency symbol for a given currency code.
+     * @param {string} currency
+     * @returns {string}
+     */
+    function getCurrencySymbol(currency) {
+        const symbols = {
+            USD: '$',
+            EUR: '€',
+            GBP: '£',
+            JPY: '¥',
+            AUD: 'A$',
+            CAD: 'C$',
+            CHF: 'CHF',
+            CNY: '¥',
+            INR: '₹',
+            RUB: '₽',
+            // Add more as needed
+        };
+        return symbols[currency] || currency || '';
     }
 
     document.addEventListener('DOMContentLoaded', initialize);

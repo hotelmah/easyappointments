@@ -451,11 +451,12 @@ footer .backend-link {
 /* CANCEL APPOINTMENT
    ------------------------------------------------------------------------- */
 .booking-header-bar {
-    padding: 15px 0;
     margin: 0;
-    background: #f3f2e7;
-    border-bottom: 1px solid #e4e1c9;
+    padding: 15px 0;
     text-align: center;
+    color: black;
+    background-color: #f66b68;
+    border-bottom: 1px solid #e4e1c9;
 }
 
 .ui-dialog .ui-dialog-title {

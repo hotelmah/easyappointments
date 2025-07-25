@@ -233,6 +233,7 @@ App.Http.Booking = (function () {
         })
         .fail(() => {
             $captchaTitle.find('button').trigger('click');
+            $captchaText.val(''); // Clear captcha input value
         })
         .always(() => {
             $layer.remove();

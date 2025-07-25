@@ -17,7 +17,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?= lang('appointment_cancelled_title') ?> | <?= e($settings['company_name']) ?></title>
         <style>
             #header {
                 height: 125px;
@@ -72,7 +71,7 @@
             #content {
                 min-height: 400px;
                 padding: 25px 20px;
-                background: white;
+                background-color: white;
             }
 
             h2 {
@@ -81,6 +80,7 @@
                 color: #2c3e50;
                 font-size: 20px;
                 font-weight: 600;
+                background-color: lightgrey;
                 border-left: 4px solid <?= $settings['company_color'] ?? '#429a82' ?>;
             }
 
@@ -88,11 +88,13 @@
                 width: 100%;
                 margin: 15px 0 25px 0;
                 overflow: hidden;
-                background: white;
-                border: none;
+                background-color: lightcyan;
                 border-collapse: collapse;
+                border-color: <?= $settings['company_color'] ?? '#429a82' ?>;
+                border-width: 1px;
+                border-style: solid;
                 border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 3px 3px 4px rgba(0,0,0,0.1);
             }
 
             #appointment-details td, #customer-details td {
@@ -249,10 +251,40 @@
 
                     <tr>
                         <td class="label">
+                            <?= lang('duration_minutes') ?>
+                        </td>
+                        <td>
+                            <?= e($service['duration']) ?>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
                             <?= lang('price') ?>
                         </td>
                         <td>
-                            <?= e($service['price']) ?> &nbsp; <?= e($service['currency']) ?>
+                            <?php
+                            $currencySymbol = '$';
+                            if (!empty($service['currency'])) {
+                                // Add more currency symbols as needed
+                                switch (strtoupper($service['currency'])) {
+                                    case 'USD':
+                                        $currencySymbol = '$';
+                                        break;
+                                    case 'EUR':
+                                        $currencySymbol = '€';
+                                        break;
+                                    case 'GBP':
+                                        $currencySymbol = '£';
+                                        break;
+                                    // ...add more cases if needed...
+                                    default:
+                                        $currencySymbol = $service['currency'];
+                                }
+                            }
+                            ?>
+                            <?= $currencySymbol . number_format((float)$service['price'], 2) ?> &nbsp; <?= e($service['currency']) ?>
                         </td>
                     </tr>
 

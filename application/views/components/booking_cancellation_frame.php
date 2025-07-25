@@ -8,7 +8,7 @@
  */
 ?>
 
-<?php if ($manage_mode): ?>
+<?php if ($manage_mode) : ?>
     <div id="cancel-appointment-frame" class="row booking-header-bar">
         <div class="col-md-10">
             <small><?= lang('cancel_appointment_hint') ?></small>
@@ -26,7 +26,7 @@
             </form>
         </div>
     </div>
-    <?php if ($display_delete_personal_information): ?>
+    <?php if ($display_delete_personal_information) : ?>
         <div class="booking-header-bar row">
             <div class="col-md-10">
                 <small><?= lang('delete_personal_information_hint') ?></small>
