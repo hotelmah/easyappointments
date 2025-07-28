@@ -10,6 +10,7 @@ $config['useragent'] = 'Easy!Appointments';
 $config['protocol'] = 'sendmail'; // or 'mail' smtp
 $config['mailtype'] = 'html'; // or 'text'
 $config['charset'] = 'utf-8';
+$config['from_address'] = 'kevin@kevinp.net';
 // $config['smtp_debug'] = '0'; // or '1'
 // $config['smtp_auth'] = TRUE; //or FALSE for anonymous relay.
 // $config['smtp_host'] = 'localhost';

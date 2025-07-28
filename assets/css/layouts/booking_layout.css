@@ -411,11 +411,13 @@ footer .backend-link {
    ------------------------------------------------------------------------- */
 #message-frame,
 #success-frame {
-    background: var(--bs-body-bg);
-    text-align: center;
-    height: auto;
-    border: none;
-    padding: 35px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
 #message-frame .alert,
@@ -424,13 +426,58 @@ footer .backend-link {
 }
 
 #message-frame #message-icon,
+#message-frame #success-icon,
 #success-frame #success-icon {
-    margin-top: 20px;
-    margin-right: 20px;
-    width: 64px;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem auto;
     display: block;
-    /* margin: auto; */
-    float: none !important;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+#message-frame h4 {
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+#message-frame p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+#message-frame .text-muted small {
+    font-size: 0.875rem;
+    color: #adb5bd;
+}
+
+/* Button styling */
+/* stylelint-disable-next-line no-descending-specificity */
+#message-frame .btn {
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    display: inline-block;
+    min-width: 180px;
+}
+
+#message-frame .btn-primary {
+    background: linear-gradient(135deg, #429a82 0%, #225d4d 100%);
+    border: none;
+    color: white;
+}
+
+#message-frame .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 154, 130, 0.3);
+    filter: brightness(1.05);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -440,35 +487,109 @@ footer .backend-link {
     max-width: 300px;
 }
 
-@media (min-width: 768px) {
-
-    #message-frame,
-    #success-frame {
-        height: 100%;
-    }
-}
-
-/* CANCEL APPOINTMENT
-   ------------------------------------------------------------------------- */
+/* Message Layout Specific Styles */
+/* CANCEL APPOINTMENT */
 .booking-header-bar {
-    margin: 0;
-    padding: 15px 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+    padding: 20px 0;
+    position: relative;
     text-align: center;
     color: black;
-    background-color: #f66b68;
-    border-bottom: 1px solid #e4e1c9;
+    /* background: linear-gradient(135deg, #ffc107 0%, #ffecb5 100%); */
+    background-color: #ffda6c;
+    border-radius: 6px;
+    border: 1px solid grey;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.ui-dialog .ui-dialog-title {
-    font-size: 1.2em;
+.booking-header-bar h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+.booking-header-bar h1::before {
+    content: '📅 ';
+    font-size: 1.5rem;
+    vertical-align: middle;
 }
 
-@media (min-width: 768px) {
-    .booking-header-bar {
-        padding: 15px 0;
-        margin: 0;
-        background: #f3f2e7;
-        border-bottom: 1px solid #e4e1c9;
-        text-align: left;
+/* Footer styling */
+#footer {
+    background: #2c3e50;
+    color: white;
+    padding: 2rem 0;
+    margin-top: auto;
+    border-top: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+#footer p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+#footer a {
+    color: #429a82;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#footer a:hover {
+    color: #5fb3a3;
+    text-decoration: underline;
+}
+
+#footer .border-top {
+    border-top: 1px solid #495057 !important;
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .booking-header-bar h1 {
+        font-size: 1.5rem;
     }
+
+    #message-frame {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    #message-frame .btn {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    #footer {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+}
+
+/* Success page specific styling */
+#success-frame {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#add-to-google-calendar {
+    background: #4285f4;
+    border-color: #4285f4;
+}
+
+#add-to-google-calendar:hover {
+    background: #3367d6;
+    border-color: #3367d6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3);
 }

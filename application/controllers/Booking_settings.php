@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -41,7 +43,7 @@ class Booking_settings extends EA_Controller
         $this->load->model('settings_model');
 
         $this->load->library('accounts');
-        $this->load->library('google_sync');
+        // $this->load->library('google_sync');
         $this->load->library('notifications');
         $this->load->library('synchronization');
         $this->load->library('timezones');

@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -27,7 +29,7 @@ class Google extends EA_Controller
     {
         parent::__construct();
 
-        $this->load->library('google_sync');
+        // $this->load->library('google_sync');
 
         $this->load->model('appointments_model');
         $this->load->model('providers_model');
@@ -47,7 +49,7 @@ class Google extends EA_Controller
             /** @var EA_Controller $CI */
             $CI = get_instance();
 
-            $CI->load->library('google_sync');
+            // $CI->load->library('google_sync');
 
             // Load the libraries as this method is called statically from the CLI command
 

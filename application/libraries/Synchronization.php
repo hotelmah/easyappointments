@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -35,7 +37,7 @@ class Synchronization
         $this->CI->load->model('providers_model');
         $this->CI->load->model('appointments_model');
 
-        $this->CI->load->library('google_sync');
+        // $this->CI->load->library('google_sync');
         $this->CI->load->library('caldav_sync');
     }
 

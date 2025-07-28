@@ -21,8 +21,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
             #header {
-                height: 125px;
-                padding: 10px 15px;
+                height: 75px;
+                padding: 5px 10px;
                 position: relative;
                 background-color: <?= $settings['company_color'] ?? '#429a82' ?>;
                 background: linear-gradient(135deg, <?= $settings['company_color'] ?? '#429a82' ?>, #357a66);
@@ -49,12 +49,14 @@
             }
 
             #logo {
+                margin-left: auto;
+                margin-right: auto;
                 margin-top: 15px;
                 display: inline-block;
                 color: white;
-                font-size: 24px;
+                font-size: 20px;
                 font-weight: 300;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
 
             .label {
@@ -79,10 +81,12 @@
             h2 {
                 margin: 25px 0 15px 0;
                 padding-left: 12px;
+                padding-top: 6px;
+                padding-bottom: 6px;
                 color: #2c3e50;
                 font-size: 20px;
                 font-weight: 600;
-                background-color: lightgrey;
+                background-color: #dcdedfff;
                 border-left: 4px solid <?= $settings['company_color'] ?? '#429a82' ?>;
             }
 
@@ -180,7 +184,7 @@
         <div id="header">
             <strong id="logo">
                 <?= e($settings['company_name']) ?>
-                <span>&nbsp; &nbsp;<?= lang('appointment') ?>s</span>
+                <span>&nbsp;<?= lang('appointment') ?>s</span>
             </strong>
         </div>
 
@@ -382,7 +386,7 @@
                     <?php for ($i = 1; $i <= 5; $i++) : ?>
                         <?php if (setting('display_custom_field_' . $i)) : ?>
                             <tr>
-                                <td>
+                                <td class="label">
                                     <?= setting('label_custom_field_' . $i) ?: lang('custom_field') . ' #' . $i ?>
                                 </td>
                                 <td>

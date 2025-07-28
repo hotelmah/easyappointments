@@ -123,7 +123,10 @@ class Booking extends EA_Controller
 
             html_vars([
                 'show_message' => true,
-                'page_title' => lang('page_title') . ' ' . $company_name,
+                'page_title' => lang('booking_is_disabled'),
+                'company_name' => $company_name,
+                'company_link' => setting('company_link'),
+                'company_email' => setting('company_email'),
                 'message_title' => lang('booking_is_disabled'),
                 'message_text' => $disable_booking_message,
                 'message_icon' => base_url('assets/img/error.png'),
@@ -200,8 +203,12 @@ class Booking extends EA_Controller
             if (empty($results)) {
                 html_vars([
                     'show_message' => true,
-                    'page_title' => lang('page_title') . ' ' . $company_name,
-                    'message_title' => lang('appointment_not_found'),
+                    'page_title' => lang('appointment_not_found'),
+                    'company_name' => $company_name,
+                    'company_link' => setting('company_link'),
+                    'company_email' => setting('company_email'),
+                    'company_color' => $company_color === '#ffffff' ? '' : $company_color,
+                    'message_header' => lang('appointment_not_found'),
                     'message_text' => lang('appointment_does_not_exist_in_db'),
                     'message_icon' => base_url('assets/img/error.png'),
                     'google_analytics_code' => $google_analytics_code,
@@ -217,20 +224,53 @@ class Booking extends EA_Controller
             // Make sure the appointment can still be rescheduled.
 
             $start_datetime = strtotime($results[0]['start_datetime']);
+            $current_time = strtotime('now');
+            $limit = strtotime('+' . $book_advance_timeout . ' minutes', $current_time);
 
-            $limit = strtotime('+' . $book_advance_timeout . ' minutes', strtotime('now'));
+            // Check if appointment has already passed
+            if ($start_datetime < $current_time) {
+                html_vars([
+                    'show_message' => true,
+                    'page_title' => lang('appointment_expired_title'),
+                    'company_name' => $company_name,
+                    'company_link' => setting('company_link'),
+                    'company_email' => setting('company_email'),
+                    'company_color' => $company_color === '#ffffff' ? '' : $company_color,
+                    'message_header' => lang('appointment_expired_header'),
+                    'message_text' => lang('appointment_expired_text'),
+                    'message_icon' => base_url('assets/img/error.png'),
+                    'google_analytics_code' => $google_analytics_code,
+                    'matomo_analytics_url' => $matomo_analytics_url,
+                    'matomo_analytics_site_id' => $matomo_analytics_site_id,
+                ]);
 
-            if ($start_datetime < $limit) {
+                $this->load->view('pages/booking_message');
+
+                return;
+            } elseif ($start_datetime < $limit) {
+                // Check if appointment is too close to modify
                 $hours = floor($book_advance_timeout / 60);
-
                 $minutes = $book_advance_timeout % 60;
+
+                // Create a human-readable time string
+                if ($hours > 0 && $minutes > 0) {
+                    $time_limit = $hours . ' hour' . ($hours > 1 ? 's' : '') . ' and ' . $minutes . ' minute' . ($minutes > 1 ? 's' : '');
+                } elseif ($hours > 0) {
+                    $time_limit = $hours . ' hour' . ($hours > 1 ? 's' : '');
+                } else {
+                    $time_limit = $minutes . ' minute' . ($minutes > 1 ? 's' : '');
+                }
 
                 html_vars([
                     'show_message' => true,
-                    'page_title' => lang('page_title') . ' ' . $company_name,
-                    'message_title' => lang('appointment_locked'),
-                    'message_text' => strtr(lang('appointment_locked_message'), [
-                        '{$limit}' => sprintf('%02d:%02d', $hours, $minutes),
+                    'page_title' => lang('appointment_locked_title'),
+                    'company_name' => $company_name,
+                    'company_link' => setting('company_link'),
+                    'company_email' => setting('company_email'),
+                    'company_color' => $company_color === '#ffffff' ? '' : $company_color,
+                    'message_header' => lang('appointment_locked_header'),
+                    'message_text' => strtr(lang('appointment_locked_text'), [
+                        '{$limit}' => $time_limit,
                     ]),
                     'message_icon' => base_url('assets/img/error.png'),
                     'google_analytics_code' => $google_analytics_code,
@@ -276,6 +316,7 @@ class Booking extends EA_Controller
         ]);
 
         html_vars([
+            'page_title' => lang('page_title'),
             'available_services' => $available_services,
             'available_providers' => $available_providers,
             'theme' => $theme,
