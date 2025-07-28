@@ -213,7 +213,9 @@ class Appointments_model extends EA_Model
         $appointment['book_datetime'] = date('Y-m-d H:i:s');
         $appointment['create_datetime'] = date('Y-m-d H:i:s');
         $appointment['update_datetime'] = date('Y-m-d H:i:s');
-        $appointment['hash'] = random_string('alnum', 12);
+
+        // Generate unique hash with collision checking
+        $appointment['hash'] = $this->generate_unique_hash();
 
         if (!$this->db->insert('appointments', $appointment)) {
             throw new RuntimeException('Could not insert appointment.');
@@ -317,6 +319,27 @@ class Appointments_model extends EA_Model
         }
 
         return $appointment[$field];
+    }
+
+    /**
+    * Generate a unique appointment hash
+    */
+    private function generate_unique_hash(int $max_attempts = 10): string
+    {
+        for ($i = 0; $i < $max_attempts; $i++) {
+            $hash = random_string('alnum', 12);
+
+            // Check if hash already exists
+            $this->db->where('hash', $hash);
+            $existing = $this->db->get('appointments')->row();
+
+            if (!$existing) {
+                return $hash;
+            }
+        }
+
+        // Fallback: use longer hash if all attempts failed
+        return random_string('alnum', 16);
     }
 
     /**

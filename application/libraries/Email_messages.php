@@ -235,7 +235,7 @@ class Email_messages
         $php_mailer->SMTPDebug = config('smtp_debug') ? SMTP::DEBUG_SERVER : null;
 
         // Add timeout settings
-        $php_mailer->Timeout = 60;       // Increase timeout
+        $php_mailer->Timeout = 30;       // Increase timeout
         $php_mailer->SMTPKeepAlive = false; // Don't keep connection alive
 
         if (config('protocol') === 'smtp') {
@@ -246,6 +246,13 @@ class Email_messages
             $php_mailer->Password = config('smtp_pass');
             $php_mailer->SMTPSecure = config('smtp_crypto');
             $php_mailer->Port = config('smtp_port');
+            $php_mailer->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
         } elseif (config('protocol') === 'sendmail') {
             $php_mailer->isSendmail();
             $php_mailer->Sendmail = 'c:\PHP\lib\sendmail\sendmail.exe -t'; // Adjust path

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 // English
-$lang['page_title'] = 'Book an Appointment | ';
+$lang['page_title'] = 'Book an Appointment';
 $lang['service_and_provider'] = 'Service & Provider';
 $lang['select_service'] = 'Select Service';
 $lang['select_provider'] = 'Select Provider';
@@ -29,7 +29,7 @@ $lang['language'] = 'Language';
 $lang['no_language'] = 'No language';
 $lang['fields_are_required'] = 'Fields with * are required.';
 $lang['appointment_confirmation'] = 'Appointment Confirmation';
-$lang['appointment_confirmation_title'] = 'Please review the information entered. If everything looks good, click Confirm to proceed with Appointment Confirmation.';
+$lang['appointment_confirmation_title'] = 'Please review the information below. If everything looks good, click Confirm to proceed with Appointment Confirmation.';
 $lang['confirm'] = 'Confirm';
 $lang['update'] = 'Update';
 $lang['cancel_appointment_hint'] = 'Press the "Cancel" button to remove the appointment from the company schedule.';
@@ -56,8 +56,13 @@ $lang['appointment_link_title'] = 'Appointment Link';
 $lang['success'] = 'Success';
 $lang['appointment_added_to_your_plan'] = 'A new appointment has been added to your plan.';
 $lang['appointment_link_description'] = 'You can make changes by clicking the appointment link below.';
-$lang['appointment_locked'] = 'Modification impossible!';
-$lang['appointment_locked_message'] = 'The appointment cannot be changed less than {$limit} hours in advance.';
+// Expired appointment messages
+$lang['appointment_expired_title'] = 'Appointment Has Expired';
+$lang['appointment_expired_header'] = 'This appointment has already expired.';
+$lang['appointment_expired_text'] = 'This appointment has already passed and can no longer be modified or cancelled. Please contact us if you need help booking a new appointment.';
+$lang['appointment_locked_title'] = 'Unable to Modify Appointment';
+$lang['appointment_locked_header'] = 'Sorry. Your Appointment cannot be modified due to the following reason:';
+$lang['appointment_locked_text'] = 'This appointment cannot be changed less than {$limit} in advance. Please contact us if you need assistance.';
 $lang['appointment_not_found'] = 'Appointment Not Found';
 $lang['appointment_does_not_exist_in_db'] = 'The appointment you requested does not exist in the system database anymore.';
 $lang['display_calendar'] = 'Display Calendar';

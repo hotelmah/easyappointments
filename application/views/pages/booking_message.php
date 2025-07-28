@@ -1,17 +1,17 @@
 <?php extend('layouts/message_layout'); ?>
 
 <?php section('content'); ?>
+<div class="container text-center">
+    <div>
+        <img id="message-icon" class="mt-0 mb-5" src="<?= vars('message_icon') ?>" alt="warning">
+    </div>
 
-<div>
-    <img id="message-icon" class="mt-0 mb-5" src="<?= vars('message_icon') ?>" alt="warning">
+    <div class="mb-5">
+        <h3 class="mb-5"><?= vars('message_header') ?></h3>
+
+        <p><?= vars('message_text') ?></p>
+    </div>
 </div>
-
-<div class="mb-5">
-    <h3 class="mb-5"><?= vars('message_title') ?></h3>
-
-    <p><?= vars('message_text') ?></p>
-</div>
-
 <?php end_section('content'); ?>
 
 <?php section('scripts'); ?>
