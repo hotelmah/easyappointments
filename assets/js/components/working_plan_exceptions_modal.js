@@ -388,7 +388,7 @@ App.Components.WorkingPlanExceptionsModal = (function () {
         App.Utils.UI.initializeTimePicker(
             $tr.find('.working-plan-exceptions-break-start input, .working-plan-exceptions-break-end input'),
         );
-        $(this).closest('tr').find('.working-plan-exceptions-break-start').focus();
+        $(this).closest('tr').find('.working-plan-exceptions-break-start').trigger('focus');
 
         // Show save - cancel buttons.
         $tr = $(this).closest('tr');

@@ -213,7 +213,7 @@ class Booking extends EA_Controller
                     'message_icon' => base_url('assets/img/error.png'),
                     'google_analytics_code' => $google_analytics_code,
                     'matomo_analytics_url' => $matomo_analytics_url,
-                    'matomo_analytics_site_id' => $matomo_analytics_site_id,
+                    'matomo_analytics_site_id' => $matomo_analytics_site_id
                 ]);
 
                 $this->load->view('pages/booking_message');
@@ -298,6 +298,17 @@ class Booking extends EA_Controller
             $customer = null;
         }
 
+        $bookModify = $manage_mode ? lang('modify') : lang('book');
+        $appointment_date_and_time_title = str_replace('{$book_modify}', $bookModify, lang('appointment_date_and_time_title'));
+
+        $completeModify = $manage_mode ? lang('modify') : lang('complete');
+        $customer_information_title = str_replace('{$complete_modify}', $completeModify, lang('customer_information_title'));
+
+        $confirmationModification = $manage_mode ? lang('update') : lang('confirm');
+        $appointment_confirmation_title = str_replace('{$confirm_update}', $confirmationModification, lang('appointment_confirmation_title'));
+        $confirmationModification = $manage_mode ? lang('modification') : lang('confirmation');
+        $appointment_confirmation_title = str_replace('{$confirmation_modification}', $confirmationModification, $appointment_confirmation_title);
+
         script_vars([
             'manage_mode' => $manage_mode,
             'available_services' => $available_services,
@@ -316,9 +327,12 @@ class Booking extends EA_Controller
         ]);
 
         html_vars([
-            'page_title' => lang('page_title'),
+            'page_title' => $manage_mode ? lang('page_title_modify') : lang('page_title'),
             'available_services' => $available_services,
             'available_providers' => $available_providers,
+            'appointment_date_and_time_title' => $appointment_date_and_time_title,
+            'customer_information_title' => $customer_information_title,
+            'appointment_confirmation_title' => $appointment_confirmation_title,
             'theme' => $theme,
             'company_name' => $company_name,
             'company_logo' => $company_logo,

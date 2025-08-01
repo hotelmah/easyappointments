@@ -27,7 +27,7 @@
 
 <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
     <div class="frame-container">
-        <h4 class="frame-title"><?= lang('customer_information_title') ?></h4>
+        <h4 class="frame-title"><?= vars('customer_information_title') ?></h4>
 
         <div class="row">
             <div class="col-12 col-md-6 field-col">

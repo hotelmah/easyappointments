@@ -484,7 +484,7 @@ App.Utils.WorkingPlan = (function () {
 
                 App.Utils.UI.initializeTimePicker($tr.find('.break-start input, .break-end input'));
 
-                $tr.find('.break-day select').focus();
+                $tr.find('.break-day select').trigger('focus');
 
                 // Show save - cancel buttons.
                 $tr.find('.edit-break, .delete-break').addClass('d-none');

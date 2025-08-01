@@ -56,16 +56,20 @@ class Booking_confirmation extends EA_Controller
 
         $appointment = $occurrences[0];
 
-        $add_to_google_url = $this->google_sync->get_add_to_google_url($appointment['id']);
+        $add_to_google_url = ''; //$this->google_sync->get_add_to_google_url($appointment['id']);
+
+        $company_color = setting('company_color');
 
         html_vars([
             'page_title' => lang('success'),
-            'company_color' => setting('company_color'),
+            'company_name' => setting('company_name'),
             'company_link' => setting('company_link'),
+            'company_email' => setting('company_email'),
+            'company_color' => $company_color === '#ffffff' ? '' : $company_color,
             'google_analytics_code' => setting('google_analytics_code'),
             'matomo_analytics_url' => setting('matomo_analytics_url'),
             'matomo_analytics_site_id' => setting('matomo_analytics_site_id'),
-            'add_to_google_url' => $add_to_google_url,
+            'add_to_google_url' => $add_to_google_url
         ]);
 
         $this->load->view('pages/booking_confirmation');

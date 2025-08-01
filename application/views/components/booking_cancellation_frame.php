@@ -14,8 +14,7 @@
             <small><?= lang('cancel_appointment_hint') ?></small>
         </div>
         <div class="col-md-2">
-            <form id="cancel-appointment-form" method="post"
-                  action="<?= site_url('booking_cancellation/of/' . $appointment_data['hash']) ?>">
+            <form id="cancel-appointment-form" method="post" action="<?= site_url('booking_cancellation/of/' . $appointment_data['hash']) ?>">
 
                 <input id="hidden-cancellation-reason" name="cancellation_reason" type="hidden">
 

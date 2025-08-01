@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // @link https://codeigniter.com/user_guide/libraries/email.html
 
 $config['useragent'] = 'Easy!Appointments';
-$config['protocol'] = 'sendmail'; // or 'mail' smtp
+$config['protocol'] = 'mail'; // or '' smtp sendmail
 $config['mailtype'] = 'html'; // or 'text'
 $config['charset'] = 'utf-8';
 $config['from_address'] = 'kevin@kevinp.net';

@@ -528,7 +528,7 @@ App.Pages.Booking = (function () {
                                 return;
                             }
                             $cancelAppointmentForm.find('#hidden-cancellation-reason').val($cancellationReason.val());
-                            $cancelAppointmentForm.submit();
+                            $cancelAppointmentForm.trigger('submit');
                         },
                     },
                 ];
@@ -540,7 +540,7 @@ App.Pages.Booking = (function () {
                 );
 
                 $cancellationReason = $('<textarea/>', {
-                    'class': 'form-control mt-2',
+                    'class': 'form-control mt-2 border border-primary',
                     'id': 'cancellation-reason',
                     'rows': '3',
                     'css': {
@@ -735,20 +735,41 @@ App.Pages.Booking = (function () {
 
         const timezoneOptionText = $selectTimezone.find('option:selected').text();
 
+        // Check for changes in appointment data (if in manage mode)
+        let serviceChanged = false;
+        let providerChanged = false;
+        let dateTimeChanged = false;
+        let timezoneChanged = false;
+
+        if (manageMode) {
+            const originalAppointment = vars('appointment_data');
+            const originalCustomer = vars('customer_data');
+
+            serviceChanged = hasFieldChanged(serviceId, originalAppointment.id_services);
+            providerChanged = hasFieldChanged(providerId, originalAppointment.id_users_provider);
+
+            // Check datetime change
+            const currentDateTime = moment(selectedDateObject).format('YYYY-MM-DD') + ' ' +
+                                moment($('.selected-hour').data('value'), 'HH:mm').format('HH:mm') + ':00';
+            dateTimeChanged = hasFieldChanged(currentDateTime, originalAppointment.start_datetime);
+
+            timezoneChanged = hasFieldChanged($selectTimezone.val(), originalCustomer.timezone);
+        }
+
         $('#appointment-details').html(`
             <div>
                 <div class="mb-2 fw-bold fs-4">
                     <u>${lang('service_and_provider')}</u>
                 </div>
-                <div class="mb-2 fw-bold">
+                <div class="mb-2 fw-bold ${getChangedFieldClass(serviceChanged)}">
                     <i class="fas fa-concierge-bell me-2"></i>
                     ${serviceOptionText}
                 </div>
-                <div class="mb-2 fw-bold text-muted">
+                <div class="mb-2 fw-bold ${getChangedFieldClass(providerChanged)}">
                     <i class="fas fa-user me-2"></i>
                     ${providerOptionText}
                 </div>
-                <div class="mb-2">
+                <div class="mb-2 ${getChangedFieldClass(dateTimeChanged)}">
                     <i class="fas fa-calendar-day me-2"></i>
                     ${formattedSelectedDate}
                 </div>
@@ -768,7 +789,7 @@ App.Pages.Booking = (function () {
                     <i class="fas fa-map-marker-alt me-2"></i>
                     ${service.location}
                 </div>
-                <div class="mb-2">
+                <div class="mb-2 ${getChangedFieldClass(timezoneChanged)}">
                     <i class="fas fa-globe me-2"></i>
                     ${timezoneOptionText}
                 </div>
@@ -801,20 +822,6 @@ App.Pages.Booking = (function () {
         const customField4Name = $customField4.length ? $customField4.attr('name') : '';
         const customField5Name = $customField5.length ? $customField5.attr('name') : '';
 
-        const addressParts = [];
-
-        if (city) {
-            addressParts.push(city);
-        }
-
-        if (state) {
-            addressParts.push(state);
-        }
-
-        if (zipCode) {
-            addressParts.push(zipCode);
-        }
-
         // Format the address properly when displaying
         const formattedAddress = (() => {
             const parts = [];
@@ -828,56 +835,102 @@ App.Pages.Booking = (function () {
             return cityState;
         })();
 
+        // Check for changes in customer data (if in manage mode)
+        let nameChanged = false;
+        let emailChanged = false;
+        let mobileChanged = false;
+        let workPhoneChanged = false;
+        let addressChanged = false;
+        let cityStateZipChanged = false;
+        let notesChanged = false;
+        let customField1Changed = false;
+        let customField2Changed = false;
+        let customField3Changed = false;
+        let customField4Changed = false;
+        let customField5Changed = false;
+
+        if (manageMode) {
+            const originalCustomer = vars('customer_data');
+            const originalAppointment = vars('appointment_data');
+
+            nameChanged = hasFieldChanged(firstName, originalCustomer.first_name) ||
+                        hasFieldChanged(lastName, originalCustomer.last_name);
+            emailChanged = hasFieldChanged(email, originalCustomer.email);
+            mobileChanged = hasFieldChanged(mobilePhoneNumber, originalCustomer.mobile_phone_number);
+            workPhoneChanged = hasFieldChanged(workPhoneNumber, originalCustomer.work_phone_number);
+            addressChanged = hasFieldChanged(address, originalCustomer.address);
+
+            // Check city/state/zip combination
+            const originalFormattedAddress = (() => {
+                const parts = [];
+                if (originalCustomer.city) parts.push(originalCustomer.city);
+                if (originalCustomer.state) parts.push(originalCustomer.state);
+                const cityState = parts.join(', ');
+                if (originalCustomer.zip_code) {
+                    return cityState ? `${cityState} ${originalCustomer.zip_code}` : originalCustomer.zip_code;
+                }
+                return cityState;
+            })();
+            cityStateZipChanged = hasFieldChanged(formattedAddress, originalFormattedAddress);
+
+            notesChanged = hasFieldChanged(notes, originalAppointment.notes);
+            customField1Changed = hasFieldChanged(customField1Value, originalCustomer.custom_field_1);
+            customField2Changed = hasFieldChanged(customField2Value, originalCustomer.custom_field_2);
+            customField3Changed = hasFieldChanged(customField3Value, originalCustomer.custom_field_3);
+            customField4Changed = hasFieldChanged(customField4Value, originalCustomer.custom_field_4);
+            customField5Changed = hasFieldChanged(customField5Value, originalCustomer.custom_field_5);
+        }
+
         $('#customer-details').html(`
             <div class="text-end">
                 <div class="mb-2 fw-bold fs-4">
                     <u>${lang('customer')} ${' '} ${lang('contact_info')}</u>
                 </div>
-                <div class="mb-2 fw-bold text-muted" ${!fullName ? 'hidden' : ''}>
+                <div class="mb-2 fw-bold ${getChangedFieldClass(nameChanged)} ${!nameChanged ? 'text-muted' : ''}" ${!fullName ? 'hidden' : ''}>
                     ${fullName}
                     <i class="fas fa-user me-2"></i>
                 </div>
-                <div class="mb-2" ${!email ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(emailChanged)}" ${!email ? 'hidden' : ''}>
                     ${email}
                     <i class="fas fa-envelope me-2"></i>
                 </div>
-                <div class="mb-2" ${!mobilePhoneNumber ? 'hidden' : ''}>
+                <div class="mb-2  ${getChangedFieldClass(mobileChanged)}" ${!mobilePhoneNumber ? 'hidden' : ''}>
                     ${mobilePhoneNumber}
                     <i class="fas fa-phone me-2"></i>
                 </div>
-                <div class="mb-2" ${!workPhoneNumber ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(workPhoneChanged)}" ${!workPhoneNumber ? 'hidden' : ''}>
                     ${workPhoneNumber}
                     <i class="fas fa-phone me-2"></i>
                 </div>
-                <div class="mb-2" ${!address ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(addressChanged)}" ${!address ? 'hidden' : ''}>
                     ${address}
                     <i class="fas fa-map-marker-alt me-2"></i>
                 </div>
-                <div class="mb-2" ${!formattedAddress ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(cityStateZipChanged)}" ${!formattedAddress ? 'hidden' : ''}>
                     ${formattedAddress}
                     <i class="fas fa-map-marker-alt me-2"></i>
                 </div>
-                <div class="mb-2" ${!notes.length ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(notesChanged)}" ${!notes.length ? 'hidden' : ''}>
                     Notes: ${notes}
                     <i class="fas fa-sticky-note me-2"></i>
                 </div>
-                <div class="mb-2" ${!customField1Value.length ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(customField1Changed)}" ${!customField1Value.length ? 'hidden' : ''}>
                     ${customField1Name}: ${customField1Value}
                     <i class="fas fa-asterisk me-2"></i>
                 </div>
-                <div class="mb-2" ${!customField2Value.length ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(customField2Changed)}" ${!customField2Value.length ? 'hidden' : ''}>
                     ${customField2Name}: ${customField2Value}
                     <i class="fas fa-asterisk me-2"></i>
                 </div>
-                <div class="mb-2" ${!customField3Value.length ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(customField3Changed)}" ${!customField3Value.length ? 'hidden' : ''}>
                     ${customField3Name}: ${customField3Value}
                     <i class="fas fa-asterisk me-2"></i>
                 </div>
-                <div class="mb-2" ${!customField4Value.length ? 'hidden' : ''}>
+                <div class="mb-2 ${getChangedFieldClass(customField4Changed)}" ${!customField4Value.length ? 'hidden' : ''}>
                     ${customField4Name}: ${customField4Value}
                     <i class="fas fa-asterisk me-2"></i>
                 </div>
-                <div class="mb-2" ${!customField5Value.length ? 'hidden' : ''}>
+                <div class="mb-2  ${getChangedFieldClass(customField5Changed)}" ${!customField5Value.length ? 'hidden' : ''}>
                     ${customField5Name}: ${customField5Value}
                     <i class="fas fa-asterisk me-2"></i>
                 </div>
@@ -1094,6 +1147,31 @@ App.Pages.Booking = (function () {
             // Add more as needed
         };
         return symbols[currency] || currency || '';
+    }
+
+    /**
+    * Check if a field value has changed from its original value
+    * @param {string|number|null|undefined} currentValue - Current form value
+    * @param {string|number|null|undefined} originalValue - Original value from server data
+    * @returns {boolean}
+    */
+    function hasFieldChanged(currentValue, originalValue) {
+        // Handle null/undefined values by converting to empty string
+        // Use nullish coalescing (??) instead of logical OR (||) to preserve falsy values like 0
+        const current = currentValue ?? '';
+        const original = originalValue ?? '';
+
+        // Convert both to strings for consistent comparison
+        return String(current) !== String(original);
+    }
+
+    /**
+    * Get CSS class for changed fields in manage mode
+    * @param {boolean} isChanged - Whether the field has changed
+    * @returns {string}
+    */
+    function getChangedFieldClass(isChanged) {
+        return manageMode && isChanged ? 'text-danger fw-bold' : '';
     }
 
     document.addEventListener('DOMContentLoaded', initialize);

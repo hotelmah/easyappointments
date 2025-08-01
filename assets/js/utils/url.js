@@ -49,7 +49,7 @@ window.App.Utils.Url = (function () {
     function queryParam(name) {
         const url = location.href;
 
-        const parsedUrl = url.substr(url.indexOf('?')).slice(1).split('&');
+        const parsedUrl = url.substring(url.indexOf('?')).slice(1).split('&');
 
         for (let index in parsedUrl) {
             const parsedValue = parsedUrl[index].split('=');

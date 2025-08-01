@@ -76,6 +76,7 @@ class Notifications
             $send_customer = !empty($customer['email']) && filter_var(setting('customer_notifications'), FILTER_VALIDATE_BOOLEAN);
 
             if ($send_customer === true) {
+                sleep(2); // Delay before sending customer notification
                 config(['language' => $customer['language']]);
                 $this->CI->lang->load('translations');
                 $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_booked');
@@ -96,6 +97,7 @@ class Notifications
                 );
             }
 
+
             // Notify provider.
             $send_provider = filter_var(
                 $this->CI->providers_model->get_setting($provider['id'], 'notifications'),
@@ -103,6 +105,7 @@ class Notifications
             );
 
             if ($send_provider === true) {
+                sleep(2); // Delay before sending provider notification
                 config(['language' => $provider['language']]);
                 $this->CI->lang->load('translations');
                 $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_your_plan');
@@ -131,9 +134,10 @@ class Notifications
                     continue;
                 }
 
+                sleep(2); // Delay before sending admin notification
                 config(['language' => $admin['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_your_plan');
+                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_system');
                 $message = $manage_mode ? '' : lang('appointment_link_description');
 
                 $this->CI->email_messages->send_appointment_saved(
@@ -163,9 +167,10 @@ class Notifications
                     continue;
                 }
 
+                sleep(2); // Delay before sending secretary notification
                 config(['language' => $secretary['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_your_plan');
+                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_system');
                 $message = $manage_mode ? '' : lang('appointment_link_description');
 
                 $this->CI->email_messages->send_appointment_saved(
@@ -224,6 +229,7 @@ class Notifications
             );
 
             if ($send_provider === true) {
+                sleep(2); // Delay before sending provider notification
                 config(['language' => $provider['language']]);
                 $this->CI->lang->load('translations');
 
@@ -244,6 +250,7 @@ class Notifications
                 !empty($customer['email']) && filter_var(setting('customer_notifications'), FILTER_VALIDATE_BOOLEAN);
 
             if ($send_customer === true) {
+                sleep(2); // Delay before sending customer notification
                 config(['language' => $customer['language']]);
                 $this->CI->lang->load('translations');
 
@@ -267,6 +274,7 @@ class Notifications
                     continue;
                 }
 
+                sleep(2); // Delay before sending admin notification
                 config(['language' => $admin['language']]);
                 $this->CI->lang->load('translations');
 
@@ -294,6 +302,7 @@ class Notifications
                     continue;
                 }
 
+                sleep(2); // Delay before sending secretary notification
                 config(['language' => $secretary['language']]);
                 $this->CI->lang->load('translations');
 

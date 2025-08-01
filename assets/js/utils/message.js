@@ -38,12 +38,25 @@ window.App.Utils.Message = (function () {
         if (!buttons) {
             buttons = [
                 {
-                    text: lang('close'),
+                    text: lang('try_again'),
                     className: 'btn btn-outline-primary',
+                    isDefault: true,
                     click: function (event, messageModal) {
                         messageModal.hide();
-                    },
+                        // Just close modal, keep current state
+                    }
                 },
+                {
+                    text: lang('start_over'),
+                    className: 'btn btn-secondary me-2',
+                    click: function (event, messageModal) {
+                        messageModal.hide();
+
+                        // Reset data and navigate to main screen
+                        resetApplicationData();
+                        navigateToMainScreen();
+                    }
+                }
             ];
         }
 
@@ -110,7 +123,7 @@ window.App.Utils.Message = (function () {
                 .find('.modal-footer button:last')
                 .removeClass('btn-outline-primary')
                 .addClass('btn-primary')
-                .focus();
+                .trigger('focus');
         });
 
         messageModal.show();
@@ -118,6 +131,57 @@ window.App.Utils.Message = (function () {
         $messageModal.css('z-index', '99999').next().css('z-index', '9999');
 
         return $messageModal;
+    }
+
+
+    /**
+    * Reset application data to initial state
+    */
+    function resetApplicationData() {
+        // Clear form data
+        $('form').each(function() {
+            this.reset();
+        });
+
+        // Clear any stored form data
+        if (typeof Storage !== "undefined") {
+            localStorage.removeItem('post_data');
+            sessionStorage.clear();
+        }
+
+        // Reset booking wizard if present
+        if (window.App.Pages.Booking) {
+            // Reset to step 1
+            $('.wizard-frame').hide();
+            $('#wizard-frame-1').show();
+
+            // Clear selections
+            $('#select-service').val('').trigger('change');
+            $('#select-provider').val('').trigger('change');
+            $('#select-date').val('');
+            $('#available-hours').empty();
+
+            // Clear customer form
+            $('#first-name, #last-name, #email, #phone-number, #address, #city, #zip-code, #customer-notes').val('');
+        }
+
+        // Clear any validation errors
+        $('.is-invalid').removeClass('is-invalid');
+        $('.alert').addClass('d-none');
+    }
+
+    /**
+    * Navigate to main screen
+    */
+    function navigateToMainScreen() {
+        // Option 1: Reload the page completely
+        window.location.reload();
+
+        // Option 2: Navigate to booking start page (uncomment if preferred)
+        // window.location.href = App.Utils.Url.siteUrl('booking');
+
+        // Option 3: Navigate to home page (uncomment if preferred)
+        // window.location.href = vars('base_url');
     }
 
     return {

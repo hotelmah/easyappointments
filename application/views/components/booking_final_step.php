@@ -10,10 +10,14 @@
 
 <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
     <div class="frame-container">
-        <h4 class="frame-title"><?= lang('appointment_confirmation_title') ?></h4>
+        <h4 class="frame-title"><?= vars('appointment_confirmation_title') ?></h4>
 
         <?php if (setting('require_captcha')) : ?>
             <h5 class="frame-title"><?= lang('captcha_title') ?></h5>
+        <?php endif; ?>
+
+        <?php if (vars('manage_mode')) : ?>
+            <h5 class="frame-title"><?= lang('modified_fields_red') ?></h5>
         <?php endif; ?>
 
         <div class="row frame-content m-auto pt-md-4 mb-4">

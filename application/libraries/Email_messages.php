@@ -114,11 +114,24 @@ class Email_messages
             true,
         );
 
-        $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
+        // $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
 
-        $php_mailer->addStringAttachment($ics_stream, 'invitation.ics', PHPMailer::ENCODING_BASE64, 'text/calendar');
+        // $php_mailer->addStringAttachment($ics_stream, 'invitation.ics', PHPMailer::ENCODING_BASE64, 'text/calendar');
 
-        $php_mailer->send();
+        // $php_mailer->send();
+
+        // unset($php_mailer);
+
+        // $this->CI->email->to($recipient_email);
+        // $this->CI->email->subject($subject);
+        // $this->CI->email->message($html);
+
+        // $this->CI->email->send();
+
+        $Headers = $this->getHeaders();
+
+        // Mail it
+        $MailResult = mail($recipient_email, $subject, $html, implode("\r\n", $Headers));
     }
 
     /**
@@ -281,5 +294,23 @@ class Email_messages
         }
 
         return $php_mailer;
+    }
+
+    private function getHeaders(): array
+    {
+        $TempHeaders = array();
+
+        // To send HTML mail, the Content-type header must be set
+        $TempHeaders[] = 'MIME-Version: 1.0';
+        $TempHeaders[] = 'Content-type: text/html; charset=utf-8';
+
+        // Additional Headers
+        $TempHeaders[] = 'From: KAPNET Administrator <webmaster@kevinp.net>';
+        $TempHeaders[] = 'Reply-To: kap@kevinp.net';
+        $TempHeaders[] = 'X-Hosting: KAP BLUEHOST/' . php_uname();
+        $TempHeaders[] = 'X-Scripting: KAP PHP VER/' . phpversion();
+        $TempHeaders[] = 'X-SAPI: KAP Server/' . php_sapi_name();
+
+        return $TempHeaders;
     }
 }

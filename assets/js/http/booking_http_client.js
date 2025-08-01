@@ -132,7 +132,7 @@ App.Http.Booking = (function () {
                                 $(availableHourEl).text() ===
                                 moment(vars('appointment_data').start_datetime).format(timeFormat),
                         )
-                        .addClass('selected-hour');
+                        .addClass('selected-hour').get(0)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     // Set the first available hour as the default selection.
                     $('.available-hour:eq(0)').addClass('selected-hour');
@@ -220,12 +220,14 @@ App.Http.Booking = (function () {
         .done((response) => {
             if (response.captcha_verification === false) {
                 $captchaTitle.find('button').trigger('click');
+                $captchaText.val(''); // Clear captcha input value
 
                 $captchaText.removeClass('border');
                 $captchaText.removeClass('border-primary');
                 $captchaText.addClass('is-invalid');
 
                 App.Utils.Validation.showBookingAlert(lang('captcha_is_wrong'));
+                $captchaText.trigger('focus'); // Set focus to captcha input
                 return false;
             }
 
@@ -233,7 +235,7 @@ App.Http.Booking = (function () {
         })
         .fail(() => {
             $captchaTitle.find('button').trigger('click');
-            $captchaText.val(''); // Clear captcha input value
+            $captchaText.trigger('focus'); // Set focus to captcha input
         })
         .always(() => {
             $layer.remove();
