@@ -19,9 +19,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
             #header {
-                height: 125px;
-                padding: 10px 15px;
+                max-width: 650px;
+                width: 90%;
+                height: 65px;
+                margin: 0 auto;
+                padding: 5px 10px;
                 position: relative;
+                text-align: center;
                 background-color: <?= $settings['company_color'] ?? '#429a82' ?>;
                 background: linear-gradient(135deg, <?= $settings['company_color'] ?? '#429a82' ?>, #357a66);
             }
@@ -32,7 +36,7 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                height: 3px;
+                height: 4px;
                 background: rgba(255,255,255,0.3);
             }
 
@@ -47,12 +51,13 @@
             }
 
             #logo {
-                margin-top: 15px;
                 display: inline-block;
+                line-height: 55px;
                 color: white;
-                font-size: 24px;
-                font-weight: 300;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                font-size: 22px;
+                font-weight: 700;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                text-shadow: 0 3px 6px rgba(0,0,0,0.4);
             }
 
             .label {
@@ -70,17 +75,19 @@
 
             #content {
                 min-height: 400px;
-                padding: 25px 20px;
+                padding: 10px 20px;
                 background-color: white;
             }
 
             h2 {
                 margin: 25px 0 15px 0;
                 padding-left: 12px;
+                padding-top: 6px;
+                padding-bottom: 6px;
                 color: #2c3e50;
                 font-size: 20px;
                 font-weight: 600;
-                background-color: lightgrey;
+                background-color: rgb(241, 235, 240);
                 border-left: 4px solid <?= $settings['company_color'] ?? '#429a82' ?>;
             }
 
@@ -117,14 +124,27 @@
             }
 
             #footer {
-                margin-top: 30px;
+                max-width: 650px;
+                width: 90%;
+                margin: 30px auto 0 auto;
                 padding: 20px;
+                position: relative;
                 text-align: center;
                 color: #6c757d;
-                font-size: 12px;
+                font-size: 14px;
                 background-color:rgb(193, 186, 186);
                 background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-                border-top: 1px solid #dee2e6;
+                border-top: 1px solid #a2a2a2;
+            }
+
+            #footer::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+                background: rgba(87, 145, 72, 0.3);
             }
 
             #footer a {
@@ -177,8 +197,8 @@
     <body>
         <div id="header">
             <strong id="logo">
-                <?= e($settings['company_name']) ?>
-                <span>&nbsp; &nbsp;<?= lang('appointment') ?>s</span>
+                <span><?= e($settings['company_name']) ?></span>
+                <span><?= lang('appointment') ?>s</span>
             </strong>
         </div>
 

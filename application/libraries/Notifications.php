@@ -323,7 +323,7 @@ class Notifications
                 'Notifications - Could not email cancellation details of appointment (' .
                     ($appointment['id'] ?? '-') .
                     ') : ' .
-                    $e->getMessage(),
+                    $e->getMessage()
             );
             log_message('error', $e->getTraceAsString());
         } finally {

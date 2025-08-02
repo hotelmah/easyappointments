@@ -132,7 +132,12 @@ App.Http.Booking = (function () {
                                 $(availableHourEl).text() ===
                                 moment(vars('appointment_data').start_datetime).format(timeFormat),
                         )
-                        .addClass('selected-hour').get(0)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        .addClass('selected-hour');
+                        // .get(0)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        setTimeout(() => {
+                            $('.available-hour.selected-hour').get(0)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 800);
                 } else {
                     // Set the first available hour as the default selection.
                     $('.available-hour:eq(0)').addClass('selected-hour');

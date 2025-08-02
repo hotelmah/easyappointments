@@ -136,7 +136,7 @@
                 font-size: 14px;
                 background-color: rgb(193, 186, 186);
                 background: linear-gradient(135deg, #dadbdc, #e7eaec);
-                border: 1px solid #a2a2a2;
+                border-top: 1px solid #a2a2a2;
             }
 
             #footer::before {

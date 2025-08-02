@@ -24,9 +24,9 @@ if (!function_exists('get_date_format')) {
         $date_format = setting('date_format');
 
         return match ($date_format) {
-            'DMY' => 'd/m/Y',
-            'MDY' => 'm/d/Y',
-            'YMD' => 'Y/m/d',
+            'DMY' => 'l, d/m/Y',
+            'MDY' => 'l, m/d/Y',
+            'YMD' => 'l, Y/m/d',
             default => throw new RuntimeException('Invalid date format value: ' . $date_format),
         };
     }

@@ -13,9 +13,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @since       v1.4.0
  * ---------------------------------------------------------------------------- */
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
 
 /**
  * Email messages library.
@@ -187,14 +187,19 @@ class Email_messages
                 'timezone' => $timezone,
                 'reason' => $reason,
             ],
-            true,
+            true
         );
 
         $subject = lang('appointment_cancelled_title');
 
-        $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
+        // $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
 
-        $php_mailer->send();
+        // $php_mailer->send();
+
+        $Headers = $this->getHeaders();
+
+        // Mail it
+        $MailResult = mail($recipient_email, $subject, $html, implode("\r\n", $Headers));
     }
 
     /**
@@ -240,12 +245,12 @@ class Email_messages
         ?string $recipient_email = null,
         ?string $subject = null,
         ?string $html = null,
-    ): PHPMailer {
-        $php_mailer = new PHPMailer(true);
+    ): object {
+        $php_mailer = new object(); // PHPMailer(true);
 
         $php_mailer->isHTML();
         $php_mailer->CharSet = 'UTF-8';
-        $php_mailer->SMTPDebug = config('smtp_debug') ? SMTP::DEBUG_SERVER : null;
+        // $php_mailer->SMTPDebug = config('smtp_debug') ? SMTP::DEBUG_SERVER : null;
 
         // Add timeout settings
         $php_mailer->Timeout = 30;       // Increase timeout

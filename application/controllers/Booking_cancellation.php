@@ -59,6 +59,8 @@ class Booking_cancellation extends EA_Controller
 
             $cancellation_reason = request('cancellation_reason');
 
+            $company_color = setting('company_color');
+
             if ($this->input->method() !== 'post' || empty($cancellation_reason)) {
                 abort(403, 'Forbidden');
             }
@@ -68,7 +70,9 @@ class Booking_cancellation extends EA_Controller
             if (empty($occurrences)) {
                 html_vars([
                     'page_title' => lang('appointment_not_found'),
-                    'company_color' => setting('company_color'),
+                    'company_name' => setting('company_name'),
+                    'company_email' => setting('company_email'),
+                    'company_color' => $company_color === '#ffffff' ? '' : $company_color,
                     'message_title' => lang('appointment_not_found'),
                     'message_text' => lang('appointment_does_not_exist_in_db'),
                     'message_icon' => base_url('assets/img/error.png'),
@@ -90,7 +94,6 @@ class Booking_cancellation extends EA_Controller
 
             $service = $this->services_model->find($appointment['id_services']);
 
-            $company_color = setting('company_color');
 
             $settings = [
                 'company_name' => setting('company_name'),
@@ -121,7 +124,9 @@ class Booking_cancellation extends EA_Controller
 
         html_vars([
             'page_title' => lang('appointment_cancelled_title'),
-            'company_color' => setting('company_color'),
+            'company_name' => setting('company_name'),
+            'company_email' => setting('company_email'),
+            'company_color' => $company_color === '#ffffff' ? '' : $company_color,
             'google_analytics_code' => setting('google_analytics_code'),
             'matomo_analytics_url' => setting('matomo_analytics_url'),
             'matomo_analytics_site_id' => setting('matomo_analytics_site_id'),

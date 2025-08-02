@@ -513,40 +513,63 @@ App.Pages.Booking = (function () {
 
                 let $cancellationReason;
 
-                const buttons = [
-                    {
-                        text: lang('close'),
-                        click: (event, messageModal) => {
-                            messageModal.hide();
-                        },
-                    },
-                    {
-                        text: lang('confirm'),
-                        click: () => {
-                            if ($cancellationReason.val() === '') {
-                                $cancellationReason.css('border', '2px solid #DC3545');
-                                return;
-                            }
-                            $cancelAppointmentForm.find('#hidden-cancellation-reason').val($cancellationReason.val());
-                            $cancelAppointmentForm.trigger('submit');
-                        },
-                    },
-                ];
-
-                App.Utils.Message.show(
+                const messageModal = App.Utils.Message.show(
                     lang('cancel_appointment_title'),
                     lang('write_appointment_removal_reason'),
-                    buttons,
+                    [
+                        {
+                            text: lang('close'),
+                            click: (event, messageModal) => {
+                                messageModal.hide();
+                            },
+                        },
+                        {
+                            text: lang('confirm'),
+                            click: () => {
+                                // Check if element exists first
+                                if (!$cancellationReason || !$cancellationReason.length) {
+                                    console.error('Cancellation reason textarea not found');
+                                    return;
+                                }
+
+                                const reasonValue = $cancellationReason.val();
+                                console.log('Cancellation reason value:', `"${reasonValue}"`); // Debug log
+
+                                if (!reasonValue || !reasonValue.trim()) {
+                                    console.log('Setting red border - validation failed');
+                                    $cancellationReason.css({
+                                        'border': '2px solid #DC3545 !important',
+                                        'box-shadow': '0 0 0 0.2rem rgba(220, 53, 69, 0.25)'
+                                    });
+
+                                    $cancellationReason.removeClass('border-primary').addClass('border-danger is-invalid');
+                                    $cancellationReason.trigger('focus'); // Focus the field
+
+                                    return;
+                                }
+
+                                // Validation passed
+                                $cancelAppointmentForm.find('#hidden-cancellation-reason').val(reasonValue);
+                                $cancelAppointmentForm.trigger('submit');
+                            },
+                        },
+                    ]
                 );
 
-                $cancellationReason = $('<textarea/>', {
-                    'class': 'form-control mt-2 border border-primary',
-                    'id': 'cancellation-reason',
-                    'rows': '3',
-                    'css': {
-                        'width': '100%',
-                    },
-                }).appendTo('#message-modal .modal-body');
+
+                // Create textarea AFTER modal is shown
+                setTimeout(() => {
+                    $cancellationReason = $('<textarea/>', {
+                        'class': 'form-control mt-2 border border-primary',
+                        'id': 'cancellation-reason',
+                        'rows': '3',
+                        'css': { 'width': '100%' },
+                        'placeholder': 'Please provide a reason for cancellation...' // Add placeholder
+                    }).appendTo('#message-modal .modal-body');
+
+                    $cancellationReason.trigger('focus'); // Focus the textarea
+                }, 100);
+
 
                 return false;
             });
