@@ -421,25 +421,8 @@
 
                 <h2><?= lang('appointment_link_title') ?></h2>
 
-                <div style="text-align: center; margin: 25px 0;">
-                    <a href="<?= e($appointment_link) ?>"
-                    style="display: inline-block;
-                            background-color: <?= $settings['company_color'] ?? '#429a82' ?>;
-                            color: white;
-                            padding: 12px 25px;
-                            text-decoration: none;
-                            border-radius: 5px;
-                            font-weight: 600;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                            transition: all 0.3s ease;">
-                        📅 Manage Your Appointment
-                    </a>
-                </div>
-
                 <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px;">
-                    <a href="<?= e($appointment_link) ?>" style="color: #666; text-decoration: underline;">
-                        <?= e($appointment_link) ?>
-                    </a>
+                    <?= lang('no_link') ?>
                 </p>
             </div>
         </div>

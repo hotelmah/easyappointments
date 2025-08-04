@@ -249,7 +249,12 @@ window.App.Utils.UI = (function () {
             throw new Error('Empty $target argument provided.');
         }
 
-        return $target[0]._flatpickr.setDate(value);
+        if (!$target[0]._flatpickr) {
+            console.error('Flatpickr instance not found on target element');
+            return false;
+        }
+
+        $target[0]._flatpickr.setDate(value);
     }
 
     return {

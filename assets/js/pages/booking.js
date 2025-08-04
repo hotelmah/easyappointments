@@ -51,6 +51,8 @@ App.Pages.Booking = (function () {
      */
     let manageMode = vars('manage_mode') || false;
 
+    let manageModeFieldsChanged = [];
+
     /**
      * Detect the month step.
      *
@@ -188,12 +190,19 @@ App.Pages.Booking = (function () {
         if (manageMode) {
             applyAppointmentData(vars('appointment_data'), vars('provider_data'), vars('customer_data'));
 
-            $('#wizard-frame-1')
-                .css({
-                    'visibility': 'visible',
-                    'display': 'none',
-                })
-                .fadeIn();
+            // Check if we should skip the first step even in manage mode
+            const skippedFirstStep = handleAutoSkipFirstStep();
+
+
+            if (!skippedFirstStep) {
+                // Only show wizard-frame-1 if we didn't skip it
+                $('#wizard-frame-1')
+                    .css({
+                        'visibility': 'visible',
+                        'display': 'none',
+                    })
+                    .fadeIn();
+            }
         } else {
             // Check if a specific service was selected (via URL parameter).
             const selectedServiceId = App.Utils.Url.queryParam('service');
@@ -222,37 +231,11 @@ App.Pages.Booking = (function () {
                 $selectProvider.val(selectedProviderId).trigger('change');
             }
 
-            if (
-                (selectedServiceId && selectedProviderId) ||
-                (vars('available_services').length === 1 && vars('available_providers').length === 1)
-            ) {
-                if (!selectedServiceId) {
-                    $selectService.val(vars('available_services')[0].id).trigger('change');
-                }
+            // Try to skip first step
+            const skippedFirstStep = handleAutoSkipFirstStep();
 
-                if (!selectedProviderId) {
-                    $selectProvider.val(vars('available_providers')[0].id).trigger('change');
-                }
-
-                $('.active-step').removeClass('active-step');
-                $('#step-2').addClass('active-step');
-                $('#wizard-frame-1').hide();
-                $('#wizard-frame-2').fadeIn();
-
-                $selectService.closest('.wizard-frame').find('.button-next').trigger('click');
-
-                $(document).find('.book-step:first').hide();
-
-                $(document).find('.button-back:first').css('visibility', 'hidden');
-
-                $(document)
-                    .find('.book-step:not(:first)')
-                    .each((index, bookStepEl) =>
-                        $(bookStepEl)
-                            .find('strong')
-                            .text(index + 1),
-                    );
-            } else {
+            if (!skippedFirstStep) {
+                // Show first step if we didn't skip it
                 $('#wizard-frame-1')
                     .css({
                         'visibility': 'visible',
@@ -260,6 +243,7 @@ App.Pages.Booking = (function () {
                     })
                     .fadeIn();
             }
+
 
             prefillFromQueryParam('#first-name', 'first_name');
             prefillFromQueryParam('#last-name', 'last_name');
@@ -272,6 +256,59 @@ App.Pages.Booking = (function () {
             prefillFromQueryParam('#zip-code', 'zip');
         }
     }
+
+
+    /**
+    * Check if first step should be skipped and handle the auto-advancement
+    * @private
+    */
+    function handleAutoSkipFirstStep() {
+        const selectedServiceId = App.Utils.Url.queryParam('service');
+        const selectedProviderId = App.Utils.Url.queryParam('provider');
+
+        const shouldSkipFirstStep = (
+            (selectedServiceId && selectedProviderId) ||
+            (vars('available_services').length === 1 && vars('available_providers').length === 1)
+        );
+
+        if (shouldSkipFirstStep) {
+            // Auto-select single options if not already selected
+            if (!selectedServiceId && vars('available_services').length === 1) {
+                $selectService.val(vars('available_services')[0].id).trigger('change');
+            }
+
+            if (!selectedProviderId && vars('available_providers').length === 1) {
+                $selectProvider.val(vars('available_providers')[0].id).trigger('change');
+            }
+
+            // Skip to step 2
+            $('.active-step').removeClass('active-step');
+            $('#step-2').addClass('active-step');
+            $('#wizard-frame-1').hide();
+            $('#wizard-frame-2').fadeIn();
+
+            // Trigger next button click
+            $selectService.closest('.wizard-frame').find('.button-next').trigger('click');
+
+            // Hide first step indicator and back button
+            $(document).find('.book-step:first').hide();
+            $(document).find('.button-back:first').css('visibility', 'hidden');
+
+            // Renumber remaining steps
+            $(document)
+                .find('.book-step:not(:first)')
+                .each((index, bookStepEl) =>
+                    $(bookStepEl)
+                        .find('strong')
+                        .text(index + 1)
+                );
+
+            return true; // Indicate that first step was skipped
+        }
+
+        return false; // First step was not skipped
+    }
+
 
     function prefillFromQueryParam(field, param) {
         const $target = $(field);
@@ -768,15 +805,15 @@ App.Pages.Booking = (function () {
             const originalAppointment = vars('appointment_data');
             const originalCustomer = vars('customer_data');
 
-            serviceChanged = hasFieldChanged(serviceId, originalAppointment.id_services);
-            providerChanged = hasFieldChanged(providerId, originalAppointment.id_users_provider);
+            serviceChanged = hasFieldChanged(serviceId, originalAppointment.id_services, 'Service');
+            providerChanged = hasFieldChanged(providerId, originalAppointment.id_users_provider, 'Provider');
 
             // Check datetime change
             const currentDateTime = moment(selectedDateObject).format('YYYY-MM-DD') + ' ' +
                                 moment($('.selected-hour').data('value'), 'HH:mm').format('HH:mm') + ':00';
-            dateTimeChanged = hasFieldChanged(currentDateTime, originalAppointment.start_datetime);
+            dateTimeChanged = hasFieldChanged(currentDateTime, originalAppointment.start_datetime, 'StartDateTime');
 
-            timezoneChanged = hasFieldChanged($selectTimezone.val(), originalCustomer.timezone);
+            timezoneChanged = hasFieldChanged($selectTimezone.val(), originalCustomer.timezone, 'Timezone');
         }
 
         $('#appointment-details').html(`
@@ -876,12 +913,12 @@ App.Pages.Booking = (function () {
             const originalCustomer = vars('customer_data');
             const originalAppointment = vars('appointment_data');
 
-            nameChanged = hasFieldChanged(firstName, originalCustomer.first_name) ||
-                        hasFieldChanged(lastName, originalCustomer.last_name);
-            emailChanged = hasFieldChanged(email, originalCustomer.email);
-            mobileChanged = hasFieldChanged(mobilePhoneNumber, originalCustomer.mobile_phone_number);
-            workPhoneChanged = hasFieldChanged(workPhoneNumber, originalCustomer.work_phone_number);
-            addressChanged = hasFieldChanged(address, originalCustomer.address);
+            nameChanged = hasFieldChanged(firstName, originalCustomer.first_name, 'FirstName') ||
+                        hasFieldChanged(lastName, originalCustomer.last_name, 'LastName');
+            emailChanged = hasFieldChanged(email, originalCustomer.email, 'Email');
+            mobileChanged = hasFieldChanged(mobilePhoneNumber, originalCustomer.mobile_phone_number, 'MobilePhoneNumber');
+            workPhoneChanged = hasFieldChanged(workPhoneNumber, originalCustomer.work_phone_number, 'WorkPhoneNumber');
+            addressChanged = hasFieldChanged(address, originalCustomer.address, 'Address');
 
             // Check city/state/zip combination
             const originalFormattedAddress = (() => {
@@ -894,14 +931,14 @@ App.Pages.Booking = (function () {
                 }
                 return cityState;
             })();
-            cityStateZipChanged = hasFieldChanged(formattedAddress, originalFormattedAddress);
+            cityStateZipChanged = hasFieldChanged(formattedAddress, originalFormattedAddress, 'CityStateZip');
 
-            notesChanged = hasFieldChanged(notes, originalAppointment.notes);
-            customField1Changed = hasFieldChanged(customField1Value, originalCustomer.custom_field_1);
-            customField2Changed = hasFieldChanged(customField2Value, originalCustomer.custom_field_2);
-            customField3Changed = hasFieldChanged(customField3Value, originalCustomer.custom_field_3);
-            customField4Changed = hasFieldChanged(customField4Value, originalCustomer.custom_field_4);
-            customField5Changed = hasFieldChanged(customField5Value, originalCustomer.custom_field_5);
+            notesChanged = hasFieldChanged(notes, originalAppointment.notes, 'Notes');
+            customField1Changed = hasFieldChanged(customField1Value, originalCustomer.custom_field_1, 'CustomField1');
+            customField2Changed = hasFieldChanged(customField2Value, originalCustomer.custom_field_2, 'CustomField2');
+            customField3Changed = hasFieldChanged(customField3Value, originalCustomer.custom_field_3, 'CustomField3');
+            customField4Changed = hasFieldChanged(customField4Value, originalCustomer.custom_field_4, 'CustomField4');
+            customField5Changed = hasFieldChanged(customField5Value, originalCustomer.custom_field_5, 'CustomField5');
         }
 
         $('#customer-details').html(`
@@ -1000,6 +1037,7 @@ App.Pages.Booking = (function () {
         if (manageMode) {
             data.appointment.id = vars('appointment_data').id;
             data.customer.id = vars('customer_data').id;
+            data.appointment.fields_changed = manageModeFieldsChanged;
         }
 
         $('input[name="post_data"]').val(JSON.stringify(data));
@@ -1056,8 +1094,23 @@ App.Pages.Booking = (function () {
 
             // Set Appointment Date
             const startMoment = moment(appointment.start_datetime);
-            App.Utils.UI.setDateTimePickerValue($selectDate, startMoment.toDate());
-            App.Http.Booking.getAvailableHours(startMoment.format('YYYY-MM-DD'));
+
+            // Debug: Check if flatpickr instance exists
+            console.log('$selectDate element:', $selectDate[0]);
+            console.log('Flatpickr instance:', $selectDate[0]._flatpickr);
+            console.log('Start moment:', startMoment.format('YYYY-MM-DD HH:mm:ss'));
+            console.log('Start moment as Date:', startMoment.toDate());
+
+            // Try setting the date
+            setTimeout(() => {
+                if ($selectDate[0]._flatpickr) {
+                    App.Utils.UI.setDateTimePickerValue($selectDate, startMoment.toDate());
+                    App.Http.Booking.getAvailableHours(startMoment.format('YYYY-MM-DD'));
+                    console.log('Date set successfully');
+                } else {
+                    console.error('Flatpickr instance not found!');
+                }
+            }, 500);
 
             // Apply Customer's Data
             $lastName.val(customer.last_name);
@@ -1176,16 +1229,22 @@ App.Pages.Booking = (function () {
     * Check if a field value has changed from its original value
     * @param {string|number|null|undefined} currentValue - Current form value
     * @param {string|number|null|undefined} originalValue - Original value from server data
+    * @param {string} fieldName - Name of the field being checked
     * @returns {boolean}
     */
-    function hasFieldChanged(currentValue, originalValue) {
+    function hasFieldChanged(currentValue, originalValue, fieldName) {
         // Handle null/undefined values by converting to empty string
         // Use nullish coalescing (??) instead of logical OR (||) to preserve falsy values like 0
         const current = currentValue ?? '';
         const original = originalValue ?? '';
 
         // Convert both to strings for consistent comparison
-        return String(current) !== String(original);
+        if (String(current) !== String(original)) {
+            manageModeFieldsChanged.push({ field: fieldName, current: current, original: original });
+            console.log(`Field changed: ${fieldName} | Current: "${current}" | Original: "${original}"`);
+            return true;
+        }
+        return false;
     }
 
     /**

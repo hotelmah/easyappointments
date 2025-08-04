@@ -62,6 +62,7 @@ class Notifications
         array $customer,
         array $settings,
         bool $manage_mode = false,
+        array $fields_changed = []
     ): void {
         try {
             $current_language = config('language');
@@ -72,6 +73,32 @@ class Notifications
 
             $ics_stream = $this->CI->ics_file->get_stream($appointment, $service, $provider, $customer);
 
+            // Flatten $fields_changed to ensure it's an array of strings
+            // $fields_changed_flat = array_map(function($item) {
+            //     return is_array($item) ? json_encode($item) : $item;
+            // }, $fields_changed);
+            // $fields_changed = implode(', ', $fields_changed_flat);
+
+            $fieldNames_changed = array();
+
+            if ($manage_mode) {
+                    $tableBuilder = '<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">';
+                    $tableBuilder .= '<thead><tr><th>Field</th><th>Current Value</th><th>Original Value</th></tr></thead>';
+                    $tableBuilder .= '<tbody>';
+                foreach ($fields_changed as $field_changed) {
+                    if (is_array($field_changed)) {
+                        $fieldNames_changed[] = $field_changed['field'];
+                        $tableBuilder .= '<tr>';
+                        $tableBuilder .= '<td>' . htmlspecialchars((preg_match('/^CustomField[1-5]$/', $field_changed['field'])) ? setting('label_custom_field_' . substr($field_changed['field'], -1)) : $field_changed['field']) . '</td>';
+                        $tableBuilder .= '<td>' . htmlspecialchars($field_changed['current']) . '</td>';
+                        $tableBuilder .= '<td>' . htmlspecialchars($field_changed['original']) . '</td>';
+                        $tableBuilder .= '</tr>';
+                    }
+                }
+                $tableBuilder .= '</tbody>';
+                $tableBuilder .= '</table>';
+            }
+
             // Notify customer.
             $send_customer = !empty($customer['email']) && filter_var(setting('customer_notifications'), FILTER_VALIDATE_BOOLEAN);
 
@@ -79,8 +106,8 @@ class Notifications
                 sleep(2); // Delay before sending customer notification
                 config(['language' => $customer['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_booked');
-                $message = $manage_mode ? '' : lang('thank_you_for_appointment');
+                $subject = $manage_mode ? lang('customer_appointment_details_changed') : lang('appointment_booked');
+                $message = $manage_mode ? lang('customer_fields_changed') : lang('thank_you_for_appointment');
 
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,
@@ -94,6 +121,7 @@ class Notifications
                     $customer['email'],
                     $ics_stream,
                     $customer['timezone'],
+                    $fieldNames_changed
                 );
             }
 
@@ -108,8 +136,8 @@ class Notifications
                 sleep(2); // Delay before sending provider notification
                 config(['language' => $provider['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_your_plan');
-                $message = $manage_mode ? '' : lang('appointment_link_description');
+                $subject = $manage_mode ? lang('provider_appointment_details_changed') : lang('appointment_added_to_your_plan');
+                $message = $manage_mode ? lang('fields_changed') .  ' ' . $tableBuilder : lang('appointment_link_description');
 
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,
@@ -123,6 +151,7 @@ class Notifications
                     $provider['email'],
                     $ics_stream,
                     $provider['timezone'],
+                    $fieldNames_changed
                 );
             }
 
@@ -137,8 +166,8 @@ class Notifications
                 sleep(2); // Delay before sending admin notification
                 config(['language' => $admin['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_system');
-                $message = $manage_mode ? '' : lang('appointment_link_description');
+                $subject = $manage_mode ? lang('admins_appointment_details_changed') : lang('appointment_added_to_system');
+                $message = $manage_mode ? lang('fields_changed') .  ' ' . $tableBuilder : lang('appointment_link_description');
 
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,
@@ -152,6 +181,7 @@ class Notifications
                     $admin['email'],
                     $ics_stream,
                     $admin['timezone'],
+                    $fieldNames_changed
                 );
             }
 
@@ -170,8 +200,8 @@ class Notifications
                 sleep(2); // Delay before sending secretary notification
                 config(['language' => $secretary['language']]);
                 $this->CI->lang->load('translations');
-                $subject = $manage_mode ? lang('appointment_details_changed') : lang('appointment_added_to_system');
-                $message = $manage_mode ? '' : lang('appointment_link_description');
+                $subject = $manage_mode ? lang('admins_appointment_details_changed') : lang('appointment_added_to_system');
+                $message = $manage_mode ? lang('fields_changed') . ' ' . $tableBuilder : lang('appointment_link_description');
 
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,
@@ -185,6 +215,7 @@ class Notifications
                     $secretary['email'],
                     $ics_stream,
                     $secretary['timezone'],
+                    $fieldNames_changed
                 );
             }
         } catch (Throwable $e) {
@@ -233,7 +264,10 @@ class Notifications
                 config(['language' => $provider['language']]);
                 $this->CI->lang->load('translations');
 
+                $subject = lang('provider_appointment_cancelled_title');
+
                 $this->CI->email_messages->send_appointment_deleted(
+                    $subject,
                     $appointment,
                     $provider,
                     $service,
@@ -254,7 +288,10 @@ class Notifications
                 config(['language' => $customer['language']]);
                 $this->CI->lang->load('translations');
 
+                $subject = lang('customer_appointment_cancelled_title');
+
                 $this->CI->email_messages->send_appointment_deleted(
+                    $subject,
                     $appointment,
                     $provider,
                     $service,
@@ -278,7 +315,10 @@ class Notifications
                 config(['language' => $admin['language']]);
                 $this->CI->lang->load('translations');
 
+                $subject = lang('admins_appointment_cancelled_title');
+
                 $this->CI->email_messages->send_appointment_deleted(
+                    $subject,
                     $appointment,
                     $provider,
                     $service,
@@ -306,7 +346,10 @@ class Notifications
                 config(['language' => $secretary['language']]);
                 $this->CI->lang->load('translations');
 
+                $subject = lang('admins_appointment_cancelled_title');
+
                 $this->CI->email_messages->send_appointment_deleted(
+                    $subject,
                     $appointment,
                     $provider,
                     $service,

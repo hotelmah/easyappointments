@@ -235,39 +235,38 @@
                     <?php endif; ?>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('Service', $fieldNames_changed) ?>">
                             <?= lang('service') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('Service', $fieldNames_changed) ?>">
                             <?= e($service['name']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('Provider', $fieldNames_changed) ?>">
                             <?= lang('provider') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('Provider', $fieldNames_changed) ?>">
                             <?= e($provider['first_name'] . ' ' . $provider['last_name']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('StartDateTime', $fieldNames_changed) ?>">
                             <?= lang('start') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('StartDateTime', $fieldNames_changed) ?>">
                             <?= format_date_time($appointment['start_datetime']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('StartDateTime', $fieldNames_changed) ?>">
                             <?= lang('end') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('StartDateTime', $fieldNames_changed) ?>">
                             <?= format_date_time($appointment['end_datetime']) ?>
-
                         </td>
                     </tr>
 
@@ -332,20 +331,20 @@
 
                     <?php if (!empty($appointment['notes'])) : ?>
                         <tr>
-                            <td class="label">
+                            <td class="label" style="<?= getHighlightStyle('Notes', $fieldNames_changed) ?>">
                                 <?= lang('notes') ?>
                             </td>
-                            <td>
+                            <td style="<?= getHighlightStyle('Notes', $fieldNames_changed) ?>">
                                 <?= e($appointment['notes']) ?>
                             </td>
                         </tr>
                     <?php endif; ?>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('Timezone', $fieldNames_changed) ?>">
                             <?= lang('timezone') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('Timezone', $fieldNames_changed) ?>">
                             <?= format_timezone($timezone) ?>
                         </td>
                     </tr>
@@ -355,46 +354,46 @@
 
                 <table id="customer-details">
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('FirstName', $fieldNames_changed) || shouldHighlight('LastName', $fieldNames_changed) ? 'color: #dc3545; font-weight: bold;' : '' ?>">
                             <?= lang('name') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('FirstName', $fieldNames_changed) || shouldHighlight('LastName', $fieldNames_changed) ? 'color: #dc3545; font-weight: bold;' : '' ?>">
                             <?= e($customer['first_name'] . ' ' . $customer['last_name']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('Email', $fieldNames_changed) ?>">
                             <?= lang('email') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('Email', $fieldNames_changed) ?>">
                             <?= e($customer['email']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('MobilePhoneNumber', $fieldNames_changed) ?>">
                             <?= lang('mobile_phone_number') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('MobilePhoneNumber', $fieldNames_changed) ?>">
                             <?= e($customer['mobile_phone_number']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('WorkPhoneNumber', $fieldNames_changed) ?>">
                             <?= lang('work_phone_number') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('WorkPhoneNumber', $fieldNames_changed) ?>">
                             <?= e($customer['work_phone_number']) ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">
+                        <td class="label" style="<?= getHighlightStyle('Address', $fieldNames_changed) || shouldHighlight('CityStateZip', $fieldNames_changed) ? 'color: #dc3545; font-weight: bold;' : '' ?>">
                             <?= lang('address') ?>
                         </td>
-                        <td>
+                        <td style="<?= getHighlightStyle('Address', $fieldNames_changed) || shouldHighlight('CityStateZip', $fieldNames_changed) ? 'color: #dc3545; font-weight: bold;' : '' ?>">
                             <?= e($customer['address']) . ' ' . e($customer['city']) . ', ' . e($customer['state']) . ' ' . e($customer['zip_code']) ?>
                         </td>
                     </tr>
@@ -402,10 +401,10 @@
                     <?php for ($i = 1; $i <= 5; $i++) : ?>
                         <?php if (setting('display_custom_field_' . $i)) : ?>
                             <tr>
-                                <td class="label">
+                                <td class="label" style="<?= getHighlightStyle('CustomField' . $i, $fieldNames_changed) ?>">
                                     <?= setting('label_custom_field_' . $i) ?: lang('custom_field') . ' #' . $i ?>
                                 </td>
-                                <td>
+                                <td style="<?= getHighlightStyle('CustomField' . $i, $fieldNames_changed) ?>">
                                     <?= $customer['custom_field_' . $i] ?>
                                 </td>
                             </tr>

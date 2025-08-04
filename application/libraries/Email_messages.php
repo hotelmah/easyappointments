@@ -81,6 +81,7 @@ class Email_messages
         string $recipient_email,
         string $ics_stream,
         ?string $timezone = null,
+        array $fieldNames_changed = []
     ): void {
         $appointment_timezone = new DateTimeZone($provider['timezone']);
 
@@ -110,6 +111,7 @@ class Email_messages
                 'settings' => $settings,
                 'timezone' => $timezone,
                 'appointment_link' => $appointment_link,
+                'fieldNames_changed' => $fieldNames_changed
             ],
             true,
         );
@@ -151,6 +153,7 @@ class Email_messages
      * @throws Exception
      */
     public function send_appointment_deleted(
+        string $subject,
         array $appointment,
         array $provider,
         array $service,
@@ -189,8 +192,6 @@ class Email_messages
             ],
             true
         );
-
-        $subject = lang('appointment_cancelled_title');
 
         // $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
 

@@ -402,6 +402,12 @@ class Booking extends EA_Controller
             $customer = $post_data['customer'];
             $manage_mode = filter_var($post_data['manage_mode'], FILTER_VALIDATE_BOOLEAN);
 
+            if ($manage_mode) {
+                $fields_changed = $appointment['fields_changed'];
+            } else {
+                $fields_changed = [];
+            }
+
             if (!array_key_exists('address', $customer)) {
                 $customer['address'] = '';
             }
@@ -554,6 +560,7 @@ class Booking extends EA_Controller
                 $customer,
                 $settings,
                 $manage_mode,
+                $fields_changed
             );
 
             $this->webhooks_client->trigger(WEBHOOK_APPOINTMENT_SAVE, $appointment);

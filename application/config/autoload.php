@@ -69,6 +69,7 @@ $autoload['helper'] = [
     'config',
     'date',
     'debug',
+    'email',
     'env',
     'file',
     'html',
