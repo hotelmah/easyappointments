@@ -226,9 +226,14 @@ class Email_messages
 
         $subject = lang('new_account_password');
 
-        $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
+        // $php_mailer = $this->get_php_mailer($recipient_email, $subject, $html);
 
-        $php_mailer->send();
+        // $php_mailer->send();
+
+        $Headers = $this->getHeaders();
+
+        // Mail it
+        $MailResult = mail($recipient_email, $subject, $html, implode("\r\n", $Headers));
     }
 
     /**

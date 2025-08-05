@@ -52,5 +52,10 @@ App.Pages.Login = (function () {
 
     $loginForm.on('submit', onLoginFormSubmit);
 
+    // Focus username field after page loads
+    setTimeout(() => {
+        $username.trigger('focus');
+    }, 300);
+
     return {};
 })();

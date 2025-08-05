@@ -1,7 +1,6 @@
 <?php extend('layouts/account_layout'); ?>
 
 <?php section('content'); ?>
-
 <h2><?= lang('forgot_your_password') ?></h2>
 
 <p>
@@ -14,22 +13,22 @@
 
 <div class="alert d-none"></div>
 
-<form class="mb-5">
-    <div class="mb-3 mt-5">
+<form>
+    <div class="mb-3 mt-2">
         <label for="username" class="form-label">
             <?= lang('username') ?>
         </label>
-        <input type="text" id="username" placeholder="<?= lang('enter_username_here') ?>" class="form-control"/>
+        <input type="text" id="username" placeholder="<?= lang('enter_username_here') ?>" class="form-control border border-primary"/>
     </div>
 
     <div class="mb-5">
         <label for="email" class="form-label">
             <?= lang('email') ?>
         </label>
-        <input type="text" id="email" placeholder="<?= lang('enter_email_here') ?>" class="form-control"/>
+        <input type="text" id="email" placeholder="<?= lang('enter_email_here') ?>" class="form-control border border-primary"/>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-1">
         <a href="<?= site_url('login') ?>" class="user-login">
             <?= lang('go_to_login') ?>
         </a>
@@ -40,15 +39,9 @@
         </button>
     </div>
 </form>
-
 <?php end_section('content'); ?>
 
 <?php section('scripts'); ?>
-
-<script src="<?= asset_url('assets/js/core/fontawesome.min.js') ?>"></script>
-<script src="<?= asset_url('assets/js/core/solid.min.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/url.js') ?>"></script>
 <script src="<?= asset_url('assets/js/http/recovery_http_client.js') ?>"></script>
 <script src="<?= asset_url('assets/js/pages/recovery.js') ?>"></script>
-
 <?php end_section('scripts'); ?>

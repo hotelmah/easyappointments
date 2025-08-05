@@ -60,5 +60,10 @@ App.Pages.Recovery = (function () {
 
     $form.on('submit', onFormSubmit);
 
+    // Focus username field after page loads
+    setTimeout(() => {
+        $username.trigger('focus');
+    }, 300);
+
     return {};
 })();

@@ -2,7 +2,7 @@
 
 <?php section('content'); ?>
 
-<h3><?= lang('log_out') ?></h3>
+<h3><?= lang('logged_out') ?></h3>
 
 <p>
     <small>
@@ -23,5 +23,3 @@
 </div>
 
 <?php end_section('content'); ?>
-
-
