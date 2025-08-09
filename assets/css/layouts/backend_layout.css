@@ -377,6 +377,14 @@ body legend {
     width: 100% !important;
 }
 
+.fc-scrollgrid-section-header .fc-scroller {
+    overflow: hidden !important;
+}
+
+.fc-scrollgrid-section-body:not(.fc-scrollgrid-section-liquid) .fc-scroller {
+  overflow: hidden !important;
+}
+
 #calendar-page #calendar .fc-toolbar .fc-left,
 #calendar-page #calendar .fc-toolbar .fc-right {
     float: none;

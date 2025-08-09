@@ -2,7 +2,7 @@
 
 <?php section('content'); ?>
 
-<div class="container-fluid backend-page" id="calendar-page">
+<div id="calendar-page" class="container-fluid backend-page">
     <div class="row" id="calendar-toolbar">
         <div id="calendar-filter" class="col-md-3">
             <div class="calendar-filter-items">
@@ -130,26 +130,19 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/core/index.global.min.js') ?>"></script>
-<script src="<?= asset_url('assets/js/core/fullcalendar-moment/index.global.min.js') ?>"></script>
-<script src="<?= asset_url('assets/js/core/jquery.jeditable.min.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment@6.1.17/index.global.min.js" type="text/javascript"></script>
 
-<script src="<?= asset_url('assets/js/utils/date.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/message.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/validation.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/ui.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/url.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/calendar_default_view.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/calendar_table_view.js') ?>"></script>
-<script src="<?= asset_url('assets/js/utils/calendar_event_popover.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/calendar_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/customers_http_client.js') ?>"></script>
+<script src="<?= asset_url('assets/js/utils/calendar_default_view.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/utils/calendar_table_view.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/utils/calendar_event_popover.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/http/calendar_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/http/customers_http_client.js') ?>" type="text/javascript"></script>
 <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT) : ?>
-    <script src="<?= asset_url('assets/js/utils/calendar_sync.js') ?>"></script>
-    <script src="<?= asset_url('assets/js/http/google_http_client.js') ?>"></script>
-    <script src="<?= asset_url('assets/js/http/caldav_http_client.js') ?>"></script>
+    <script src="<?= asset_url('assets/js/utils/calendar_sync.js') ?>" type="text/javascript"></script>
+    <script src="<?= asset_url('assets/js/http/google_http_client.js') ?>" type="text/javascript"></script>
+    <script src="<?= asset_url('assets/js/http/caldav_http_client.js') ?>" type="text/javascript"></script>
 <?php endif; ?>
-<script src="<?= asset_url('assets/js/pages/calendar.js') ?>"></script>
+<script src="<?= asset_url('assets/js/pages/calendar.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>
-
