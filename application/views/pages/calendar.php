@@ -3,7 +3,7 @@
 <?php section('content'); ?>
 
 <div id="calendar-page" class="container-fluid backend-page">
-    <div class="row" id="calendar-toolbar">
+    <div id="calendar-toolbar" class="row">
         <div id="calendar-filter" class="col-md-3">
             <div class="calendar-filter-items">
                 <select id="select-filter-item"

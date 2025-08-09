@@ -21,9 +21,11 @@ App.Pages.Customers = (function () {
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $phoneNumber = $('#phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
+    const $state = $('#state');
     const $zipCode = $('#zip-code');
     const $timezone = $('#timezone');
     const $language = $('#language');
@@ -127,9 +129,11 @@ App.Pages.Customers = (function () {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
                 email: $email.val(),
-                phone_number: $phoneNumber.val(),
+                mobile_phone_number: $mobilePhoneNumber.val(),
+                work_phone_number: $workPhoneNumber.val(),
                 address: $address.val(),
                 city: $city.val(),
+                state: $state.val(),
                 zip_code: $zipCode.val(),
                 notes: $notes.val(),
                 timezone: $timezone.val(),
@@ -236,10 +240,18 @@ App.Pages.Customers = (function () {
             }
 
             // Validate phone number.
-            const phoneNumber = $phoneNumber.val();
+            const $mobilePhoneNumber = $mobilePhoneNumber.val();
 
-            if (phoneNumber && !App.Utils.Validation.phone(phoneNumber)) {
-                $phoneNumber.addClass('is-invalid');
+            if ($mobilePhoneNumber && !App.Utils.Validation.phone($mobilePhoneNumber)) {
+                $mobilePhoneNumber.addClass('is-invalid');
+                throw new Error(lang('invalid_phone'));
+            }
+
+            // Validate phone number.
+            const $workPhoneNumber = $workPhoneNumber.val();
+
+            if ($workPhoneNumber && !App.Utils.Validation.phone($workPhoneNumber)) {
+                $workPhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
@@ -283,9 +295,11 @@ App.Pages.Customers = (function () {
         $firstName.val(customer.first_name);
         $lastName.val(customer.last_name);
         $email.val(customer.email);
-        $phoneNumber.val(customer.phone_number);
+        $mobilePhoneNumber.val(customer.mobile_phone_number);
+        $workPhoneNumber.val(customer.work_phone_number);
         $address.val(customer.address);
         $city.val(customer.city);
+        $state.val(customer.state);
         $zipCode.val(customer.zip_code);
         $notes.val(customer.notes);
         $timezone.val(customer.timezone);

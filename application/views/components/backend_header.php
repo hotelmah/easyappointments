@@ -27,8 +27,8 @@
                 <a href="<?= site_url(
                     'calendar' . (vars('calendar_view') === CALENDAR_VIEW_TABLE ? '?view=table' : ''),
                 ) ?>"
-                   class="nav-link"
-                   data-tippy-content="<?= lang('manage_appointment_record_hint') ?>">
+                class="nav-link"
+                data-tippy-content="<?= lang('manage_appointment_record_hint') ?>">
                     <i class="fas fa-calendar-alt me-2"></i>
                     <?= lang('calendar') ?>
                 </a>
@@ -38,7 +38,7 @@
             <?php $active = $active_menu == PRIV_CUSTOMERS ? 'active' : ''; ?>
             <li class="nav-item <?= $active . $hidden ?>">
                 <a href="<?= site_url('customers') ?>" class="nav-link"
-                   data-tippy-content="<?= lang('manage_customers_hint') ?>">
+                data-tippy-content="<?= lang('manage_customers_hint') ?>">
                     <i class="fas fa-user-friends me-2"></i>
                     <?= lang('customers') ?>
                 </a>
@@ -48,7 +48,7 @@
             <?php $active = $active_menu == PRIV_SERVICES ? 'active' : ''; ?>
             <li class="nav-item dropdown <?= $active . $hidden ?>">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                   data-tippy-content="<?= lang('manage_services_hint') ?>">
+                data-tippy-content="<?= lang('manage_services_hint') ?>">
                     <i class="fas fa-business-time me-2"></i>
                     <?= lang('services') ?>
                 </a>
@@ -66,7 +66,7 @@
             <?php $active = $active_menu == PRIV_USERS ? 'active' : ''; ?>
             <li class="nav-item dropdown <?= $active . $hidden ?>">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                   data-tippy-content="<?= lang('manage_users_hint') ?>">
+                data-tippy-content="<?= lang('manage_users_hint') ?>">
                     <i class="fas fa-users me-2"></i>
                     <?= lang('users') ?>
                 </a>
@@ -89,7 +89,7 @@
             <?php $active = $active_menu == PRIV_SYSTEM_SETTINGS ? 'active' : ''; ?>
             <li class="nav-item dropdown <?= $active . $hidden ?>">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                   data-tippy-content="<?= lang('settings_hint') ?>">
+                data-tippy-content="<?= lang('settings_hint') ?>">
                     <i class="fas fa-user me-2"></i>
                     <?= e(vars('user_display_name')) ?>
                 </a>

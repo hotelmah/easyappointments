@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -25,7 +27,8 @@ class Customers extends EA_Controller
         'first_name',
         'last_name',
         'email',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
@@ -87,16 +90,6 @@ class Customers extends EA_Controller
 
         $role_slug = session('role_slug');
 
-        $date_format = setting('date_format');
-        $time_format = setting('time_format');
-        $require_first_name = setting('require_first_name');
-        $require_last_name = setting('require_last_name');
-        $require_email = setting('require_email');
-        $require_phone_number = setting('require_phone_number');
-        $require_address = setting('require_address');
-        $require_city = setting('require_city');
-        $require_zip_code = setting('require_zip_code');
-
         $secretary_providers = [];
 
         if ($role_slug === DB_SLUG_SECRETARY) {
@@ -108,29 +101,32 @@ class Customers extends EA_Controller
         script_vars([
             'user_id' => $user_id,
             'role_slug' => $role_slug,
-            'date_format' => $date_format,
-            'time_format' => $time_format,
+            'date_format' => setting('date_format'),
+            'time_format' => setting('time_format'),
             'timezones' => $this->timezones->to_array(),
             'secretary_providers' => $secretary_providers,
             'default_language' => setting('default_language'),
-            'default_timezone' => setting('default_timezone'),
+            'default_timezone' => setting('default_timezone')
         ]);
 
         html_vars([
             'page_title' => lang('customers'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_CUSTOMERS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'timezones' => $this->timezones->to_array(),
             'grouped_timezones' => $this->timezones->to_grouped_array(),
             'privileges' => $this->roles_model->get_permissions_by_slug($role_slug),
-            'require_first_name' => $require_first_name,
-            'require_last_name' => $require_last_name,
-            'require_email' => $require_email,
-            'require_phone_number' => $require_phone_number,
-            'require_address' => $require_address,
-            'require_city' => $require_city,
-            'require_zip_code' => $require_zip_code,
-            'available_languages' => config('available_languages'),
+            'require_first_name' => setting('require_first_name'),
+            'require_last_name' => setting('require_last_name'),
+            'require_email' => setting('require_email'),
+            'require_mobile_number' => setting('require_mobile_number'),
+            'require_work_number' => setting('require_work_number'),
+            'require_address' => setting('require_address'),
+            'require_city' => setting('require_city'),
+            'require_state' => setting('require_state'),
+            'require_zip_code' => setting('require_zip_code'),
+            'available_languages' => config('available_languages')
         ]);
 
         $this->load->view('pages/customers');

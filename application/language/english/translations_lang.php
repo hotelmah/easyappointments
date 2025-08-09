@@ -516,4 +516,6 @@ $lang['invalid_credentials_provided'] = 'Invalid credentials provided, please tr
 $lang['calendar_url'] = 'Calendar URL';
 $lang['please_select'] = 'Please Select';
 $lang['secret_header'] = 'Secret Header';
+$lang['search_customers_placeholder'] = 'Search customers by name, email or phone number...';
+$lang['search_customers_hint'] = 'Search Customers';
 // End
