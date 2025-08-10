@@ -709,7 +709,7 @@ body .form-horizontal .controls {
 #customers-page #customer-appointments {
     min-height: 400px;
     max-height: 800px;
-    max-width: 330px;
+    max-width: 380px;
     width: 100%;
     margin-bottom: 20px;
     overflow-y: auto;
@@ -725,6 +725,10 @@ body .form-horizontal .controls {
 
 #customers-page #customer-appointments .appointment-row:last-child {
     border-bottom: none;
+}
+
+#customers-page .disabled {
+    background-color: rgb(247, 245, 245);
 }
 
 /* BACKEND SERVICES PAGE

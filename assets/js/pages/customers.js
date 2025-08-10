@@ -90,7 +90,7 @@ App.Pages.Customers = (function () {
             App.Pages.Customers.resetForm();
             $customers.find('#add-edit-delete-group').hide();
             $customers.find('#save-cancel-group').show();
-            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false);
+            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $customers.find('.record-details .form-label span').prop('hidden', false);
             $filterCustomers.find('button').prop('disabled', true);
             $filterCustomers.find('.results').css('color', '#AAA');
@@ -100,7 +100,7 @@ App.Pages.Customers = (function () {
          * Event: Edit Customer Button "Click"
          */
         $customers.on('click', '#edit-customer', () => {
-            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false);
+            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $customers.find('.record-details .form-label span').prop('hidden', false);
             $customers.find('#add-edit-delete-group').hide();
             $customers.find('#save-cancel-group').show();
@@ -266,7 +266,7 @@ App.Pages.Customers = (function () {
      * Bring the customer form back to its initial state.
      */
     function resetForm() {
-        $customers.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $customers.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $customers.find('.record-details .form-label span').prop('hidden', true);
         $customers.find('.record-details #timezone').val(vars('default_timezone'));
         $customers.find('.record-details #language').val(vars('default_language'));

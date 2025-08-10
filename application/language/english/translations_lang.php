@@ -350,7 +350,7 @@ $lang['require_phone_number'] = 'Require phone number';
 $lang['require_phone_number_hint'] = 'When enabled, customers and users will need to enter the customer\'s phone number when booking an appointment';
 $lang['check_spam_folder'] = 'Please check your spam folder if the email does not arrive within a few minutes.';
 $lang['api_token_hint'] = 'Set a secret token in order to enable the token based authentication of the Easy!Appointments API.';
-$lang['timezone'] = 'My Timezone';
+$lang['timezone'] = 'Timezone';
 $lang['overwrite_existing_working_plans'] = 'This will overwrite the existing provider working plans, are you sure that you want to continue?';
 $lang['working_plans_got_updated'] = 'All the working plans got updated.';
 $lang['apply_to_all_providers'] = 'Apply To All Providers';
@@ -518,4 +518,7 @@ $lang['please_select'] = 'Please Select';
 $lang['secret_header'] = 'Secret Header';
 $lang['search_customers_placeholder'] = 'Search customers by name, email or phone number...';
 $lang['search_customers_hint'] = 'Search Customers';
+$lang['add_customer_hint'] = 'Add a new customer to the database.';
+$lang['edit_customer_hint'] = 'Edit the selected customer in the database.';
+$lang['delete_customer_hint'] = 'Delete the selected customer from the database.';
 // End

@@ -32,21 +32,21 @@
             <div class="btn-toolbar mb-4">
                 <div id="add-edit-delete-group" class="btn-group">
                     <?php if (can('add', PRIV_CUSTOMERS) && (!setting('limit_customer_access') || vars('role_slug') === DB_SLUG_ADMIN)) : ?>
-                        <button id="add-customer" class="btn btn-primary">
+                        <button id="add-customer" class="btn btn-primary" data-tippy-content="<?= lang('add_customer_hint') ?>">
                             <i class="fas fa-plus-square me-2"></i>
                             <?= lang('add') ?>
                         </button>
                     <?php endif; ?>
 
                     <?php if (can('edit', PRIV_CUSTOMERS)) : ?>
-                        <button id="edit-customer" class="btn btn-outline-secondary" disabled="disabled">
+                        <button id="edit-customer" class="btn btn-outline-secondary" data-tippy-content="<?= lang('edit_customer_hint') ?>" disabled="disabled">
                             <i class="fas fa-edit me-2"></i>
                             <?= lang('edit') ?>
                         </button>
                     <?php endif; ?>
 
                     <?php if (can('delete', PRIV_CUSTOMERS)) : ?>
-                        <button id="delete-customer" class="btn btn-outline-secondary" disabled="disabled">
+                        <button id="delete-customer" class="btn btn-outline-secondary" data-tippy-content="<?= lang('delete_customer_hint') ?>" disabled="disabled">
                             <i class="fas fa-trash-alt me-2"></i>
                             <?= lang('delete') ?>
                         </button>
@@ -59,6 +59,7 @@
                         <?= lang('save') ?>
                     </button>
                     <button id="cancel-customer" class="btn btn-secondary">
+                        <i class="fas fa-times-circle me-2"></i>
                         <?= lang('cancel') ?>
                     </button>
                 </div>
@@ -83,7 +84,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="first-name" class="<?= vars('require_first_name') ? 'required' : '' ?> form-control border border-primary" maxlength="100" disabled/>
+                        <input type="text" id="first-name" class="<?= vars('require_first_name') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="100" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -93,7 +94,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="last-name" class="<?= vars('require_last_name') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="last-name" class="<?= vars('require_last_name') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -103,7 +104,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="email" class="<?= vars('require_email') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="email" class="<?= vars('require_email') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -113,7 +114,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="mobile-phone-number" maxlength="60" class="<?= vars('require_mobile_number') ? 'required' : '' ?> form-control border border-primary" disabled/>
+                        <input type="text" id="mobile-phone-number" maxlength="60" class="<?= vars('require_mobile_number') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -123,7 +124,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="work-phone-number" maxlength="60" class="<?= vars('require_work_number') ? 'required' : '' ?> form-control border border-primary" disabled/>
+                        <input type="text" id="work-phone-number" maxlength="60" class="<?= vars('require_work_number') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -133,7 +134,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="address" class="<?= vars('require_address') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="address" class="<?= vars('require_address') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -143,7 +144,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="city" class="<?= vars('require_city') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="city" class="<?= vars('require_city') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -153,7 +154,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="state" class="<?= vars('require_state') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="state" class="<?= vars('require_state') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -163,7 +164,7 @@
                                 <span class="text-danger" hidden>*</span>
                             <?php endif; ?>
                         </label>
-                        <input type="text" id="zip-code" class="<?= vars('require_zip_code') ? 'required' : '' ?> form-control border border-primary" maxlength="120" disabled/>
+                        <input type="text" id="zip-code" class="<?= vars('require_zip_code') ? 'required' : '' ?> form-control border border-primary ps-2 disabled" maxlength="120" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -171,7 +172,7 @@
                             <?= lang('language') ?>
                             <span class="text-danger" hidden>*</span>
                         </label>
-                        <select id="language" class="form-select border border-primary required" disabled>
+                        <select id="language" class="form-select border border-primary required ps-2 disabled" disabled>
                             <?php foreach (vars('available_languages') as $available_language) : ?>
                                 <option value="<?= $available_language ?>">
                                     <?= ucfirst($available_language) ?>
@@ -185,7 +186,7 @@
                             <?= lang('timezone') ?>
                             <span class="text-danger" hidden>*</span>
                         </label>
-                        <?php component('timezone_dropdown', ['attributes' => 'id="timezone" class="form-control border border-primary required" disabled',
+                        <?php component('timezone_dropdown', ['attributes' => 'id="timezone" class="form-control border border-primary required ps-2 disabled" disabled',
                             'grouped_timezones' => vars('grouped_timezones')
                         ]); ?>
                     </div>
@@ -195,17 +196,17 @@
                             <label for="ldap-dn" class="form-label mb-2">
                                 <?= lang('ldap_dn') ?>
                             </label>
-                            <input type="text" id="ldap-dn" class="form-control border border-primary" maxlength="100" disabled/>
+                            <input type="text" id="ldap-dn" class="form-control border border-primary ps-2 disabled" maxlength="100" disabled/>
                         </div>
                     <?php endif; ?>
 
                     <?php component('custom_fields', ['disabled' => true]); ?>
 
-                    <div class="mb-4 mt-4">
+                    <div class="mb-4">
                         <label class="form-label mb-2" for="notes">
                             <?= lang('notes') ?>
                         </label>
-                        <textarea id="notes" rows="4" class="form-control border border-primary" disabled></textarea>
+                        <textarea id="notes" rows="4" class="form-control border border-primary ps-2 disabled" disabled></textarea>
                     </div>
 
                     <?php slot('after_primary_fields'); ?>
