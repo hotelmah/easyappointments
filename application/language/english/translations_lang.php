@@ -521,4 +521,5 @@ $lang['search_customers_hint'] = 'Search Customers';
 $lang['add_customer_hint'] = 'Add a new customer to the database.';
 $lang['edit_customer_hint'] = 'Edit the selected customer in the database.';
 $lang['delete_customer_hint'] = 'Delete the selected customer from the database.';
+$lang['view'] = 'View';
 // End

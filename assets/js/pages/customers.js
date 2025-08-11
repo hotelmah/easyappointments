@@ -15,8 +15,9 @@
  * This module implements the functionality of the customers page.
  */
 App.Pages.Customers = (function () {
+    const $customersToolbar = $('#customers-toolbar');
     const $customers = $('#customers');
-    const $filterCustomers = $('#filter-customers');
+    const $filterCustomers = $('#filter-customers-form');
     const $id = $('#customer-id');
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
@@ -53,10 +54,10 @@ App.Pages.Customers = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $customers.on('submit', '#filter-customers form', (event) => {
+        $customersToolbar.on('submit', '#filter-customers-form', (event) => {
             event.preventDefault();
             const key = $filterCustomers.find('.key').val();
-            $filterCustomers.find('.selected').removeClass('selected');
+            $customers.find('.selected').removeClass('selected');
             filterLimit = 20;
             App.Pages.Customers.resetForm();
             App.Pages.Customers.filter(key);
@@ -78,7 +79,7 @@ App.Pages.Customers = (function () {
             const customer = filterResults.find((filterResult) => Number(filterResult.id) === Number(customerId));
 
             App.Pages.Customers.display(customer);
-            $('#filter-customers .selected').removeClass('selected');
+            $('#customers-list .selected').removeClass('selected');
             $(event.currentTarget).addClass('selected');
             $('#edit-customer, #delete-customer').prop('disabled', false);
         });
@@ -86,32 +87,32 @@ App.Pages.Customers = (function () {
         /**
          * Event: Add Customer Button "Click"
          */
-        $customers.on('click', '#add-customer', () => {
+        $customersToolbar.on('click', '#add-customer', () => {
             App.Pages.Customers.resetForm();
-            $customers.find('#add-edit-delete-group').hide();
-            $customers.find('#save-cancel-group').show();
+            $customersToolbar.find('#add-edit-delete-group').hide();
+            $customersToolbar.find('#save-cancel-group').show();
             $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $customers.find('.record-details .form-label span').prop('hidden', false);
             $filterCustomers.find('button').prop('disabled', true);
-            $filterCustomers.find('.results').css('color', '#AAA');
+            $customers.find('#customers-list').css('color', '#AAA');
         });
 
         /**
          * Event: Edit Customer Button "Click"
          */
-        $customers.on('click', '#edit-customer', () => {
+        $customersToolbar.on('click', '#edit-customer', () => {
             $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $customers.find('.record-details .form-label span').prop('hidden', false);
-            $customers.find('#add-edit-delete-group').hide();
-            $customers.find('#save-cancel-group').show();
+            $customersToolbar.find('#add-edit-delete-group').hide();
+            $customersToolbar.find('#save-cancel-group').show();
             $filterCustomers.find('button').prop('disabled', true);
-            $filterCustomers.find('.results').css('color', '#AAA');
+            $customers.find('#customers-list').css('color', '#AAA');
         });
 
         /**
          * Event: Cancel Customer Add/Edit Operation Button "Click"
          */
-        $customers.on('click', '#cancel-customer', () => {
+        $customersToolbar.on('click', '#cancel-customer', () => {
             const id = $id.val();
 
             App.Pages.Customers.resetForm();
@@ -124,7 +125,7 @@ App.Pages.Customers = (function () {
         /**
          * Event: Save Add/Edit Customer Operation "Click"
          */
-        $customers.on('click', '#save-customer', () => {
+        $customersToolbar.on('click', '#save-customer', () => {
             const customer = {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
@@ -160,7 +161,7 @@ App.Pages.Customers = (function () {
         /**
          * Event: Delete Customer Button "Click"
          */
-        $customers.on('click', '#delete-customer', () => {
+        $customersToolbar.on('click', '#delete-customer', () => {
             const customerId = $id.val();
             const buttons = [
                 {
@@ -180,6 +181,15 @@ App.Pages.Customers = (function () {
 
             App.Utils.Message.show(lang('delete_customer'), lang('delete_record_prompt'), buttons);
         });
+
+        /**
+         * Event: Clear Customers Button "Click"
+         */
+        $customersToolbar.on('click', '#clear-customers', () => {
+            $filterCustomers.find('.key').val('');
+            App.Pages.Customers.resetForm();
+            App.Pages.Customers.filter('');
+        });
     }
 
     /**
@@ -191,7 +201,7 @@ App.Pages.Customers = (function () {
         App.Http.Customers.save(customer).then((response) => {
             App.Layouts.Backend.displayNotification(lang('customer_saved'));
             App.Pages.Customers.resetForm();
-            $('#filter-customers .key').val('');
+            $('#filter-customers-form .key').val('');
             App.Pages.Customers.filter('', response.id, true);
         });
     }
@@ -205,7 +215,7 @@ App.Pages.Customers = (function () {
         App.Http.Customers.destroy(id).then(() => {
             App.Layouts.Backend.displayNotification(lang('customer_deleted'));
             App.Pages.Customers.resetForm();
-            App.Pages.Customers.filter($('#filter-customers .key').val());
+            App.Pages.Customers.filter($('#filter-customers-form .key').val());
         });
     }
 
@@ -273,16 +283,16 @@ App.Pages.Customers = (function () {
 
         $customerAppointments.empty();
 
-        $customers.find('#edit-customer, #delete-customer').prop('disabled', true);
-        $customers.find('#add-edit-delete-group').show();
-        $customers.find('#save-cancel-group').hide();
+        $customersToolbar.find('#edit-customer, #delete-customer').prop('disabled', true);
+        $customersToolbar.find('#add-edit-delete-group').show();
+        $customersToolbar.find('#save-cancel-group').hide();
 
         $customers.find('.record-details .is-invalid').removeClass('is-invalid');
         $customers.find('.record-details #form-message').hide();
 
         $filterCustomers.find('button').prop('disabled', false);
-        $filterCustomers.find('.selected').removeClass('selected');
-        $filterCustomers.find('.results').css('color', '');
+        $customers.find('.selected').removeClass('selected');
+        $customers.find('#customers-list').css('color', '');
     }
 
     /**
@@ -408,10 +418,10 @@ App.Pages.Customers = (function () {
         App.Http.Customers.search(keyword, filterLimit).then((response) => {
             filterResults = response;
 
-            $filterCustomers.find('.results').empty();
+            $customers.find('#customers-list').empty();
 
             response.forEach((customer) => {
-                $('#filter-customers .results').append(App.Pages.Customers.getFilterHtml(customer)).append($('<hr/>'));
+                $('#customers-list').append(App.Pages.Customers.getFilterHtml(customer)).append($('<hr/>'));
             });
 
             if (!response.length) {
@@ -429,7 +439,7 @@ App.Pages.Customers = (function () {
                         filterLimit += 20;
                         App.Pages.Customers.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-customers .results');
+                }).appendTo('#customers-list');
             }
 
             if (selectId) {
@@ -478,9 +488,9 @@ App.Pages.Customers = (function () {
      * @param {Boolean} show Optional (false), if true then the method will display the record on the form.
      */
     function select(id, show = false) {
-        $('#filter-customers .selected').removeClass('selected');
+        $('#customers-list .selected').removeClass('selected');
 
-        $('#filter-customers .entry[data-id="' + id + '"]').addClass('selected');
+        $('#customers-list .entry[data-id="' + id + '"]').addClass('selected');
 
         if (show) {
             const customer = filterResults.find((filterResult) => Number(filterResult.id) === Number(id));

@@ -223,46 +223,6 @@ body legend {
     border-top: none;
 }
 
-.backend-page .filter-records .results {
-    overflow-y: auto;
-    max-height: 650px;
-    outline: none;
-}
-
-.backend-page .filter-records .results .entry {
-    padding: 10px 7px;
-}
-
-.backend-page .filter-records .results .entry:hover:not(.selected) {
-    background-color: #f3f3f3;
-    cursor: pointer;
-}
-
-.backend-page .filter-records .results .entry.selected {
-    background-color: #f4f4f4;
-    border-right: 5px solid #429a82;
-}
-
-.backend-page .filter-records .results hr {
-    margin: 5px 0;
-}
-
-.record-details {
-    max-width: 800px;
-    margin-bottom: 20px;
-}
-
-.record-details input:-moz-read-only:not(.custom-control-input),
-.record-details textarea:-moz-read-only {
-    box-shadow: none;
-}
-
-.record-details input:read-only:not(.custom-control-input),
-.record-details select:disabled,
-.record-details textarea:read-only {
-    box-shadow: none;
-}
-
 .backend-page .nav-pills li {
     width: 100%;
     text-align: center;
@@ -706,15 +666,22 @@ body .form-horizontal .controls {
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
+#customers-page {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Customer appointments section */
 #customers-page #customer-appointments {
     min-height: 400px;
     max-height: 800px;
-    max-width: 380px;
+    max-width: 470px;
     width: 100%;
     margin-bottom: 20px;
+    padding: 15px;
     overflow-y: auto;
     outline: none;
-    padding: 15px;
+    border-radius: 0.375rem;
 }
 
 #customers-page #customer-appointments .appointment-row {
@@ -727,9 +694,252 @@ body .form-horizontal .controls {
     border-bottom: none;
 }
 
-#customers-page .disabled {
-    background-color: rgb(247, 245, 245);
+#customer-appointments.border-dark {
+    border-color: #495057 !important;
+    border-width: 1px;
 }
+
+/* ===================================================================================================================== */
+
+#customers-toolbar {
+    background-color: #353535;
+    color: #fff;
+    padding: 1rem 0;
+    margin-bottom: 20px;
+}
+
+/* .customers-toolbar .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+} */
+
+/* .customers-toolbar .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+} */
+
+
+#customers-filter {
+    padding-right: 15px;
+}
+
+#customers-actions {
+    text-align: left;
+}
+
+#customers-actions .btn {
+    /* margin-right: 5px; */
+    margin-bottom: 5px;
+}
+
+#customers-actions .btn:last-child {
+    margin-right: 0;
+}
+
+/* Match calendar filter input styling */
+#customers-filter .form-control {
+    max-width: 35vw;
+    border-radius: 0.375rem 0 0 0.375rem;
+}
+
+#customers-filter .btn {
+    margin-left: 6px;
+    border-radius: 0 0.375rem 0.375rem 0;
+}
+
+/* Main customers container */
+#customers {
+    margin-top: 20px;
+}
+
+/* Customer list section (left column) */
+#customers .col-md-5 {
+    max-width: 420px;
+    padding-right: 15px;
+}
+
+#customers .col-md-5 h4 {
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+#customers-list {
+    overflow-y: auto;
+    max-height: 650px;
+    max-width: 400px;
+    /* outline: none; */
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background: #fff;
+}
+
+#customers-list .entry {
+    padding: 10px 7px;
+}
+
+#customers-list .entry:hover:not(.selected) {
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+
+#customers-list .entry.selected {
+    background-color: #f4f4f4;
+    border-right: 5px solid #429a82;
+}
+
+#customers-list hr {
+    margin: 5px 0;
+}
+
+/* Customer record details section (right column) */
+.record-details {
+    max-width: 840px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+}
+
+.record-details .disabled {
+    cursor: not-allowed;
+    background-color: rgb(248, 242, 242) !important;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.record-details input:-moz-read-only:not(.custom-control-input),
+.record-details textarea:-moz-read-only {
+    box-shadow: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.record-details input:read-only:not(.custom-control-input),
+.record-details select:disabled,
+.record-details textarea:read-only {
+    box-shadow: none;
+}
+
+.record-details .btn-toolbar {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+/* Form fields styling */
+.field-col {
+    padding-right: 15px;
+}
+
+.field-col h4 {
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+
+/* Form labels */
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-label .text-danger {
+    font-size: 1.2em;
+    margin-left: 3px;
+}
+
+/* Required field indicators */
+span[hidden] {
+    display: none !important;
+}
+
+/* Form message alerts */
+#form-message {
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+
+/* Notes textarea */
+#notes {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Hidden input */
+#customer-id {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    #customers .col-md-5,
+    .record-details {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 30px;
+    }
+
+    .field-col {
+        padding-right: 15px;
+        margin-bottom: 30px;
+    }
+
+    .record-details .btn-toolbar {
+        margin-bottom: 20px;
+    }
+}
+
+/* Custom field spacing */
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* LDAP field specific styling */
+#ldap-dn {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Timezone dropdown styling */
+#timezone {
+    max-width: 100%;
+}
+
+/* Language select styling */
+#language option {
+    text-transform: capitalize;
+}
+
+/* Slot content styling */
+[slot] {
+    margin: 10px 0;
+}
+
+/* Button toolbar in record details */
+.record-details .btn-toolbar .btn-group {
+    margin-right: 10px;
+}
+
+.record-details .btn-toolbar .btn-group:last-child {
+    margin-right: 0;
+}
+
+/* Enhanced form field styling */
+.form-control.ps-2,
+.form-select.ps-2 {
+    padding-left: 0.75rem;
+}
+
+/* Validation styling */
+.form-control.required:invalid,
+.form-select.required:invalid {
+    border-color: #dc3545;
+}
+
+.form-control.required:valid,
+.form-select.required:valid {
+    border-color: #198754;
+}
+
+/* ===================================================================================================================== */
 
 /* BACKEND SERVICES PAGE
    -------------------------------------------------------------------- */

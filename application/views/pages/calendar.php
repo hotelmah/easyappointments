@@ -49,8 +49,9 @@
 
             <?php if (can('add', PRIV_APPOINTMENTS)) : ?>
                 <div class="dropdown d-sm-inline-block">
-                    <button class="btn btn-light" type="button" data-bs-toggle="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         <i class="fas fa-plus-square"></i>
+                        <?= lang('add') ?>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
@@ -75,15 +76,16 @@
                 </div>
             <?php endif; ?>
 
-            <button id="reload-appointments" class="btn btn-light"
-                    data-tippy-content="<?= lang('reload_appointments_hint') ?>">
+            <button id="reload-appointments" class="btn btn-light" data-tippy-content="<?= lang('reload_appointments_hint') ?>">
                 <i class="fas fa-sync-alt"></i>
+                <?= lang('reload') ?>
             </button>
 
             <?php if (vars('calendar_view') === CALENDAR_VIEW_DEFAULT) : ?>
                 <a class="btn btn-light mb-0" href="<?= site_url('calendar?view=table') ?>"
                    data-tippy-content="<?= lang('table') ?>">
                     <i class="fas fa-table"></i>
+                    <?= lang('view') ?>
                 </a>
             <?php endif; ?>
 
@@ -91,6 +93,7 @@
                 <a class="btn btn-light mb-0" href="<?= site_url('calendar?view=default') ?>"
                    data-tippy-content="<?= lang('default') ?>">
                     <i class="fas fa-calendar-alt"></i>
+                    <?= lang('view') ?>
                 </a>
             <?php endif; ?>
 
