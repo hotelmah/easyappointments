@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -32,10 +34,10 @@ class Services extends EA_Controller
         'availabilities_type',
         'attendants_number',
         'is_private',
-        'id_service_categories',
+        'id_service_categories'
     ];
     public array $optional_service_fields = [
-        'id_service_categories' => null,
+        'id_service_categories' => null
     ];
 
     /**
@@ -85,6 +87,7 @@ class Services extends EA_Controller
 
         html_vars([
             'page_title' => lang('services'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SERVICES,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'timezones' => $this->timezones->to_array(),
@@ -195,7 +198,7 @@ class Services extends EA_Controller
 
             json_response([
                 'success' => true,
-                'id' => $service_id,
+                'id' => $service_id
             ]);
         } catch (Throwable $e) {
             json_exception($e);
@@ -221,7 +224,7 @@ class Services extends EA_Controller
             $this->webhooks_client->trigger(WEBHOOK_SERVICE_DELETE, $service);
 
             json_response([
-                'success' => true,
+                'success' => true
             ]);
         } catch (Throwable $e) {
             json_exception($e);

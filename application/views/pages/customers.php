@@ -5,64 +5,64 @@
 <div id="customers-page" class="container-fluid backend-page">
     <!-- Dedicated toolbar section at the top -->
     <div id="customers-toolbar" class="row">
-            <!-- Left side: Search/Filter -->
-            <div id="customers-filter" class="col-md-5">
-                <form id="filter-customers-form">
-                    <div class="input-group">
-                        <input type="text" class="key form-control border border-primary" aria-label="keyword" placeholder="<?= lang('search_customers_placeholder') ?>" data-tippy-content="<?= lang('search_customers_hint') ?>" autocomplete="off">
-                        <div class="btn-group">
-                            <button class="filter btn btn-light" type="submit" data-tippy-content="<?= lang('filter') ?>">
-                                <i class="fas fa-search"></i>
-                                <?= lang('search') ?>
-                            </button>
-                            <button id="clear-customers" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
-                                <i class="fas fa-times"></i>
-                                <?= lang('clear') ?>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Right side: Action buttons -->
-            <div id="customers-actions" class="col-md-7">
-                <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-2">
-                    <div id="add-edit-delete-group">
-                        <?php if (can('add', PRIV_CUSTOMERS) && (!setting('limit_customer_access') || vars('role_slug') === DB_SLUG_ADMIN)) : ?>
-                            <button id="add-customer" class="btn btn-light" data-tippy-content="<?= lang('add_customer_hint') ?>">
-                                <i class="fas fa-plus-square me-2"></i>
-                                <?= lang('add') ?>
-                            </button>
-                        <?php endif; ?>
-
-                        <?php if (can('edit', PRIV_CUSTOMERS)) : ?>
-                            <button id="edit-customer" class="btn btn-light" data-tippy-content="<?= lang('edit_customer_hint') ?>" disabled>
-                                <i class="fas fa-edit me-2"></i>
-                                <?= lang('edit') ?>
-                            </button>
-                        <?php endif; ?>
-
-                        <?php if (can('delete', PRIV_CUSTOMERS)) : ?>
-                            <button id="delete-customer" class="btn btn-light" data-tippy-content="<?= lang('delete_customer_hint') ?>" disabled>
-                                <i class="fas fa-trash-alt me-2"></i>
-                                <?= lang('delete') ?>
-                            </button>
-                        <?php endif; ?>
-                    </div>
-
-                    <div id="save-cancel-group" style="display:none;">
-                        <button id="save-customer" class="btn btn-success">
-                            <i class="fas fa-check-square me-2"></i>
-                            <?= lang('save') ?>
+        <!-- Left side: Search/Filter -->
+        <div id="customers-filter" class="col-md-5">
+            <form id="filter-customers-form">
+                <div class="input-group">
+                    <input type="text" class="key form-control border border-primary" aria-label="keyword" placeholder="<?= lang('search_customers_placeholder') ?>" data-tippy-content="<?= lang('search_customers_hint') ?>" autocomplete="off">
+                    <div class="btn-group">
+                        <button class="filter btn btn-light" type="submit" data-tippy-content="<?= lang('filter') ?>">
+                            <i class="fas fa-search"></i>
+                            <?= lang('search') ?>
                         </button>
-                        <button id="cancel-customer" class="btn btn-light">
-                            <i class="fas fa-times-circle me-2"></i>
-                            <?= lang('cancel') ?>
+                        <button id="clear-customers" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
+                            <i class="fas fa-times"></i>
+                            <?= lang('clear') ?>
                         </button>
                     </div>
                 </div>
-                <?php slot('after_page_actions'); ?>
+            </form>
+        </div>
+
+        <!-- Right side: Action buttons -->
+        <div id="customers-actions" class="col-md-7">
+            <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-2">
+                <div id="add-edit-delete-group">
+                    <?php if (can('add', PRIV_CUSTOMERS) && (!setting('limit_customer_access') || vars('role_slug') === DB_SLUG_ADMIN)) : ?>
+                        <button id="add-customer" class="btn btn-light" data-tippy-content="<?= lang('add_customer_hint') ?>">
+                            <i class="fas fa-plus-square me-2"></i>
+                            <?= lang('add') ?>
+                        </button>
+                    <?php endif; ?>
+
+                    <?php if (can('edit', PRIV_CUSTOMERS)) : ?>
+                        <button id="edit-customer" class="btn btn-light" data-tippy-content="<?= lang('edit_customer_hint') ?>" disabled>
+                            <i class="fas fa-edit me-2"></i>
+                            <?= lang('edit') ?>
+                        </button>
+                    <?php endif; ?>
+
+                    <?php if (can('delete', PRIV_CUSTOMERS)) : ?>
+                        <button id="delete-customer" class="btn btn-light" data-tippy-content="<?= lang('delete_customer_hint') ?>" disabled>
+                            <i class="fas fa-trash-alt me-2"></i>
+                            <?= lang('delete') ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+
+                <div id="save-cancel-group" style="display:none;">
+                    <button id="save-customer" class="btn btn-success">
+                        <i class="fas fa-check-square me-2"></i>
+                        <?= lang('save') ?>
+                    </button>
+                    <button id="cancel-customer" class="btn btn-light">
+                        <i class="fas fa-times-circle me-2"></i>
+                        <?= lang('cancel') ?>
+                    </button>
+                </div>
             </div>
+            <?php slot('after_page_actions'); ?>
+        </div>
     </div>
 
     <div id="customers" class="row g-4">
