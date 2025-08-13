@@ -12,7 +12,7 @@
         &copy; <?= date('Y') ?> &nbsp; <?= vars('company_name') ?>
     </div>
 
-    <div class="mb-3 me-lg-5 mb-lg-0 badge bg-success">
+    <div class="mb-3 me-lg-5 mb-lg-0 badge bg-success p-2">
         <span>Version: <?= config('version') ?></span>
     </div>
 

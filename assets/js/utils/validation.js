@@ -100,9 +100,9 @@ function isValidUSTelephone(phone) {
      *
      * @return {void}
      */
-    function showBookingAlert(message) {
+    function showFormFieldAlert(message) {
         // Remove existing alert if present
-        const existingAlert = document.getElementById('booking-alert');
+        const existingAlert = document.getElementById('form-field-alert');
         if (existingAlert) {
             const bsAlert = bootstrap.Alert.getInstance(existingAlert);
             if (bsAlert) {
@@ -112,7 +112,7 @@ function isValidUSTelephone(phone) {
 
         // Create new alert element
         const alertHTML = `
-            <div id="booking-alert" class="alert alert-warning alert-dismissible" role="alert">
+            <div id="form-field-alert" class="alert alert-warning alert-dismissible" role="alert">
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -123,13 +123,13 @@ function isValidUSTelephone(phone) {
         container.insertAdjacentHTML('afterbegin', alertHTML);
 
         // Initialize Bootstrap Alert
-        const newAlert = document.getElementById('booking-alert');
+        const newAlert = document.getElementById('form-field-alert');
         const bsAlert = new bootstrap.Alert(newAlert);
 
         // Optional: Auto-hide after 10 seconds, but clear if closed manually
         const timeoutId = setTimeout(() => {
             // Only close if still in DOM
-            if (document.getElementById('booking-alert')) {
+            if (document.getElementById('form-field-alert')) {
                 bsAlert.close();
             }
         }, 10000);
@@ -144,6 +144,6 @@ function isValidUSTelephone(phone) {
         email,
         isValidIntlPhone,
         isValidUSTelephone,
-        showBookingAlert
+        showFormFieldAlert
     };
 })();

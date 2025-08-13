@@ -60,6 +60,8 @@
     <script src="<?= asset_url('assets/js/utils/ui.js') ?>" type="text/javascript"></script>
     <script src="<?= asset_url('assets/js/utils/url.js') ?>" type="text/javascript"></script>
     <script src="<?= asset_url('assets/js/utils/validation.js') ?>" type="text/javascript"></script>
+    <script src="<?= asset_url('assets/js/utils/currency.js') ?>" type="text/javascript"></script>
+    <script src="<?= asset_url('assets/js/utils/copy.js') ?>" type="text/javascript"></script>
     <script src="<?= asset_url('assets/js/layouts/backend_layout.js') ?>" type="text/javascript"></script>
     <script src="<?= asset_url('assets/js/http/localization_http_client.js') ?>" type="text/javascript"></script>
 

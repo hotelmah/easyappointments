@@ -8,13 +8,13 @@
         <div id="services-filter" class="col-md-5">
             <form id="filter-services-form">
                 <div class="input-group">
-                    <input type="text" class="key form-control border border-primary" aria-label="keyword" placeholder="<?= lang('search_customers_placeholder') ?>" data-tippy-content="<?= lang('search_customers_hint') ?>" autocomplete="off">
+                    <input type="text" class="key form-control border border-primary" aria-label="keyword" placeholder="<?= lang('search_services_placeholder') ?>" data-tippy-content="<?= lang('search_services_hint') ?>" autocomplete="off">
                     <div class="btn-group">
                         <button class="filter btn btn-light" type="submit" data-tippy-content="<?= lang('filter') ?>">
                             <i class="fas fa-search"></i>
                             <?= lang('search') ?>
                         </button>
-                        <button id="clear-customers" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
+                        <button id="clear-services" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
                             <i class="fas fa-times"></i>
                             <?= lang('clear') ?>
                         </button>
@@ -61,7 +61,7 @@
 
 
     <div id="services" class="row g-4">
-        <div class="col-12 col-md-4 field-col">
+        <div class="col-12 col-md-3 field-col">
             <h4 class="text-black-50 mb-3">
                 <?= lang('services') ?>
             </h4>
@@ -82,14 +82,12 @@
                         <?= lang('details') ?>
                     </h4>
 
-                    <div id="form-message" class="alert" style="display:none;"></div>
-
                     <div class="mb-4">
                         <label for="name" class="form-label mb-2">
                             <?= lang('name') ?>
                             <span class="text-danger" hidden>*</span>
                         </label>
-                        <input type="text" id="name" class="required form-control border border-primary ps-2 disabled" maxlength="100" disabled/>
+                        <input id="name" type="text" class="required form-control border border-primary ps-2 disabled" maxlength="100" disabled/>
                     </div>
 
                     <div class="mb-4">
@@ -144,14 +142,14 @@
                             <?= lang('attendants_number') ?>
                             <span class="text-danger" hidden>*</span>
                         </label>
-                        <input type="number" id="attendants-number" class="required form-control border border-primary ps-2 disabled" min="1" disabled/>
+                        <input id="attendants-number" type="number" class="required form-control border border-primary ps-2 disabled" min="1" disabled/>
                     </div>
 
                     <div class="mb-4">
                         <label for="location" class="form-label mb-2">
                             <?= lang('location') ?>
                         </label>
-                        <input type="text" id="location" class="form-control border border-primary ps-2 disabled" maxlength="125" disabled/>
+                        <input id="location" type="text" class="form-control border border-primary ps-2 disabled" maxlength="125" disabled/>
                     </div>
 
                     <div class="mb-4">

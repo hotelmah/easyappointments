@@ -307,18 +307,6 @@ footer .backend-link {
 
 /* ===================================================================================================================== */
 
-#booking-alert {
-    position: fixed !important;
-    bottom: 20px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 1050 !important;
-    max-width: 90% !important;
-    width: auto !important;
-}
-
-/* ===================================================================================================================== */
-
 @media (min-width: 768px) {
     #book-appointment-wizard {
         border-radius: 0.25rem;

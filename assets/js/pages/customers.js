@@ -101,10 +101,10 @@ App.Pages.Customers = (function () {
          * Event: Edit Customer Button "Click"
          */
         $customersToolbar.on('click', '#edit-customer', () => {
-            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
-            $customers.find('.record-details .form-label span').prop('hidden', false);
             $customersToolbar.find('#add-edit-delete-group').hide();
             $customersToolbar.find('#save-cancel-group').show();
+            $customers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
+            $customers.find('.record-details .form-label span').prop('hidden', false);
             $filterCustomers.find('button').prop('disabled', true);
             $customers.find('#customers-list').css('color', '#AAA');
         });
@@ -425,7 +425,7 @@ App.Pages.Customers = (function () {
             });
 
             if (!response.length) {
-                $filterCustomers.find('.results').append(
+                $customers.find('#customers-list').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),

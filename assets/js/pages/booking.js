@@ -705,7 +705,7 @@ App.Pages.Booking = (function () {
         });
 
         if (missingRequiredField) {
-            App.Utils.Validation.showBookingAlert(lang('fields_are_required'));
+            App.Utils.Validation.showFormFieldAlert(lang('fields_are_required'));
 
             return false;
         }
@@ -715,7 +715,7 @@ App.Pages.Booking = (function () {
             $email.removeClass('border');
             $email.removeClass('border-primary');
             $email.addClass('is-invalid');
-            App.Utils.Validation.showBookingAlert(lang('invalid_email'));
+            App.Utils.Validation.showFormFieldAlert(lang('invalid_email'));
 
             return false;
         }
@@ -727,7 +727,7 @@ App.Pages.Booking = (function () {
             $mobilePhoneNumber.removeClass('border');
             $mobilePhoneNumber.removeClass('border-primary');
             $mobilePhoneNumber.addClass('is-invalid');
-            App.Utils.Validation.showBookingAlert(lang('invalid_phone'));
+            App.Utils.Validation.showFormFieldAlert(lang('invalid_phone'));
 
             return false;
         }
@@ -738,7 +738,7 @@ App.Pages.Booking = (function () {
             $workPhoneNumber.removeClass('border');
             $workPhoneNumber.removeClass('border-primary');
             $workPhoneNumber.addClass('is-invalid');
-            App.Utils.Validation.showBookingAlert(lang('invalid_phone'));
+            App.Utils.Validation.showFormFieldAlert(lang('invalid_phone'));
 
             return false;
         }
@@ -764,7 +764,7 @@ App.Pages.Booking = (function () {
         }
 
         if (!$availableHours.find('.selected-hour').text()) {
-            // App.Utils.Validation.showBookingAlert(lang('appointment_hour_missing'));
+            // App.Utils.Validation.showFormFieldAlert(lang('appointment_hour_missing'));
             return; // No time is selected, skip the rest of this function...
         }
 
@@ -775,7 +775,7 @@ App.Pages.Booking = (function () {
         );
 
         if (!service) {
-            // App.Utils.Validation.showBookingAlert(lang('service_not_found'));
+            // App.Utils.Validation.showFormFieldAlert(lang('service_not_found'));
             return; // Service was not found
         }
 

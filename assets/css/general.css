@@ -215,3 +215,15 @@ body .clearfix {
 }
 
 /* ===================================================================================================================== */
+
+#form-field-alert {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 1050 !important;
+    max-width: 90% !important;
+    width: auto !important;
+}
+
+/* ===================================================================================================================== */

@@ -1,4 +1,4 @@
-.color-selection {
+/* .color-selection {
     max-width: 400px;
 }
 
@@ -16,4 +16,58 @@
 
 .color-selection .color-selection-option.selected .fa-check {
     display: block;
+} */
+
+/* Color Selection Component Styling */
+.color-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.color-selection-option {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.color-selection-option:hover {
+    border-color: #666;
+    transform: scale(1.05);
+}
+
+/* Selected state with checkmark */
+.color-selection-option.selected {
+    border-color: #333;
+    border-width: 3px;
+}
+
+.color-selection-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+/* Disabled state */
+.color-selection-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.color-selection-option:disabled:hover {
+    transform: none;
+    border-color: #ddd;
 }

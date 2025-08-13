@@ -15,8 +15,10 @@
  * This module implements the functionality of the services page.
  */
 App.Pages.Services = (function () {
+    const $servicesToolbar = $('#services-toolbar');
     const $services = $('#services');
-    const $id = $('#id');
+    const $filterServices = $('#filter-services-form');
+    const $id = $('#service-id');
     const $name = $('#name');
     const $duration = $('#duration');
     const $price = $('#price');
@@ -24,11 +26,10 @@ App.Pages.Services = (function () {
     const $serviceCategoryId = $('#service-category-id');
     const $availabilitiesType = $('#availabilities-type');
     const $attendantsNumber = $('#attendants-number');
-    const $isPrivate = $('#is-private');
     const $location = $('#location');
-    const $description = $('#description');
-    const $filterServices = $('#filter-services');
     const $color = $('#color');
+    const $isPrivate = $('#is-private');
+    const $description = $('#description');
     let filterResults = {};
     let filterLimit = 20;
 
@@ -41,10 +42,10 @@ App.Pages.Services = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $services.on('submit', '#filter-services form', (event) => {
+        $servicesToolbar.on('submit', '#filter-services-form', (event) => {
             event.preventDefault();
             const key = $filterServices.find('.key').val();
-            $filterServices.find('.selected').removeClass('selected');
+            $services.find('.selected').removeClass('selected');
             App.Pages.Services.resetForm();
             App.Pages.Services.filter(key);
         });
@@ -56,35 +57,18 @@ App.Pages.Services = (function () {
          */
         $services.on('click', '.service-row', (event) => {
             if ($filterServices.find('.filter').prop('disabled')) {
-                $filterServices.find('.results').css('color', '#AAA');
+                $services.find('#services-list').css('color', '#AAA');
                 return; // exit because we are on edit mode
             }
 
             const serviceId = $(event.currentTarget).attr('data-id');
-
             const service = filterResults.find((filterResult) => Number(filterResult.id) === Number(serviceId));
 
-            // Add dedicated provider link.
-            const dedicatedUrl = App.Utils.Url.siteUrl('?service=' + encodeURIComponent(service.id));
-
-            const $link = $('<a/>', {
-                'href': dedicatedUrl,
-                'target': '_blank',
-                'html': [
-                    $('<i/>', {
-                        'class': 'fas fa-link me-2',
-                    }),
-
-                    $('<span/>', {
-                        'text': lang('booking_link'),
-                    }),
-                ],
-            });
-
-            $services.find('.record-details h4').find('a').remove().end().append($link);
+            // Create booking links for the selected service
+            createBookingLinks(service.id);
 
             App.Pages.Services.display(service);
-            $filterServices.find('.selected').removeClass('selected');
+            $services.find('.selected').removeClass('selected');
             $(event.currentTarget).addClass('selected');
             $('#edit-service, #delete-service').prop('disabled', false);
         });
@@ -92,20 +76,20 @@ App.Pages.Services = (function () {
         /**
          * Event: Add New Service Button "Click"
          */
-        $services.on('click', '#add-service', () => {
+        $servicesToolbar.on('click', '#add-service', () => {
             App.Pages.Services.resetForm();
-            $services.find('.add-edit-delete-group').hide();
-            $services.find('.save-cancel-group').show();
-            $services.find('.record-details').find('input, select, textarea').prop('disabled', false);
+            $servicesToolbar.find('#add-edit-delete-group').hide();
+            $servicesToolbar.find('#save-cancel-group').show();
+            $services.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $services.find('.record-details .form-label span').prop('hidden', false);
             $filterServices.find('button').prop('disabled', true);
-            $filterServices.find('.results').css('color', '#AAA');
+            $services.find('#services-list').css('color', '#AAA');
             App.Components.ColorSelection.enable($color);
 
             // Default values
-            $name.val('Service');
-            $duration.val('30');
-            $price.val('0');
+            // $name.val('Service');
+            // $duration.val('30');
+            // $price.val('0');
             $currency.val('');
             $serviceCategoryId.val('');
             $availabilitiesType.val('flexible');
@@ -117,7 +101,7 @@ App.Pages.Services = (function () {
          *
          * Cancel add or edit of a service record.
          */
-        $services.on('click', '#cancel-service', () => {
+        $servicesToolbar.on('click', '#cancel-service', () => {
             const id = $id.val();
 
             App.Pages.Services.resetForm();
@@ -130,7 +114,11 @@ App.Pages.Services = (function () {
         /**
          * Event: Save Service Button "Click"
          */
-        $services.on('click', '#save-service', () => {
+        $servicesToolbar.on('click', '#save-service', () => {
+            if (!App.Pages.Services.validate()) {
+                return;
+            }
+
             const service = {
                 name: $name.val(),
                 duration: $duration.val(),
@@ -149,30 +137,26 @@ App.Pages.Services = (function () {
                 service.id = $id.val();
             }
 
-            if (!App.Pages.Services.validate()) {
-                return;
-            }
-
             App.Pages.Services.save(service);
         });
 
         /**
          * Event: Edit Service Button "Click"
          */
-        $services.on('click', '#edit-service', () => {
-            $services.find('.add-edit-delete-group').hide();
-            $services.find('.save-cancel-group').show();
-            $services.find('.record-details').find('input, select, textarea').prop('disabled', false);
+        $servicesToolbar.on('click', '#edit-service', () => {
+            $servicesToolbar.find('#add-edit-delete-group').hide();
+            $servicesToolbar.find('#save-cancel-group').show();
+            $services.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $services.find('.record-details .form-label span').prop('hidden', false);
             $filterServices.find('button').prop('disabled', true);
-            $filterServices.find('.results').css('color', '#AAA');
+            $services.find('#services-list').css('color', '#AAA');
             App.Components.ColorSelection.enable($color);
         });
 
         /**
          * Event: Delete Service Button "Click"
          */
-        $services.on('click', '#delete-service', () => {
+        $servicesToolbar.on('click', '#delete-service', () => {
             const serviceId = $id.val();
             const buttons = [
                 {
@@ -191,6 +175,15 @@ App.Pages.Services = (function () {
             ];
 
             App.Utils.Message.show(lang('delete_service'), lang('delete_record_prompt'), buttons);
+        });
+
+        /**
+         * Event: Clear Services Button "Click"
+         */
+        $servicesToolbar.on('click', '#clear-services', () => {
+            $filterServices.find('.key').val('');
+            App.Pages.Services.resetForm();
+            App.Pages.Services.filter('');
         });
     }
 
@@ -228,8 +221,7 @@ App.Pages.Services = (function () {
      * @return {Boolean} Returns the validation result.
      */
     function validate() {
-        $services.find('.is-invalid').removeClass('is-invalid');
-        $services.find('.form-message').removeClass('alert-danger').hide();
+        $services.find('.is-invalid').removeClass('is-invalid').addClass('border-primary');
 
         try {
             // Validate required fields.
@@ -237,24 +229,51 @@ App.Pages.Services = (function () {
 
             $services.find('.required').each((index, requiredField) => {
                 if (!$(requiredField).val()) {
+                    $(requiredField).removeClass('border border-primary');
                     $(requiredField).addClass('is-invalid');
                     missingRequired = true;
+
+                    // Get all attributes of the required field, for testing
+                    const attributes = {};
+                    $.each(requiredField.attributes, function () {
+                        attributes[this.name] = this.value;
+                    });
                 }
             });
+
+            // Validate the duration.
+            if (Number($duration.val()) < vars('event_minimum_duration')) {
+                $duration.addClass('is-invalid').removeClass('border border-primary');
+                throw new Error(lang('invalid_duration'));
+            }
+
+            if (!Number($price.val())) {
+                $price.addClass('is-invalid').removeClass('border border-primary');
+                throw new Error(lang('invalid_price'));
+            }
+
+            // Format price to 2 decimal places if valid number
+            const priceValue = parseFloat($price.val());
+            if (!isNaN(priceValue)) {
+                $price.val(priceValue.toFixed(2));
+            }
+
+            // Validate currency: only 3 alphabetic characters, no numbers
+            const currencyValue = $currency.val().toUpperCase();
+            $currency.val(currencyValue);
+
+            if (!/^[A-Za-z]{3}$/.test(currencyValue)) {
+                $currency.addClass('is-invalid').removeClass('border border-primary');
+                throw new Error(lang('invalid_currency'));
+            }
 
             if (missingRequired) {
                 throw new Error(lang('fields_are_required'));
             }
 
-            // Validate the duration.
-            if (Number($duration.val()) < vars('event_minimum_duration')) {
-                $duration.addClass('is-invalid');
-                throw new Error(lang('invalid_duration'));
-            }
-
             return true;
         } catch (error) {
-            $services.find('.form-message').addClass('alert-danger').text(error.message).show();
+            App.Utils.Validation.showFormFieldAlert(error.message);
             return false;
         }
     }
@@ -263,21 +282,20 @@ App.Pages.Services = (function () {
      * Resets the service tab form back to its initial state.
      */
     function resetForm() {
-        $filterServices.find('.selected').removeClass('selected');
+        $services.find('.selected').removeClass('selected');
         $filterServices.find('button').prop('disabled', false);
-        $filterServices.find('.results').css('color', '');
+        $services.find('#services-list').css('color', '');
 
-        $services.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $services.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $services.find('.record-details .form-label span').prop('hidden', true);
         $services.find('.record-details #is-private').prop('checked', false);
         $services.find('.record-details h4 a').remove();
 
-        $services.find('.add-edit-delete-group').show();
-        $services.find('.save-cancel-group').hide();
+        $servicesToolbar.find('#add-edit-delete-group').show();
+        $servicesToolbar.find('#save-cancel-group').hide();
         $('#edit-service, #delete-service').prop('disabled', true);
 
         $services.find('.record-details .is-invalid').removeClass('is-invalid');
-        $services.find('.record-details .form-message').hide();
 
         App.Components.ColorSelection.disable($color);
     }
@@ -291,7 +309,13 @@ App.Pages.Services = (function () {
         $id.val(service.id);
         $name.val(service.name);
         $duration.val(service.duration);
-        $price.val(service.price);
+
+        // Format price to 2 decimal places if valid number
+        const priceValue = parseFloat(service.price);
+        if (!isNaN(priceValue)) {
+            $price.val(priceValue.toFixed(2));
+        }
+
         $currency.val(service.currency);
         $description.val(service.description);
         $location.val(service.location);
@@ -316,14 +340,14 @@ App.Pages.Services = (function () {
         App.Http.Services.search(keyword, filterLimit).then((response) => {
             filterResults = response;
 
-            $filterServices.find('.results').empty();
+            $services.find('#services-list').empty();
 
             response.forEach((service) => {
-                $filterServices.find('.results').append(App.Pages.Services.getFilterHtml(service)).append($('<hr/>'));
+                $services.find('#services-list').append(App.Pages.Services.getFilterHtml(service)).append($('<hr/>'));
             });
 
             if (response.length === 0) {
-                $filterServices.find('.results').append(
+                $services.find('#services-list').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),
@@ -337,7 +361,7 @@ App.Pages.Services = (function () {
                         filterLimit += 20;
                         App.Pages.Services.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-services .results');
+                }).appendTo('#services-list');
             }
 
             if (selectId) {
@@ -358,7 +382,7 @@ App.Pages.Services = (function () {
     function getFilterHtml(service) {
         const name = service.name;
 
-        const info = service.duration + ' min - ' + service.price + ' ' + service.currency;
+        const info = service.duration + ' minutes, ' + App.Utils.Currency.formatServicePrice(service.price, service.currency) + ' ' + service.currency;
 
         return $('<div/>', {
             'class': 'service-row entry',
@@ -385,9 +409,9 @@ App.Pages.Services = (function () {
      * @param {Boolean} show Optional (false), if true then the method will display the record on the form.
      */
     function select(id, show = false) {
-        $filterServices.find('.selected').removeClass('selected');
+        $services.find('.selected').removeClass('selected');
 
-        $filterServices.find('.service-row[data-id="' + id + '"]').addClass('selected');
+        $services.find('.service-row[data-id="' + id + '"]').addClass('selected');
 
         if (show) {
             const service = filterResults.find((filterResult) => Number(filterResult.id) === Number(id));
@@ -395,6 +419,8 @@ App.Pages.Services = (function () {
             App.Pages.Services.display(service);
 
             $('#edit-service, #delete-service').prop('disabled', false);
+
+            createBookingLinks(id);
         }
     }
 
@@ -412,6 +438,59 @@ App.Pages.Services = (function () {
             response.forEach((serviceCategory) => {
                 $serviceCategoryId.append(new Option(serviceCategory.name, serviceCategory.id));
             });
+        });
+    }
+
+    /**
+    * Create and display booking link and copy button for a service next to details heading
+    *
+    * @param {Number} service_id - The service ID
+    */
+    function createBookingLinks(service_id) {
+        // Add dedicated provider link.
+        const dedicatedUrl = App.Utils.Url.siteUrl('?service=' + encodeURIComponent(service_id));
+
+        const $link = $('<a/>', {
+            'href': dedicatedUrl,
+            'id': 'booking-link-specific',
+            'target': '_blank',
+            'class': 'badge bg-info text-decoration-none ps-2', // Add Bootstrap badge classes
+            'title': lang('booking_link_specific'),
+            'data-tippy-content': lang('booking_link_specific'),
+            'html': [
+                $('<i/>', {
+                    'class': 'fas fa-link me-2',
+                }),
+                $('<span/>', {
+                    'text': lang('booking_link'),
+                }),
+            ],
+        });
+
+        // Create copy button
+        const $copyButton = $('<a/>', {
+            'id': 'booking-link-specific-copy',
+            'class': 'badge bg-dark text-decoration-none text-light ms-2',
+            'title': lang('copy_link'),
+            'data-tippy-content': lang('copy_link'),
+            'data-url': dedicatedUrl, // Store URL in data attribute
+            'html': [
+                $('<i/>', {
+                    'class': 'fas fa-copy me-1',
+                }),
+                $('<span/>', {
+                    'text': lang('copy'),
+                }),
+            ],
+        });
+
+        $services.find('.record-details h4').find('a, button').remove().end().append($link).append($copyButton);
+
+        // Add click event to copy button in service row click handler
+        $copyButton.on('click', function(e) {
+            e.preventDefault();
+            const urlToCopy = $(this).data('url');
+            App.Utils.Copy.copyToClipboard(urlToCopy, $(this));
         });
     }
 

@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
  *
@@ -509,7 +510,6 @@ body .form-horizontal .controls {
 
 #calendar .calendar-header label {
     margin: 10px 0;
-    vertical-align: middle;
     display: block;
 }
 
@@ -666,7 +666,7 @@ body .form-horizontal .controls {
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
-#customers-page {
+#customers-page, #services-page {
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -701,54 +701,43 @@ body .form-horizontal .controls {
 
 /* ===================================================================================================================== */
 
-#customers-toolbar {
+#customers-toolbar, #services-toolbar {
     background-color: #353535;
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 20px;
 }
 
-/* .customers-toolbar .btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
-} */
-
-/* .customers-toolbar .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #fff;
-} */
-
-
-#customers-filter {
+#customers-filter, #services-filter {
     padding-right: 15px;
 }
 
-#customers-actions {
+#customers-actions, #services-actions {
     text-align: left;
 }
 
-#customers-actions .btn {
+#customers-actions .btn, #services-actions .btn {
     /* margin-right: 5px; */
     margin-bottom: 5px;
 }
 
-#customers-actions .btn:last-child {
+#customers-actions .btn:last-child, #services-actions .btn:last-child {
     margin-right: 0;
 }
 
 /* Match calendar filter input styling */
-#customers-filter .form-control {
+#customers-filter .form-control, #services-filter .form-control {
     max-width: 35vw;
     border-radius: 0.375rem 0 0 0.375rem;
 }
 
-#customers-filter .btn {
+#customers-filter .btn, #services-filter .btn {
     margin-left: 6px;
     border-radius: 0 0.375rem 0.375rem 0;
 }
 
 /* Main customers container */
-#customers {
+#customers, #services {
     margin-top: 20px;
 }
 
@@ -764,7 +753,7 @@ body .form-horizontal .controls {
     padding-bottom: 10px;
 }
 
-#customers-list {
+#customers-list, #services-list {
     overflow-y: auto;
     max-height: 650px;
     max-width: 400px;
@@ -774,21 +763,21 @@ body .form-horizontal .controls {
     background: #fff;
 }
 
-#customers-list .entry {
+#customers-list .entry, #services-list .entry {
     padding: 10px 7px;
 }
 
-#customers-list .entry:hover:not(.selected) {
+#customers-list .entry:hover:not(.selected), #services-list .entry:hover:not(.selected) {
     background-color: #f3f3f3;
     cursor: pointer;
 }
 
-#customers-list .entry.selected {
-    background-color: #f4f4f4;
+#customers-list .entry.selected, #services-list .entry.selected {
+    background-color: #f1eded;
     border-right: 5px solid #429a82;
 }
 
-#customers-list hr {
+#customers-list hr, #services-list hr {
     margin: 5px 0;
 }
 
@@ -804,13 +793,11 @@ body .form-horizontal .controls {
     background-color: rgb(248, 242, 242) !important;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .record-details input:-moz-read-only:not(.custom-control-input),
 .record-details textarea:-moz-read-only {
     box-shadow: none;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .record-details input:read-only:not(.custom-control-input),
 .record-details select:disabled,
 .record-details textarea:read-only {
@@ -939,10 +926,37 @@ span[hidden] {
     border-color: #198754;
 }
 
+/* Force Bootstrap invalid styling */
+.form-control.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.form-control.is-invalid:focus {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Also handle select elements */
+.form-select.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
 /* ===================================================================================================================== */
 
 /* BACKEND SERVICES PAGE
    -------------------------------------------------------------------- */
+
+#booking-link-specific:hover {
+    background-color: #e23d13 !important;
+}
+
+#booking-link-specific-copy:hover {
+    cursor: pointer;
+    background-color: #e23d13 !important;
+}
+
 #services-page h2 {
     color: #525252;
 }
@@ -956,9 +970,9 @@ span[hidden] {
     cursor: pointer;
 }
 
-#services-page .record-details .ui-state-disabled {
+/* #services-page .record-details .ui-state-disabled {
     opacity: 1;
-}
+} */
 
 #services-page #service-duration {
     margin: 0;
@@ -1056,15 +1070,14 @@ span[hidden] {
     table-layout: fixed;
 }
 
-@-moz-document url-prefix() {
-    .breaks .break-day select {
-        height: 36px;
-    }
-
-    .working-plan-exceptions .working-plan-exception select {
-        height: 36px;
-    }
+.breaks .break-day select {
+    height: 36px;
 }
+
+.working-plan-exceptions .working-plan-exception select {
+    height: 36px;
+}
+
 
 #working-plan-exceptions-breaks {
     table-layout: fixed;
