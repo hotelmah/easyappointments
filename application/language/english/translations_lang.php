@@ -535,4 +535,5 @@ $lang['copy_failed'] = 'Copy Failed';
 $lang['link_copied_to_clipboard'] = 'Link copied to clipboard';
 $lang['invalid_price'] = 'Invalid price provided. Please enter a valid number.';
 $lang['invalid_currency'] = 'Invalid currency provided. Please enter a valid 3-letter currency code.';
+$lang['link_service_to_provider'] = 'Please don\'t forget to link a new Service to a Provider.';
 // End

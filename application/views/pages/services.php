@@ -59,7 +59,6 @@
         </div>
     </div>
 
-
     <div id="services" class="row g-4">
         <div class="col-12 col-md-3 field-col">
             <h4 class="text-black-50 mb-3">
@@ -93,9 +92,7 @@
                     <div class="mb-4">
                         <label for="duration" class="form-label mb-2">
                             <?= lang('duration_minutes') ?>
-
                                 <span class="text-danger" hidden>*</span>
-
                         </label>
                         <input id="duration" type="number" class="required form-control border border-primary ps-2 disabled" min="<?= EVENT_MINIMUM_DURATION ?>" disabled/>
                     </div>

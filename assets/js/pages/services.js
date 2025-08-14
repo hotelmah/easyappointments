@@ -138,6 +138,7 @@ App.Pages.Services = (function () {
             }
 
             App.Pages.Services.save(service);
+            App.Utils.Validation.showFormFieldAlert(lang('link_service_to_provider'));
         });
 
         /**
@@ -386,7 +387,17 @@ App.Pages.Services = (function () {
     function getFilterHtml(service) {
         const name = service.name;
 
-        const info = service.duration + ' minutes, ' + App.Utils.Currency.formatServicePrice(service.price, service.currency) + ' ' + service.currency;
+        // Convert duration from minutes to hours and minutes
+        const totalMinutes = parseInt(service.duration, 10);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        let durationStr = '';
+        if (hours > 0) {
+            durationStr += hours + 'h ';
+        }
+        durationStr += minutes + 'm';
+
+        const info = durationStr + ', ' + App.Utils.Currency.formatServicePrice(service.price, service.currency) + ' ' + service.currency;
 
         return $('<div/>', {
             'class': 'service-row entry',

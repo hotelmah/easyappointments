@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -70,6 +72,7 @@ class Service_categories extends EA_Controller
 
         html_vars([
             'page_title' => lang('service_categories'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SERVICES,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'timezones' => $this->timezones->to_array(),
