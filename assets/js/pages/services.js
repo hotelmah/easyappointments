@@ -67,10 +67,10 @@ App.Pages.Services = (function () {
             // Create booking links for the selected service
             createBookingLinks(service.id);
 
-            App.Pages.Services.display(service);
+            $('#edit-service, #delete-service').prop('disabled', false);
             $services.find('.selected').removeClass('selected');
             $(event.currentTarget).addClass('selected');
-            $('#edit-service, #delete-service').prop('disabled', false);
+            App.Pages.Services.display(service);
         });
 
         /**
@@ -227,6 +227,10 @@ App.Pages.Services = (function () {
             // Validate required fields.
             let missingRequired = false;
 
+            if ($price.val() === '') {
+                $price.val('0.00');
+            }
+
             $services.find('.required').each((index, requiredField) => {
                 if (!$(requiredField).val()) {
                     $(requiredField).removeClass('border border-primary');
@@ -247,7 +251,7 @@ App.Pages.Services = (function () {
                 throw new Error(lang('invalid_duration'));
             }
 
-            if (!Number($price.val())) {
+            if (!Number($price.val()) && ($price.val() !== '0.00')) {
                 $price.addClass('is-invalid').removeClass('border border-primary');
                 throw new Error(lang('invalid_price'));
             }
@@ -295,7 +299,7 @@ App.Pages.Services = (function () {
         $servicesToolbar.find('#save-cancel-group').hide();
         $('#edit-service, #delete-service').prop('disabled', true);
 
-        $services.find('.record-details .is-invalid').removeClass('is-invalid');
+        $services.find('.record-details .is-invalid').removeClass('is-invalid').addClass('border border-primary');
 
         App.Components.ColorSelection.disable($color);
     }

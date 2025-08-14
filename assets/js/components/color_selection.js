@@ -66,7 +66,7 @@ App.Components.ColorSelection = (function () {
      */
     function disable($target) {
         $target.find('.color-selection-option').prop('disabled', true).removeClass('selected');
-        $target.find('.color-selection-option:first').addClass('selected');
+        // $target.find('.color-selection-option:first').addClass('selected');
     }
 
     /**
@@ -105,6 +105,6 @@ App.Components.ColorSelection = (function () {
         disable,
         enable,
         getColor,
-        setColor,
+        setColor
     };
 })();

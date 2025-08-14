@@ -23,6 +23,10 @@ window.App.Utils.Currency = (function () {
             return numericPrice.toFixed(2);
         }
 
+        if (numericPrice === 0.00) {
+            return 'Free'; // Special case for free services
+        }
+
         // Get the current locale (from browser or provided)
         const currentLocale = locale ||
                             vars('locale') ||

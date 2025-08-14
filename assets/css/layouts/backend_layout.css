@@ -577,6 +577,10 @@ body .form-horizontal .controls {
     color: #fff;
 }
 
+.fa-sync-alt.fa-spin {
+    animation: fa-spin 1s infinite linear;
+}
+
 @media (min-width: 768px) {
     #calendar-page #calendar-actions {
         text-align: right;

@@ -21,8 +21,8 @@
 /* Color Selection Component Styling */
 .color-selection {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: nowrap;
+    gap: 4px;
     margin-bottom: 15px;
 }
 

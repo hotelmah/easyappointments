@@ -48,6 +48,13 @@ App.Utils.CalendarDefaultView = (function () {
         $reloadAppointments.on('click', () => {
             const calendarView = fullCalendar.view;
 
+            const $icon = $reloadAppointments.find('.fas.fa-sync-alt');
+            $icon.addClass('fa-spin');
+
+            setTimeout(() => {
+                $icon.removeClass('fa-spin');
+            }, 2000);
+
             if ($popoverTarget) {
                 $popoverTarget.popover('dispose');
             }
