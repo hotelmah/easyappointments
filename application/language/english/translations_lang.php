@@ -536,4 +536,9 @@ $lang['link_copied_to_clipboard'] = 'Link copied to clipboard';
 $lang['invalid_price'] = 'Invalid price provided. Please enter a valid number.';
 $lang['invalid_currency'] = 'Invalid currency provided. Please enter a valid 3-letter currency code.';
 $lang['link_service_to_provider'] = 'Please don\'t forget to link a new Service to a Provider.';
+$lang['add_service_category_hint'] = 'Add a new service category to the database.';
+$lang['edit_service_category_hint'] = 'Edit the selected service category in the database.';
+$lang['delete_service_category_hint'] = 'Delete the selected service category from the database.';
+$lang['search_service_categories_placeholder'] = 'Search service categories by name...';
+$lang['search_service_categories_hint'] = 'Search Service Categories';
 // End

@@ -27,21 +27,20 @@
         <div id="services-actions" class="col-md-7">
             <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-2">
                 <div id="add-edit-delete-group">
+                    <button id="add-service" class="btn btn-light" data-tippy-content="<?= lang('add_service_hint') ?>">
+                        <i class="fas fa-plus-square me-2"></i>
+                        <?= lang('add') ?>
+                    </button>
 
-                        <button id="add-service" class="btn btn-light" data-tippy-content="<?= lang('add_service_hint') ?>">
-                            <i class="fas fa-plus-square me-2"></i>
-                            <?= lang('add') ?>
-                        </button>
+                    <button id="edit-service" class="btn btn-light" data-tippy-content="<?= lang('edit_service_hint') ?>" disabled>
+                        <i class="fas fa-edit me-2"></i>
+                        <?= lang('edit') ?>
+                    </button>
 
-                        <button id="edit-service" class="btn btn-light" data-tippy-content="<?= lang('edit_service_hint') ?>" disabled>
-                            <i class="fas fa-edit me-2"></i>
-                            <?= lang('edit') ?>
-                        </button>
-
-                        <button id="delete-service" class="btn btn-light" data-tippy-content="<?= lang('delete_service_hint') ?>" disabled>
-                            <i class="fas fa-trash-alt me-2"></i>
-                            <?= lang('delete') ?>
-                        </button>
+                    <button id="delete-service" class="btn btn-light" data-tippy-content="<?= lang('delete_service_hint') ?>" disabled>
+                        <i class="fas fa-trash-alt me-2"></i>
+                        <?= lang('delete') ?>
+                    </button>
                 </div>
 
                 <div id="save-cancel-group" style="display:none;">
@@ -161,9 +160,9 @@
 
                     <div class="border rounded mb-3 p-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="is-private">
+                            <input id="is-private" type="checkbox" class="form-check-input">
 
-                            <label class="form-check-label" for="is-private">
+                            <label for="is-private" class="form-check-label">
                                 <?= lang('hide_from_public') ?>
                             </label>
                         </div>
@@ -176,7 +175,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label mb-2" for="description">
+                        <label for="description" class="form-label mb-2">
                             <?= lang('description') ?>
                         </label>
                         <textarea id="description" rows="4" class="form-control border border-primary ps-2 disabled" disabled></textarea>
@@ -193,8 +192,8 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/http/services_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/service_categories_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/pages/services.js') ?>"></script>
+<script src="<?= asset_url('assets/js/http/services_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/http/service_categories_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/pages/services.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>
