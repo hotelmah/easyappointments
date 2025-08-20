@@ -15,13 +15,14 @@
  * This module implements the functionality of the providers page.
  */
 App.Pages.Providers = (function () {
+    const $providersToolbar = $('#providers-toolbar');
     const $providers = $('#providers');
-    const $id = $('#id');
+    const $id = $('#provider-id');
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $mobileNumber = $('#mobile-number');
-    const $phoneNumber = $('#phone-number');
+    const $mobileNumber = $('#mobile-phone-number');
+    const $phoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
     const $state = $('#state');
@@ -52,7 +53,7 @@ App.Pages.Providers = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $providers.on('submit', '#filter-providers form', (event) => {
+        $providersToolbar.on('submit', '#filter-providers-form', (event) => {
             event.preventDefault();
             const key = $('#filter-providers .key').val();
             $('.selected').removeClass('selected');
@@ -83,7 +84,7 @@ App.Pages.Providers = (function () {
         /**
          * Event: Add New Provider Button "Click"
          */
-        $providers.on('click', '#add-provider', () => {
+        $providersToolbar.on('click', '#add-provider', () => {
             App.Pages.Providers.resetForm();
             $filterProviders.find('button').prop('disabled', true);
             $filterProviders.find('.results').css('color', '#AAA');
@@ -108,7 +109,7 @@ App.Pages.Providers = (function () {
         /**
          * Event: Edit Provider Button "Click"
          */
-        $providers.on('click', '#edit-provider', () => {
+        $providersToolbar.on('click', '#edit-provider', () => {
             $providers.find('.add-edit-delete-group').hide();
             $providers.find('.save-cancel-group').show();
             $filterProviders.find('button').prop('disabled', true);
@@ -129,7 +130,7 @@ App.Pages.Providers = (function () {
         /**
          * Event: Delete Provider Button "Click"
          */
-        $providers.on('click', '#delete-provider', () => {
+        $providersToolbar.on('click', '#delete-provider', () => {
             const providerId = $id.val();
 
             const buttons = [
@@ -154,13 +155,13 @@ App.Pages.Providers = (function () {
         /**
          * Event: Save Provider Button "Click"
          */
-        $providers.on('click', '#save-provider', () => {
+        $providersToolbar.on('click', '#save-provider', () => {
             const provider = {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
                 email: $email.val(),
-                mobile_number: $mobileNumber.val(),
-                phone_number: $phoneNumber.val(),
+                mobile_phone_number: $mobileNumber.val(),
+                work_phone_number: $phoneNumber.val(),
                 address: $address.val(),
                 city: $city.val(),
                 state: $state.val(),
@@ -209,7 +210,7 @@ App.Pages.Providers = (function () {
          *
          * Cancel add or edit of an provider record.
          */
-        $providers.on('click', '#cancel-provider', () => {
+        $providersToolbar.on('click', '#cancel-provider', () => {
             const id = $('#filter-providers .selected').attr('data-id');
             App.Pages.Providers.resetForm();
             if (id) {
@@ -220,7 +221,7 @@ App.Pages.Providers = (function () {
         /**
          * Event: Reset Working Plan Button "Click".
          */
-        $providers.on('click', '#reset-working-plan', () => {
+        $providersToolbar.on('click', '#reset-working-plan', () => {
             $('.breaks tbody').empty();
             $('.working-plan-exceptions tbody').empty();
             $('.work-start, .work-end').val('');

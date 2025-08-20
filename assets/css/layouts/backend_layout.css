@@ -670,7 +670,7 @@ body .form-horizontal .controls {
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
-#customers-page, #services-page, #service-categories-page {
+#customers-page, #services-page, #service-categories-page, #providers-page {
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -705,43 +705,43 @@ body .form-horizontal .controls {
 
 /* ===================================================================================================================== */
 
-#customers-toolbar, #services-toolbar, #service-categories-toolbar {
+#customers-toolbar, #services-toolbar, #service-categories-toolbar, #providers-toolbar {
     background-color: #353535;
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 20px;
 }
 
-#customers-filter, #services-filter, #service-categories-filter {
+#customers-filter, #services-filter, #service-categories-filter, #providers-filter {
     padding-right: 15px;
 }
 
-#customers-actions, #services-actions, #service-categories-actions {
+#customers-actions, #services-actions, #service-categories-actions, #providers-actions {
     text-align: left;
 }
 
-#customers-actions .btn, #services-actions .btn, #service-categories-actions .btn {
+#customers-actions .btn, #services-actions .btn, #service-categories-actions .btn, #providers-actions .btn {
     /* margin-right: 5px; */
     margin-bottom: 5px;
 }
 
-#customers-actions .btn:last-child, #services-actions .btn:last-child, #service-categories-actions .btn:last-child {
+#customers-actions .btn:last-child, #services-actions .btn:last-child, #service-categories-actions .btn:last-child, #providers-actions .btn:last-child {
     margin-right: 0;
 }
 
 /* Match calendar filter input styling */
-#customers-filter .form-control, #services-filter .form-control, #service-categories-filter .form-control {
+#customers-filter .form-control, #services-filter .form-control, #service-categories-filter .form-control, #providers-filter .form-control {
     max-width: 35vw;
     border-radius: 0.375rem 0 0 0.375rem;
 }
 
-#customers-filter .btn, #services-filter .btn, #service-categories-filter .btn {
+#customers-filter .btn, #services-filter .btn, #service-categories-filter .btn, #providers-filter .btn {
     margin-left: 6px;
     border-radius: 0 0.375rem 0.375rem 0;
 }
 
 /* Main customers container */
-#customers, #services, #service-categories {
+#customers, #services, #service-categories, #providers {
     margin-top: 20px;
 }
 
@@ -757,7 +757,7 @@ body .form-horizontal .controls {
     padding-bottom: 10px;
 }
 
-#customers-list, #services-list, #service-categories-list {
+#customers-list, #services-list, #service-categories-list, #providers-list {
     overflow-y: auto;
     max-height: 650px;
     max-width: 400px;
@@ -767,21 +767,21 @@ body .form-horizontal .controls {
     background: #fff;
 }
 
-#customers-list .entry, #services-list .entry, #service-categories-list .entry {
+#customers-list .entry, #services-list .entry, #service-categories-list .entry, #providers-list .entry {
     padding: 10px 7px;
 }
 
-#customers-list .entry:hover:not(.selected), #services-list .entry:hover:not(.selected), #service-categories-list .entry:hover:not(.selected) {
+#customers-list .entry:hover:not(.selected), #services-list .entry:hover:not(.selected), #service-categories-list .entry:hover:not(.selected), #providers-list .entry:hover:not(.selected) {
     background-color: #f3f3f3;
     cursor: pointer;
 }
 
-#customers-list .entry.selected, #services-list .entry.selected, #service-categories-list .entry.selected {
+#customers-list .entry.selected, #services-list .entry.selected, #service-categories-list .entry.selected, #providers-list .entry.selected {
     background-color: #f1eded;
     border-right: 5px solid #429a82;
 }
 
-#customers-list hr, #services-list hr, #service-categories-list hr {
+#customers-list hr, #services-list hr, #service-categories-list hr, #providers-list hr {
     margin: 5px 0;
 }
 
@@ -852,11 +852,6 @@ span[hidden] {
 #notes {
     resize: vertical;
     min-height: 100px;
-}
-
-/* Hidden input */
-#customer-id {
-    display: none;
 }
 
 /* Responsive adjustments */

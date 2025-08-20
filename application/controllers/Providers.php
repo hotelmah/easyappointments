@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -25,8 +27,8 @@ class Providers extends EA_Controller
         'first_name',
         'last_name',
         'email',
-        'alt_number',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
@@ -125,6 +127,7 @@ class Providers extends EA_Controller
 
         html_vars([
             'page_title' => lang('providers'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_USERS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'grouped_timezones' => $this->timezones->to_grouped_array(),
