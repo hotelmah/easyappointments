@@ -37,7 +37,7 @@ App.Pages.Providers = (function () {
     const $passwordConfirmation = $('#password-confirm');
     const $notifications = $('#notifications');
     const $calendarView = $('#calendar-view');
-    const $filterProviders = $('#filter-providers');
+    const $filterProviders = $('#providers-filter');
     let filterResults = {};
     let filterLimit = 20;
     let workingPlanManager;
@@ -68,17 +68,17 @@ App.Pages.Providers = (function () {
          */
         $providers.on('click', '.provider-row', (event) => {
             if ($filterProviders.find('.filter').prop('disabled')) {
-                $filterProviders.find('.results').css('color', '#AAA');
+                $providers.find('#providers-list').css('color', '#AAA');
                 return; // Exit because we are currently on edit mode.
             }
 
             const providerId = $(event.currentTarget).attr('data-id');
             const provider = filterResults.find((filterResult) => Number(filterResult.id) === Number(providerId));
 
-            App.Pages.Providers.display(provider);
-            $filterProviders.find('.selected').removeClass('selected');
-            $(event.currentTarget).addClass('selected');
             $('#edit-provider, #delete-provider').prop('disabled', false);
+            $providers.find('.selected').removeClass('selected');
+            $(event.currentTarget).addClass('selected');
+            App.Pages.Providers.display(provider);
         });
 
         /**
@@ -86,13 +86,17 @@ App.Pages.Providers = (function () {
          */
         $providersToolbar.on('click', '#add-provider', () => {
             App.Pages.Providers.resetForm();
-            $filterProviders.find('button').prop('disabled', true);
-            $filterProviders.find('.results').css('color', '#AAA');
-            $providers.find('.add-edit-delete-group').hide();
-            $providers.find('.save-cancel-group').show();
-            $providers.find('.record-details').find('input, select, textarea').prop('disabled', false);
+
+            $providersToolbar.find('#add-edit-delete-group').hide();
+            $providersToolbar.find('#save-cancel-group').show();
+
+            $providers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $providers.find('.record-details .form-label span').prop('hidden', false);
+            $filterProviders.find('button').prop('disabled', true);
+            $providers.find('#providers-list').css('color', '#AAA');
+
             $('#password, #password-confirm').addClass('required');
+
             $providers
                 .find(
                     '.add-break, .edit-break, .delete-break, .add-working-plan-exception, .edit-working-plan-exception, .delete-working-plan-exception, #reset-working-plan',
@@ -110,12 +114,14 @@ App.Pages.Providers = (function () {
          * Event: Edit Provider Button "Click"
          */
         $providersToolbar.on('click', '#edit-provider', () => {
-            $providers.find('.add-edit-delete-group').hide();
-            $providers.find('.save-cancel-group').show();
-            $filterProviders.find('button').prop('disabled', true);
-            $filterProviders.find('.results').css('color', '#AAA');
-            $providers.find('.record-details').find('input, select, textarea').prop('disabled', false);
+            $providersToolbar.find('#add-edit-delete-group').hide();
+            $providersToolbar.find('#save-cancel-group').show();
+
+            $providers.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $providers.find('.record-details .form-label span').prop('hidden', false);
+            $filterProviders.find('button').prop('disabled', true);
+            $providers.find('#providers-list').css('color', '#AAA');
+
             $('#password, #password-confirm').removeClass('required');
             $('#provider-services input:checkbox').prop('disabled', false);
             $providers
@@ -156,6 +162,10 @@ App.Pages.Providers = (function () {
          * Event: Save Provider Button "Click"
          */
         $providersToolbar.on('click', '#save-provider', () => {
+            if (!App.Pages.Providers.validate()) {
+                return;
+            }
+
             const provider = {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
@@ -198,10 +208,6 @@ App.Pages.Providers = (function () {
                 provider.id = $id.val();
             }
 
-            if (!App.Pages.Providers.validate()) {
-                return;
-            }
-
             App.Pages.Providers.save(provider);
         });
 
@@ -211,7 +217,8 @@ App.Pages.Providers = (function () {
          * Cancel add or edit of an provider record.
          */
         $providersToolbar.on('click', '#cancel-provider', () => {
-            const id = $('#filter-providers .selected').attr('data-id');
+            const id = $('#providers-list .selected').attr('data-id');
+
             App.Pages.Providers.resetForm();
             if (id) {
                 App.Pages.Providers.select(id, true);
@@ -228,6 +235,15 @@ App.Pages.Providers = (function () {
             const companyWorkingPlan = JSON.parse(vars('company_working_plan'));
             workingPlanManager.setup(companyWorkingPlan);
             workingPlanManager.timepickers(false);
+        });
+
+        /**
+         * Event: Clear Providers Button "Click"
+         */
+        $providersToolbar.on('click', '#clear-providers', () => {
+            $filterProviders.find('.key').val('');
+            App.Pages.Providers.resetForm();
+            App.Pages.Providers.filter('');
         });
     }
 
@@ -333,21 +349,22 @@ App.Pages.Providers = (function () {
      * Resets the provider tab form back to its initial state.
      */
     function resetForm() {
-        $filterProviders.find('.selected').removeClass('selected');
+        $providers.find('.selected').removeClass('selected');
         $filterProviders.find('button').prop('disabled', false);
-        $filterProviders.find('.results').css('color', '');
+        $providers.find('#providers-list').css('color', '');
 
-        $providers.find('.add-edit-delete-group').show();
-        $providers.find('.save-cancel-group').hide();
-        $providers.find('.record-details h4 a').remove();
-        $providers.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $providers.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $providers.find('.record-details .form-label span').prop('hidden', true);
         $providers.find('.record-details #calendar-view').val('default');
         $providers.find('.record-details #language').val(vars('default_language'));
         $providers.find('.record-details #timezone').val(vars('default_timezone'));
         $providers.find('.record-details #is-private').prop('checked', false);
-        $providers.find('.record-details #notifications').prop('checked', true);
+        $providers.find('.record-details #notifications').prop('checked', true).prop('readonly', true);
         $providers.find('.add-break, .add-working-plan-exception, #reset-working-plan').prop('disabled', true);
+        $providers.find('.record-details h4 a').remove();
+
+        $providersToolbar.find('#add-edit-delete-group').show();
+        $providersToolbar.find('#save-cancel-group').hide();
 
         workingPlanManager.timepickers(true);
         $providers.find('#providers .working-plan input:checkbox').prop('disabled', true);
@@ -356,8 +373,8 @@ App.Pages.Providers = (function () {
             .find('.edit-working-plan-exception, .delete-working-plan-exception')
             .prop('disabled', true);
 
-        $providers.find('.record-details .is-invalid').removeClass('is-invalid');
-        $providers.find('.record-details .form-message').hide();
+        $providers.find('.record-details .is-invalid').removeClass('is-invalid').addClass('border border-primary');
+        // $providers.find('.record-details .form-message').hide();
 
         $('#edit-provider, #delete-provider').prop('disabled', true);
         $('#provider-services input:checkbox').prop('disabled', true).prop('checked', false);
@@ -377,8 +394,8 @@ App.Pages.Providers = (function () {
         $firstName.val(provider.first_name);
         $lastName.val(provider.last_name);
         $email.val(provider.email);
-        $mobileNumber.val(provider.mobile_number);
-        $phoneNumber.val(provider.phone_number);
+        $mobileNumber.val(provider.mobile_phone_number);
+        $phoneNumber.val(provider.work_phone_number);
         $address.val(provider.address);
         $city.val(provider.city);
         $state.val(provider.state);
@@ -391,13 +408,17 @@ App.Pages.Providers = (function () {
 
         $username.val(provider.settings.username);
         $calendarView.val(provider.settings.calendar_view);
-        $notifications.prop('checked', Boolean(Number(provider.settings.notifications)));
+        $notifications.prop('checked', Boolean(Number(provider.settings.notifications))).toggleClass('checked-state', Boolean(Number(provider.settings.notifications)));
 
         // Add dedicated provider link.
         let dedicatedUrl = App.Utils.Url.siteUrl('?provider=' + encodeURIComponent(provider.id));
         let $link = $('<a/>', {
             'href': dedicatedUrl,
+            'id': 'booking-link-specific',
             'target': '_blank',
+            'class': 'badge bg-info text-decoration-none ps-2', // Add Bootstrap badge classes
+            'title': lang('booking_link_specific'),
+            'data-tippy-content': lang('booking_link_specific'),
             'html': [
                 $('<i/>', {
                     'class': 'fas fa-link me-2',
@@ -409,7 +430,31 @@ App.Pages.Providers = (function () {
             ],
         });
 
-        $providers.find('.details-view h4').find('a').remove().end().append($link);
+        // Create copy button
+        const $copyButton = $('<a/>', {
+            'id': 'booking-link-specific-copy',
+            'class': 'badge bg-dark text-decoration-none text-light ms-2',
+            'title': lang('copy_link'),
+            'data-tippy-content': lang('copy_link'),
+            'data-url': dedicatedUrl, // Store URL in data attribute
+            'html': [
+                $('<i/>', {
+                    'class': 'fas fa-copy me-1',
+                }),
+                $('<span/>', {
+                    'text': lang('copy'),
+                }),
+            ],
+        });
+
+        $providers.find('.details-view h4').find('a, button').remove().end().append($link).append($copyButton);
+
+        // Add click event to copy button in service row click handler
+        $copyButton.on('click', function(e) {
+            e.preventDefault();
+            const urlToCopy = $(this).data('url');
+            App.Utils.Copy.copyToClipboard(urlToCopy, $(this));
+        });
 
         $('#provider-services a').remove();
         $('#provider-services input:checkbox').prop('checked', false);
@@ -431,6 +476,7 @@ App.Pages.Providers = (function () {
             $link = $('<a/>', {
                 'href': dedicatedUrl,
                 'target': '_blank',
+                'class': 'badge bg-info text-decoration-none ps-2 w-50 booking-link-specific', // Add Bootstrap badge classes
                 'html': [
                     $('<i/>', {
                         'class': 'fas fa-link me-2',
@@ -470,13 +516,13 @@ App.Pages.Providers = (function () {
         App.Http.Providers.search(keyword, filterLimit).then((response) => {
             filterResults = response;
 
-            $filterProviders.find('.results').empty();
+            $providers.find('#providers-list').empty();
             response.forEach((provider) => {
-                $('#filter-providers .results').append(App.Pages.Providers.getFilterHtml(provider)).append($('<hr/>'));
+                $providers.find('#providers-list').append(App.Pages.Providers.getFilterHtml(provider)).append($('<hr/>'));
             });
 
             if (!response.length) {
-                $filterProviders.find('.results').append(
+                $providers.find('#providers-list').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),
@@ -490,7 +536,7 @@ App.Pages.Providers = (function () {
                         filterLimit += 20;
                         App.Pages.Providers.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-providers .results');
+                }).appendTo('#providers-list');
             }
 
             if (selectId) {
@@ -540,7 +586,7 @@ App.Pages.Providers = (function () {
      */
     function select(id, show = false) {
         // Select record in filter results.
-        $filterProviders.find('.provider-row[data-id="' + id + '"]').addClass('selected');
+        $providers.find('.provider-row[data-id="' + id + '"]').addClass('selected');
 
         // Display record in form (if display = true).
         if (show) {
@@ -574,7 +620,7 @@ App.Pages.Providers = (function () {
                         'html': [
                             $('<input/>', {
                                 'id': checkboxId,
-                                'class': 'form-check-input',
+                                'class': 'form-check-input border border-primary',
                                 'type': 'checkbox',
                                 'data-id': service.id,
                                 'prop': {
@@ -590,6 +636,12 @@ App.Pages.Providers = (function () {
                     }),
                 ],
             }).appendTo('#provider-services');
+        });
+
+        // Initialize Bootstrap tabs manually if needed
+        const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
+        tabLinks.forEach(tab => {
+            new bootstrap.Tab(tab);
         });
     }
 

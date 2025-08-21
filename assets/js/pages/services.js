@@ -78,12 +78,15 @@ App.Pages.Services = (function () {
          */
         $servicesToolbar.on('click', '#add-service', () => {
             App.Pages.Services.resetForm();
+
             $servicesToolbar.find('#add-edit-delete-group').hide();
             $servicesToolbar.find('#save-cancel-group').show();
+
             $services.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $services.find('.record-details .form-label span').prop('hidden', false);
             $filterServices.find('button').prop('disabled', true);
             $services.find('#services-list').css('color', '#AAA');
+
             App.Components.ColorSelection.enable($color);
 
             // Default values
@@ -147,6 +150,7 @@ App.Pages.Services = (function () {
         $servicesToolbar.on('click', '#edit-service', () => {
             $servicesToolbar.find('#add-edit-delete-group').hide();
             $servicesToolbar.find('#save-cancel-group').show();
+
             $services.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $services.find('.record-details .form-label span').prop('hidden', false);
             $filterServices.find('button').prop('disabled', true);

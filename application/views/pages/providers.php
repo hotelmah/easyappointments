@@ -13,7 +13,7 @@
                             <i class="fas fa-search"></i>
                             <?= lang('search') ?>
                         </button>
-                        <button id="clear-services" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
+                        <button id="clear-providers" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
                             <i class="fas fa-times"></i>
                             <?= lang('clear') ?>
                         </button>
@@ -24,18 +24,17 @@
 
         <div id="provider-actions" class="col-md-7">
             <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-2">
-                <ul class="nav nav-pills switch-view">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#details" data-bs-toggle="tab">
-                            <?= lang('details') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#working-plan" data-bs-toggle="tab">
-                            <?= lang('working_plan') ?>
-                        </a>
-                    </li>
-                </ul>
+                <div class="btn-group" role="tablist" aria-label="<?= lang('view_toggle') ?>">
+                    <button id="details-toggle-btn" type="button" role="tab" class="btn btn-outline-primary active" data-bs-toggle="tab" data-bs-target="#details" aria-controls="details" aria-selected="true">
+                        <i class="fas fa-info-circle me-1"></i>
+                        <?= lang('details') ?>
+                    </button>
+
+                    <button id="working-plan-toggle-btn" type="button" role="tab" class="btn btn-outline-primary" data-bs-toggle="tab" data-bs-target="#working-plan" aria-controls="working-plan" aria-selected="false">
+                        <i class="fas fa-calendar-alt me-1"></i>
+                        <?= lang('working_plan') ?>
+                    </button>
+                </div>
 
                 <div id="add-edit-delete-group">
                     <button id="add-provider" class="btn btn-light" data-tippy-content="<?= lang('add_provider_hint') ?>">
@@ -90,7 +89,7 @@
             <div class="form-message alert" style="display:none;"></div>
 
             <div class="tab-content">
-                <div id="details" class="details-view tab-pane fade show active clearfix">
+                <div id="details" role="tabpanel" class="details-view tab-pane fade show active clearfix field-col" aria-labelledby="tab-details">
                     <h4 class="text-black-50 mb-3">
                         <?= lang('details') ?>
                     </h4>
@@ -251,7 +250,7 @@
                                 </label>
                             </div>
 
-                            <div class="border rounded mb-3 p-3">
+                            <div class="border border-primary rounded mb-3 p-3">
                                 <div class="form-check form-switch">
                                     <input id="is-private" class="form-check-input border border-primary ps-2" type="checkbox">
                                     <label class="form-check-label" for="is-private">
@@ -266,7 +265,7 @@
                                 </div>
 
                                 <div class="form-check form-switch">
-                                    <input id="notifications" class="form-check-input border border-primary ps-2 disabled" type="checkbox" disabled>
+                                    <input id="notifications" class="form-check-input border border-primary ps-2" type="checkbox">
                                     <label class="form-check-label" for="notifications">
                                         <?= lang('receive_notifications') ?>
                                     </label>
@@ -279,7 +278,7 @@
                                 </label>
                             </div>
 
-                            <div id="provider-services" class="card card-body bg-white border rounded mb-3 p-3">
+                            <div id="provider-services" class="card card-body border border-primary rounded mb-3 p-3">
                                 <!-- JS -->
                             </div>
 
@@ -288,7 +287,7 @@
                     </div>
                 </div>
 
-                <div id="working-plan" class="working-plan-view tab-pane fade clearfix">
+                <div id="working-plan" role="tabpanel" class="working-plan-view tab-pane fade clearfix field-col" aria-labelledby="tab-working-plan">
                     <h4 class="text-black-50 mb-3">
                         <?= lang('working_plan') ?>
                     </h4>

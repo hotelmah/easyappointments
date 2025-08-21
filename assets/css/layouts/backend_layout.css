@@ -947,7 +947,7 @@ span[hidden] {
 /* BACKEND SERVICES PAGE
    -------------------------------------------------------------------- */
 
-#booking-link-specific:hover {
+#booking-link-specific:hover, .booking-link-specific:hover {
     background-color: #e23d13 !important;
 }
 
@@ -1065,6 +1065,10 @@ span[hidden] {
     padding: 4px 7px;
 }
 
+#providers-page #provider-services {
+    min-height: 250px;
+}
+
 .breaks.table {
     table-layout: fixed;
 }
@@ -1116,11 +1120,43 @@ span[hidden] {
 #providers-page #providers .record-details #provider-services .checkbox a {
     display: block;
     text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    margin-top: 2px;
-    margin-left: -24px;
-    margin-bottom: 2px;
+    text-transform: capitalize;
+}
+
+
+.view-toggle .btn {
+    min-width: 120px;
+    transition: all 0.2s ease;
+}
+
+.view-toggle .btn.active {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+.view-toggle .btn:not(.active) {
+    background-color: #f8f9fa !important;
+    border-color: #dee2e6 !important;
+    color: #495057 !important;
+}
+
+/* Add to your CSS file */
+#notifications.form-check-input:disabled:checked {
+    background-color: #d0d4db !important;
+    border-color: #a4a7a9 !important;
+    opacity: 0.8;
+}
+
+#notifications.form-check-input:disabled:checked.bg-primary {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+/* Optional: Add a visual indicator for disabled state */
+#notifications.form-check-input:disabled {
+    cursor: not-allowed;
 }
 
 /* BACKEND SETTINGS PAGE
