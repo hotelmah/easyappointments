@@ -39,7 +39,7 @@
             <li class="nav-item <?= $active . $hidden ?>">
                 <a href="<?= site_url('customers') ?>" class="nav-link"
                 data-tippy-content="<?= lang('manage_customers_hint') ?>">
-                    <i class="fas fa-user-friends me-2"></i>
+                    <i class="fas fa-users me-2"></i>
                     <?= lang('customers') ?>
                 </a>
             </li>
@@ -67,7 +67,7 @@
             <li class="nav-item dropdown <?= $active . $hidden ?>">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                 data-tippy-content="<?= lang('manage_users_hint') ?>">
-                    <i class="fas fa-users me-2"></i>
+                    <i class="fas fa-user-friends me-2"></i>
                     <?= lang('users') ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">

@@ -9,11 +9,11 @@
                 <div class="input-group">
                     <input type="text" class="key form-control border border-primary" aria-label="keyword" placeholder="<?= lang('search_providers_placeholder') ?>" data-tippy-content="<?= lang('search_providers_hint') ?>" autocomplete="off">
                     <div class="btn-group">
-                        <button class="filter btn btn-light" type="submit" data-tippy-content="<?= lang('filter') ?>">
+                        <button type="submit" class="filter btn btn-light" data-tippy-content="<?= lang('filter') ?>">
                             <i class="fas fa-search"></i>
                             <?= lang('search') ?>
                         </button>
-                        <button id="clear-providers" class="btn btn-light" type="button" data-tippy-content="<?= lang('clear') ?>">
+                        <button id="clear-providers" type="button" class="btn btn-light" data-tippy-content="<?= lang('clear') ?>">
                             <i class="fas fa-times"></i>
                             <?= lang('clear') ?>
                         </button>
@@ -25,12 +25,12 @@
         <div id="provider-actions" class="col-md-7">
             <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-2">
                 <div class="btn-group" role="tablist" aria-label="<?= lang('view_toggle') ?>">
-                    <button id="details-toggle-btn" type="button" role="tab" class="btn btn-outline-primary active" data-bs-toggle="tab" data-bs-target="#details" aria-controls="details" aria-selected="true">
+                    <button id="details-toggle-btn" type="button" role="tab" class="btn btn-outline-primary active" data-bs-toggle="tab" data-bs-target="#details" aria-controls="details" aria-selected="true" data-tippy-content="<?= lang('provider_details_toggle') ?>">
                         <i class="fas fa-info-circle me-1"></i>
                         <?= lang('details') ?>
                     </button>
 
-                    <button id="working-plan-toggle-btn" type="button" role="tab" class="btn btn-outline-primary" data-bs-toggle="tab" data-bs-target="#working-plan" aria-controls="working-plan" aria-selected="false">
+                    <button id="working-plan-toggle-btn" type="button" role="tab" class="btn btn-outline-primary" data-bs-toggle="tab" data-bs-target="#working-plan" aria-controls="working-plan" aria-selected="false" data-tippy-content="<?= lang('provider_working_plan_toggle') ?>">
                         <i class="fas fa-calendar-alt me-1"></i>
                         <?= lang('working_plan') ?>
                     </button>
@@ -54,11 +54,11 @@
                 </div>
 
                 <div id="save-cancel-group" style="display:none;">
-                    <button id="save-provider" class="btn btn-success">
+                    <button id="save-provider" class="btn btn-success" data-tippy-content="<?= lang('save') ?>">
                         <i class="fas fa-check-square me-2"></i>
                         <?= lang('save') ?>
                     </button>
-                    <button id="cancel-provider" class="btn btn-light">
+                    <button id="cancel-provider" class="btn btn-light" data-tippy-content="<?= lang('cancel') ?>">
                         <i class="fas fa-times-circle me-2"></i>
                         <?= lang('cancel') ?>
                     </button>
@@ -69,7 +69,7 @@
     </div>
 
     <div id="providers" class="row g-4">
-        <div class="col-12 col-md-3 field-col">
+        <div class="col-12 col-md-4 field-col">
             <h4 class="text-black-50 mb-3">
                 <?= lang('providers') ?>
             </h4>
@@ -230,7 +230,7 @@
                                     <span class="text-danger" hidden>*</span>
                                 </label>
                                 <?php component('timezone_dropdown', [
-                                    'attributes' => 'id="timezone" class="required form-control border border-primary ps-2 disabled" disabled',
+                                    'attributes' => 'id="timezone" class="required form-select border border-primary ps-2 disabled" disabled',
                                     'grouped_timezones' => vars('grouped_timezones'),
                                 ]); ?>
                             </div>
@@ -292,12 +292,21 @@
                         <?= lang('working_plan') ?>
                     </h4>
 
-                    <button id="reset-working-plan" class="btn btn-primary" data-tippy-content="<?= lang('reset_working_plan') ?>">
-                        <i class="fas fa-undo-alt me-2"></i>
-                        <?= lang('reset_plan') ?>
-                    </button>
-                    <table class="working-plan table table-striped mt-2">
-                        <thead>
+                    <p>
+                        <?= lang('provider_weekly_working_plan') ?>
+                    </p>
+
+                    <div>
+                        <button id="reset-working-plan" class="btn btn-primary me-2" data-tippy-content="<?= lang('reset_working_plan') ?>">
+                            <i class="fas fa-undo-alt me-2"></i>
+                            <?= lang('reset_plan') ?>
+                        </button>
+                    </div>
+
+                    <br>
+
+                    <table class="working-plan table table-striped table-hover mt-2">
+                        <thead class="table-dark">
                         <tr>
                             <th><?= lang('day') ?></th>
                             <th><?= lang('start') ?></th>
@@ -320,7 +329,7 @@
                     </p>
 
                     <div>
-                        <button type="button" class="add-break btn btn-primary">
+                        <button type="button" class="add-break btn btn-primary me-2">
                             <i class="fas fa-plus-square me-2"></i>
                             <?= lang('add_break') ?>
                         </button>
@@ -328,8 +337,8 @@
 
                     <br>
 
-                    <table class="breaks table table-striped">
-                        <thead>
+                    <table class="breaks table table-striped mt-2">
+                        <thead class="table-dark">
                         <tr>
                             <th><?= lang('day') ?></th>
                             <th><?= lang('start') ?></th>
@@ -361,8 +370,8 @@
 
                     <br>
 
-                    <table class="working-plan-exceptions table table-striped">
-                        <thead>
+                    <table class="working-plan-exceptions table table-striped mt-2">
+                        <thead class="table-dark">
                         <tr>
                             <th><?= lang('day') ?></th>
                             <th><?= lang('start') ?></th>

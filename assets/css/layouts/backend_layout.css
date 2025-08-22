@@ -72,6 +72,10 @@ root {
     background: #2e6a5b;
 }
 
+.dropdown-item:hover {
+    background-color: #989a93;
+}
+
 #footer {
     background-color: var(--bs-body-bg);
     border-top: 1px solid #ddd;
@@ -757,7 +761,7 @@ body .form-horizontal .controls {
     padding-bottom: 10px;
 }
 
-#customers-list, #services-list, #service-categories-list, #providers-list {
+#customers-list, #services-list, #service-categories-list {
     overflow-y: auto;
     max-height: 650px;
     max-width: 400px;
@@ -1067,6 +1071,16 @@ span[hidden] {
 
 #providers-page #provider-services {
     min-height: 250px;
+}
+
+#providers-list {
+    overflow-y: auto;
+    max-height: 700px;
+    max-width: 480px;
+    /* outline: none; */
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background: #fff;
 }
 
 .breaks.table {

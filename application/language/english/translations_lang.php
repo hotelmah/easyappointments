@@ -541,4 +541,12 @@ $lang['edit_service_category_hint'] = 'Edit the selected service category in the
 $lang['delete_service_category_hint'] = 'Delete the selected service category from the database.';
 $lang['search_service_categories_placeholder'] = 'Search service categories by name...';
 $lang['search_service_categories_hint'] = 'Search Service Categories';
+$lang['provider_weekly_working_plan'] = 'This is basically the Provider\'s weekly set schedule. You can edit the working plan by clicking on the day you want to change and then set the working hours for that day. You can also add breaks during the day by clicking on the "Add Break" button.';
+$lang['search_providers_placeholder'] = 'Search providers by name, email or phone number...';
+$lang['search_providers_hint'] = 'Search Providers';
+$lang['provider_details_toggle'] = 'Toggle Provider Details';
+$lang['provider_working_plan_toggle'] = 'Toggle Provider Working Plan';
+$lang['add_provider_hint'] = 'Add a new provider to the database.';
+$lang['edit_provider_hint'] = 'Edit the selected provider in the database.';
+$lang['delete_provider_hint'] = 'Delete the selected provider from the database.';
 // End

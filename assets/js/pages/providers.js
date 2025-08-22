@@ -21,8 +21,8 @@ App.Pages.Providers = (function () {
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $mobileNumber = $('#mobile-phone-number');
-    const $phoneNumber = $('#work-phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
     const $state = $('#state');
@@ -122,7 +122,7 @@ App.Pages.Providers = (function () {
             $filterProviders.find('button').prop('disabled', true);
             $providers.find('#providers-list').css('color', '#AAA');
 
-            $('#password, #password-confirm').removeClass('required');
+            $('#password, #password-confirm').removeClass('required').parent().find('.text-danger').remove();
             $('#provider-services input:checkbox').prop('disabled', false);
             $providers
                 .find(
@@ -170,8 +170,8 @@ App.Pages.Providers = (function () {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
                 email: $email.val(),
-                mobile_phone_number: $mobileNumber.val(),
-                work_phone_number: $phoneNumber.val(),
+                mobile_phone_number: $mobilePhoneNumber.val(),
+                work_phone_number: $workPhoneNumber.val(),
                 address: $address.val(),
                 city: $city.val(),
                 state: $state.val(),
@@ -288,17 +288,6 @@ App.Pages.Providers = (function () {
             // Validate required fields.
             let missingRequired = false;
 
-            $providers.find('.required').each((index, requiredFieldEl) => {
-                if (!$(requiredFieldEl).val()) {
-                    $(requiredFieldEl).addClass('is-invalid');
-                    missingRequired = true;
-                }
-            });
-
-            if (missingRequired) {
-                throw new Error(lang('fields_are_required'));
-            }
-
             // Validate passwords.
             if ($password.val() !== $passwordConfirmation.val()) {
                 $('#password, #password-confirm').addClass('is-invalid');
@@ -317,18 +306,18 @@ App.Pages.Providers = (function () {
             }
 
             // Validate phone number.
-            const phoneNumber = $phoneNumber.val();
+            const workPhoneNumber = $workPhoneNumber.val();
 
-            if (phoneNumber && !App.Utils.Validation.phone(phoneNumber)) {
-                $phoneNumber.addClass('is-invalid');
+            if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
+                $workPhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
             // Validate mobile number.
-            const mobileNumber = $mobileNumber.val();
+            const mobileNumber = $mobilePhoneNumber.val();
 
-            if (mobileNumber && !App.Utils.Validation.phone(mobileNumber)) {
-                $mobileNumber.addClass('is-invalid');
+            if (mobileNumber && !App.Utils.Validation.isValidUSTelephone(mobileNumber)) {
+                $mobilePhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
@@ -336,6 +325,17 @@ App.Pages.Providers = (function () {
             if ($username.attr('already-exists') === 'true') {
                 $username.addClass('is-invalid');
                 throw new Error(lang('username_already_exists'));
+            }
+
+            $providers.find('.required').each((index, requiredFieldEl) => {
+                if (!$(requiredFieldEl).val()) {
+                    $(requiredFieldEl).addClass('is-invalid');
+                    missingRequired = true;
+                }
+            });
+
+            if (missingRequired) {
+                throw new Error(lang('fields_are_required'));
             }
 
             return true;
@@ -394,8 +394,8 @@ App.Pages.Providers = (function () {
         $firstName.val(provider.first_name);
         $lastName.val(provider.last_name);
         $email.val(provider.email);
-        $mobileNumber.val(provider.mobile_phone_number);
-        $phoneNumber.val(provider.work_phone_number);
+        $mobilePhoneNumber.val(provider.mobile_phone_number);
+        $workPhoneNumber.val(provider.work_phone_number);
         $address.val(provider.address);
         $city.val(provider.city);
         $state.val(provider.state);
@@ -496,6 +496,7 @@ App.Pages.Providers = (function () {
         workingPlanManager.setup(workingPlan);
         $('.working-plan').find('input').prop('disabled', true);
         $('.breaks').find('.edit-break, .delete-break').prop('disabled', true);
+
         $providers.find('.working-plan-exceptions tbody').empty();
         const workingPlanExceptions = JSON.parse(provider.settings.working_plan_exceptions);
         workingPlanManager.setupWorkingPlanExceptions(workingPlanExceptions);
@@ -539,6 +540,14 @@ App.Pages.Providers = (function () {
                 }).appendTo('#providers-list');
             }
 
+            // Initialize Tippy tooltips for provider rows
+            if (window.tippy) {
+                tippy('.provider-row[data-tippy-content]', {
+                    placement: 'top',
+                    theme: 'light-border',
+                });
+            }
+
             if (selectId) {
                 App.Pages.Providers.select(selectId, show);
             }
@@ -557,13 +566,14 @@ App.Pages.Providers = (function () {
 
         let info = provider.email;
 
-        info = provider.mobile_number ? info + ', ' + provider.mobile_number : info;
+        info = provider.mobile_phone_number ? info + ', ' + provider.mobile_phone_number : info;
 
-        info = provider.phone_number ? info + ', ' + provider.phone_number : info;
+        info = provider.work_phone_number ? info + ', ' + provider.work_phone_number : info;
 
         return $('<div/>', {
             'class': 'provider-row entry',
             'data-id': provider.id,
+            'data-tippy-content': info,
             'html': [
                 $('<strong/>', {
                     'text': name,
