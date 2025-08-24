@@ -549,4 +549,7 @@ $lang['provider_working_plan_toggle'] = 'Toggle Provider Working Plan';
 $lang['add_provider_hint'] = 'Add a new provider to the database.';
 $lang['edit_provider_hint'] = 'Edit the selected provider in the database.';
 $lang['delete_provider_hint'] = 'Delete the selected provider from the database.';
+$lang['breaks_delete_save_top'] = 'Please remember to click save at the top to commit this change to the database.';
+$lang['breaks_save_save_top'] = 'Please remember to click save at the top to commit this change to the database.';
+$lang['working_hours_save_top'] = 'Please remember to click save at the top to commit this change to the database.';
 // End

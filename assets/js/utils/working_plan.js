@@ -42,6 +42,10 @@ App.Utils.WorkingPlan = (function () {
          */
         enableSubmit = false;
 
+        changedFormCheckInput = false;
+
+        changedWorkStartWorkEnd = false;
+
         /**
          * Set up the dom elements of a given working plan.
          *
@@ -234,7 +238,6 @@ App.Utils.WorkingPlan = (function () {
                     event: 'edit',
                     width: '100px',
                     height: '30px',
-                    cssclass: 'border border-primary',
                     submit: '<button type="button" class="d-none submit-editable">Submit</button>',
                     cancel: '<button type="button" class="d-none cancel-editable">Cancel</button>',
                     onblur: 'ignore',
@@ -385,6 +388,27 @@ App.Utils.WorkingPlan = (function () {
                 }
             });
 
+            $(document).on('change', '.working-plan .form-check-input', () => {
+                if (!this.changedFormCheckInput) {
+                    App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
+                    this.changedFormCheckInput = true;
+                }
+            });
+
+            $(document).on('change', '.working-plan .work-start', () => {
+                if (!this.changedWorkStartWorkEnd) {
+                    App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
+                    this.changedWorkStartWorkEnd = true;
+                }
+            });
+
+            $(document).on('change', '.working-plan .work-end', () => {
+                if (!this.changedWorkStartWorkEnd) {
+                    App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
+                    this.changedWorkStartWorkEnd = true;
+                }
+            });
+
             /**
              * Event: Add Break Button "Click"
              *
@@ -502,6 +526,7 @@ App.Utils.WorkingPlan = (function () {
              * @param {jQuery.Event} event
              */
             $(document).on('click', '.delete-break', (event) => {
+                App.Utils.Validation.showFormFieldAlert(lang('breaks_delete_save_top'));
                 $(event.currentTarget).closest('tr').remove();
             });
 
@@ -556,6 +581,8 @@ App.Utils.WorkingPlan = (function () {
 
                 $modifiedRow.find('.save-break, .cancel-break').addClass('d-none');
                 $modifiedRow.find('.edit-break, .delete-break').removeClass('d-none');
+
+                App.Utils.Validation.showFormFieldAlert(lang('breaks_save_save_top'));
             });
 
             /**
