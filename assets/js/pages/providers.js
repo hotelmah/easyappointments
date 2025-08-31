@@ -95,7 +95,7 @@ App.Pages.Providers = (function () {
             $filterProviders.find('button').prop('disabled', true);
             $providers.find('#providers-list').css('color', '#AAA');
 
-            $('#password, #password-confirm').addClass('required');
+            // $('#password, #password-confirm').addClass('required');
 
             $providers
                 .find(
@@ -377,8 +377,11 @@ App.Pages.Providers = (function () {
         // $providers.find('.record-details .form-message').hide();
 
         $('#edit-provider, #delete-provider').prop('disabled', true);
-        $('#provider-services input:checkbox').prop('disabled', true).prop('checked', false);
-        $('#provider-services a').remove();
+
+        $('#provider-services').empty();
+        populateProviderServices();
+        $('#provider-services input:checkbox').prop('disabled', true);
+
         $('#providers .working-plan tbody').empty();
         $('#providers .breaks tbody').empty();
         $('#providers .working-plan-exceptions tbody').empty();
@@ -456,8 +459,11 @@ App.Pages.Providers = (function () {
             App.Utils.Copy.copyToClipboard(urlToCopy, $(this));
         });
 
-        $('#provider-services a').remove();
-        $('#provider-services input:checkbox').prop('checked', false);
+        // $('#provider-services a').remove();
+        // $('#provider-services input:checkbox').prop('checked', false);
+
+        $('#provider-services').empty();
+        populateProviderServices();
 
         provider.services.forEach((providerServiceId) => {
             const $checkbox = $('#provider-services input[data-id="' + providerServiceId + '"]');
@@ -607,18 +613,7 @@ App.Pages.Providers = (function () {
             $('#edit-provider, #delete-provider').prop('disabled', false);
         }
     }
-
-    /**
-     * Initialize the module.
-     */
-    function initialize() {
-        workingPlanManager = new App.Utils.WorkingPlan();
-        workingPlanManager.addEventListeners();
-
-        App.Pages.Providers.resetForm();
-        App.Pages.Providers.filter('');
-        App.Pages.Providers.addEventListeners();
-
+    function populateProviderServices() {
         vars('services').forEach((service) => {
             const checkboxId = `provider-service-${service.id}`;
 
@@ -647,6 +642,19 @@ App.Pages.Providers = (function () {
                 ],
             }).appendTo('#provider-services');
         });
+    }
+
+
+    /**
+     * Initialize the module.
+     */
+    function initialize() {
+        workingPlanManager = new App.Utils.WorkingPlan();
+        workingPlanManager.addEventListeners();
+
+        App.Pages.Providers.resetForm();
+        App.Pages.Providers.filter('');
+        App.Pages.Providers.addEventListeners();
 
         // Initialize Bootstrap tabs manually if needed
         const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');

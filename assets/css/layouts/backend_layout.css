@@ -888,14 +888,23 @@ span[hidden] {
     font-size: 0.9em;
 }
 
-/* Timezone dropdown styling */
-#timezone {
-    max-width: 100%;
+#calendar-view {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Language select styling */
 #language option {
     text-transform: capitalize;
+}
+
+#language {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Timezone dropdown styling */
+#timezone {
+    max-width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Slot content styling */
@@ -1137,6 +1146,28 @@ span[hidden] {
     text-transform: capitalize;
 }
 
+
+#working-plan-exceptions-modal .flatpickr-wrapper {
+    width: 7vw;
+}
+
+#working-plan-exceptions-is-non-working-day {
+    width: 2.5em;
+    height: 1.5em;
+}
+
+#working-plan-exceptions-breaks .flatpickr-wrapper {
+    border: 1px solid var(--bs-primary);
+    border-radius: 0.375rem;
+}
+
+#working-plan-exceptions-is-non-working-day:hover {
+    cursor: pointer;
+}
+
+#working-plan-exceptions-is-non-working-day:hover + label {
+    cursor: pointer;
+}
 
 .view-toggle .btn {
     min-width: 120px;

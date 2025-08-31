@@ -308,8 +308,19 @@ App.Utils.WorkingPlan = (function () {
         renderWorkingPlanExceptionRow(date, workingPlanException) {
             const timeFormat = vars('time_format') === 'regular' ? 'h:mm a' : 'HH:mm';
 
+            const isNonWorkingDay = !Boolean(workingPlanException);
+
+            // Get the day of the week for the given date
+            const dayOfWeek = moment(date, 'YYYY-MM-DD').format('dddd');
+            const formattedDate = App.Utils.Date.format(date, vars('date_format'), vars('time_format'), false);
+
             const start = workingPlanException?.start;
             const end = workingPlanException?.end;
+
+            let breaks = true;
+            if ((workingPlanException === null) || (workingPlanException.breaks === null) || (workingPlanException.breaks.length === 0)) {
+                breaks = false;
+            }
 
             return $('<tr/>', {
                 'data': {
@@ -319,7 +330,7 @@ App.Utils.WorkingPlan = (function () {
                 'html': [
                     $('<td/>', {
                         'class': 'working-plan-exception-date',
-                        'text': App.Utils.Date.format(date, vars('date_format'), vars('time_format'), false),
+                        'text': `${dayOfWeek}, ${formattedDate}`,
                     }),
                     $('<td/>', {
                         'class': 'working-plan-exception--start',
@@ -333,7 +344,7 @@ App.Utils.WorkingPlan = (function () {
                         'html': [
                             $('<button/>', {
                                 'type': 'button',
-                                'class': 'btn btn-outline-secondary btn-sm edit-working-plan-exception',
+                                'class': 'btn btn-outline-secondary btn-lg edit-working-plan-exception',
                                 'title': lang('edit'),
                                 'html': [
                                     $('<span/>', {
@@ -343,7 +354,7 @@ App.Utils.WorkingPlan = (function () {
                             }),
                             $('<button/>', {
                                 'type': 'button',
-                                'class': 'btn btn-outline-secondary btn-sm delete-working-plan-exception',
+                                'class': 'btn btn-outline-secondary btn-lg delete-working-plan-exception',
                                 'title': lang('delete'),
                                 'html': [
                                     $('<span/>', {
@@ -351,7 +362,30 @@ App.Utils.WorkingPlan = (function () {
                                     }),
                                 ],
                             }),
-                        ],
+                            $('<span/>', {
+                                'class': `badge ${isNonWorkingDay ? 'bg-danger' : 'bg-success'} ms-2 p-1 fs-7`,
+                                'html': [
+                                    $('<i/>', {
+                                        'class': isNonWorkingDay ? 'fas fa-ban me-1' : 'fas fa-clock me-1'
+                                    }),
+                                    $('<span/>', {
+                                        'text': isNonWorkingDay ? (lang('day_off') || 'Day Off') : (lang('working') || 'Working')
+                                    })
+                                ]
+                            }),
+                            $('<span/>', {
+                                'class': `badge ${breaks ? 'bg-danger' : 'bg-success'} ms-2 p-1 fs-7`,
+                                'html': [
+                                    $('<i/>', {
+                                        // Use fa-coffee for breaks, fa-check for no breaks
+                                        'class': breaks ? 'fas fa-coffee me-1' : 'fas fa-check me-1'
+                                    }),
+                                    $('<span/>', {
+                                        'text': breaks ? (lang('break') || 'Breaks') : (lang('no_breaks') || 'No Breaks')
+                                    })
+                                ]
+                            })
+                        ]
                     }),
                 ],
             });
@@ -608,6 +642,8 @@ App.Utils.WorkingPlan = (function () {
                     } else {
                         $newTr.appendTo('.working-plan-exceptions tbody');
                     }
+
+                    App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
                 });
             });
 
@@ -626,7 +662,8 @@ App.Utils.WorkingPlan = (function () {
                 App.Components.WorkingPlanExceptionsModal.edit(date, workingPlanException).done(
                     (date, workingPlanException) => {
                         $tr.replaceWith(this.renderWorkingPlanExceptionRow(date, workingPlanException));
-                    },
+                        App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
+                    }
                 );
             });
 
@@ -639,6 +676,7 @@ App.Utils.WorkingPlan = (function () {
              */
             $(document).on('click', '.delete-working-plan-exception', (event) => {
                 $(event.currentTarget).closest('tr').remove();
+                App.Utils.Validation.showFormFieldAlert(lang('working_hours_save_top'));
             });
         }
 

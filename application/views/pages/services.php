@@ -116,7 +116,7 @@
                         <label for="service-category-id" class="form-label mb-2">
                             <?= lang('category') ?>
                         </label>
-                        <select id="service-category-id" class="form-control border border-primary ps-2 disabled" disabled></select>
+                        <select id="service-category-id" class="form-select border border-primary ps-2 disabled" disabled></select>
                     </div>
 
                     <div class="mb-4">
@@ -158,7 +158,7 @@
                         </label>
                     </div>
 
-                    <div class="border rounded mb-3 p-3">
+                    <div class="border border-primary rounded mb-3 p-3">
                         <div class="form-check form-switch">
                             <input id="is-private" type="checkbox" class="form-check-input">
 

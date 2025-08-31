@@ -260,12 +260,17 @@ App.Components.WorkingPlanExceptionsModal = (function () {
             App.Utils.UI.setDateTimePickerValue($start, moment(workingPlanException.start, 'HH:mm').toDate());
             App.Utils.UI.setDateTimePickerValue($end, moment(workingPlanException.end, 'HH:mm').toDate());
 
-            if (!workingPlanException.breaks) {
+            $breaks.find('.no-breaks-row').remove();
+
+            if (!workingPlanException.breaks || workingPlanException.breaks.length === 0) {
                 $breaks.find('tbody').html(renderNoBreaksRow());
             }
 
             workingPlanException.breaks.forEach((workingPlanExceptionBreak) => {
-                renderBreakRow(workingPlanExceptionBreak).appendTo($breaks.find('tbody'));
+                const $newRow = renderBreakRow(workingPlanExceptionBreak);
+                $newRow.appendTo($breaks.find('tbody'));
+
+                initializeTippyForRow($newRow);
             });
 
             editableTimeCell(
@@ -300,17 +305,20 @@ App.Components.WorkingPlanExceptionsModal = (function () {
             'html': [
                 $('<td/>', {
                     'class': 'working-plan-exceptions-break-start editable',
+                    'data-tippy-content': lang('select_start_time'),
                     'text': moment(breakPeriod.start, 'HH:mm').format(timeFormat),
                 }),
                 $('<td/>', {
                     'class': 'working-plan-exceptions-break-end editable',
+                    'data-tippy-content': lang('select_end_time'),
                     'text': moment(breakPeriod.end, 'HH:mm').format(timeFormat),
                 }),
                 $('<td/>', {
                     'html': [
                         $('<button/>', {
                             'type': 'button',
-                            'class': 'btn btn-outline-secondary btn-sm me-2 working-plan-exceptions-edit-break',
+                            'class': 'btn btn-outline-secondary btn me-2 working-plan-exceptions-edit-break',
+                            'data-tippy-content': lang('edit'),
                             'title': lang('edit'),
                             'html': [
                                 $('<span/>', {
@@ -320,7 +328,8 @@ App.Components.WorkingPlanExceptionsModal = (function () {
                         }),
                         $('<button/>', {
                             'type': 'button',
-                            'class': 'btn btn-outline-secondary btn-sm working-plan-exceptions-delete-break',
+                            'class': 'btn btn-outline-secondary btn working-plan-exceptions-delete-break',
+                            'data-tippy-content': lang('delete'),
                             'title': lang('delete'),
                             'html': [
                                 $('<span/>', {
@@ -330,7 +339,8 @@ App.Components.WorkingPlanExceptionsModal = (function () {
                         }),
                         $('<button/>', {
                             'type': 'button',
-                            'class': 'btn btn-outline-secondary btn-sm me-2 working-plan-exceptions-save-break d-none',
+                            'class': 'btn btn-outline-secondary btn me-2 working-plan-exceptions-save-break d-none',
+                            'data-tippy-content': lang('save'),
                             'title': lang('save'),
                             'html': [
                                 $('<span/>', {
@@ -340,7 +350,8 @@ App.Components.WorkingPlanExceptionsModal = (function () {
                         }),
                         $('<button/>', {
                             'type': 'button',
-                            'class': 'btn btn-outline-secondary btn-sm working-plan-exceptions-cancel-break d-none',
+                            'class': 'btn btn-outline-secondary btn working-plan-exceptions-cancel-break d-none',
+                            'data-tippy-content': lang('cancel'),
                             'title': lang('cancel'),
                             'html': [
                                 $('<span/>', {
@@ -358,6 +369,8 @@ App.Components.WorkingPlanExceptionsModal = (function () {
      * Event: Add Break "Click"
      */
     function onAddBreakClick() {
+        $breaks.find('.no-breaks-row').remove();
+
         const $newBreak = renderBreakRow({
             start: '12:00',
             end: '14:00',
@@ -404,6 +417,9 @@ App.Components.WorkingPlanExceptionsModal = (function () {
      */
     function onDeleteBreakClick() {
         $(this).closest('tr').remove();
+        if (!$breaks.find('tbody tr').length) {
+            $breaks.find('tbody').html(renderNoBreaksRow());
+        }
     }
 
     /**
@@ -461,6 +477,25 @@ App.Components.WorkingPlanExceptionsModal = (function () {
         const isNonWorkingDay = $isNonWorkingDay.prop('checked');
         resetTimeSelection();
         toggleFieldsByNonWorkingDay(isNonWorkingDay);
+    }
+
+    /**
+    * Initialize Tippy.js for a specific row's elements
+    * @param {jQuery} $row - The row element containing tippy elements
+    */
+    function initializeTippyForRow($row) {
+        // Find all elements with data-tippy-content in this row
+        const tippyElements = $row.find('[data-tippy-content]').get();
+
+        if (tippyElements.length > 0) {
+            tippy(tippyElements, {
+                // Your tippy configuration
+                theme: 'light-border',
+                placement: 'top',
+                arrow: true,
+                duration: 300
+            });
+        }
     }
 
     /**

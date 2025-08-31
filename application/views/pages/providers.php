@@ -270,6 +270,12 @@
                                         <?= lang('receive_notifications') ?>
                                     </label>
                                 </div>
+
+                                <div class="form-text text-muted mb-3">
+                                    <small>
+                                        <?= lang('provider_notifications_hint') ?>
+                                    </small>
+                                </div>
                             </div>
 
                             <div>
@@ -329,7 +335,7 @@
                     </p>
 
                     <div>
-                        <button type="button" class="add-break btn btn-primary me-2">
+                        <button type="button" class="add-break btn btn-primary me-2" data-tippy-content="<?= lang('add_break') ?>">
                             <i class="fas fa-plus-square me-2"></i>
                             <?= lang('add_break') ?>
                         </button>
@@ -362,7 +368,7 @@
                     </p>
 
                     <div>
-                        <button type="button" class="add-working-plan-exception btn btn-primary me-2">
+                        <button type="button" class="add-working-plan-exception btn btn-primary me-2" data-tippy-content="<?= lang('add_working_plan_exception') ?>">
                             <i class="fas fa-plus-square me-2"></i>
                             <?= lang('add_working_plan_exception') ?>
                         </button>
@@ -370,7 +376,7 @@
 
                     <br>
 
-                    <table class="working-plan-exceptions table table-striped mt-2">
+                    <table class="working-plan-exceptions table table-striped table-hover mt-2">
                         <thead class="table-dark">
                         <tr>
                             <th><?= lang('day') ?></th>
