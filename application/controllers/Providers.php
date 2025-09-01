@@ -40,11 +40,11 @@ class Providers extends EA_Controller
         'ldap_dn',
         'id_roles',
         'settings',
-        'services',
+        'services'
     ];
 
     public array $optional_provider_fields = [
-        'services' => [],
+        'services' => []
     ];
 
     public array $allowed_provider_setting_fields = [
@@ -53,7 +53,7 @@ class Providers extends EA_Controller
         'working_plan',
         'working_plan_exceptions',
         'notifications',
-        'calendar_view',
+        'calendar_view'
     ];
 
     public array $optional_provider_setting_fields = [

@@ -123,7 +123,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="mobile-number" class="form-label mb-2">
+                                <label for="mobile-phone-number" class="form-label mb-2">
                                     <?= lang('mobile_phone_number') ?>
                                     <span class="text-danger" hidden>*</span>
                                 </label>
@@ -131,7 +131,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="phone-number" class="form-label mb-2">
+                                <label for="work-phone-number" class="form-label mb-2">
                                     <?= lang('work_phone_number') ?>
                                 </label>
                                 <input id="work-phone-number" type="tel" class="form-control border border-primary ps-2 disabled" maxlength="100" disabled>
@@ -180,7 +180,7 @@
                                     <?= lang('username') ?>
                                     <span class="text-danger" hidden>*</span>
                                 </label>
-                                <input id="username" class="required form-control border border-primary ps-2 disabled" maxlength="100" disabled>
+                                <input id="username" type="text" class="required form-control border border-primary ps-2 disabled" maxlength="100" disabled>
                             </div>
 
                             <div class="mb-4">
@@ -265,8 +265,8 @@
                                 </div>
 
                                 <div class="form-check form-switch">
-                                    <input id="notifications" class="form-check-input border border-primary ps-2" type="checkbox">
-                                    <label class="form-check-label" for="notifications">
+                                    <input id="notifications" type="checkbox" class="form-check-input border border-primary ps-2">
+                                    <label for="notifications" class="form-check-label">
                                         <?= lang('receive_notifications') ?>
                                     </label>
                                 </div>
@@ -403,9 +403,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-jeditable@2.0.19/dist/jquery.jeditable.min.js" type="text/javascript"></script>
 
-<script src="<?= asset_url('assets/js/utils/working_plan.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/account_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/providers_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/pages/providers.js') ?>"></script>
+<script src="<?= asset_url('assets/js/utils/working_plan.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/http/account_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/http/providers_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/pages/providers.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>

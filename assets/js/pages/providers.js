@@ -55,7 +55,7 @@ App.Pages.Providers = (function () {
          */
         $providersToolbar.on('submit', '#filter-providers-form', (event) => {
             event.preventDefault();
-            const key = $('#filter-providers .key').val();
+            const key = $('#providers-filter .key').val();
             $('.selected').removeClass('selected');
             App.Pages.Providers.resetForm();
             App.Pages.Providers.filter(key);
@@ -613,6 +613,7 @@ App.Pages.Providers = (function () {
             $('#edit-provider, #delete-provider').prop('disabled', false);
         }
     }
+
     function populateProviderServices() {
         vars('services').forEach((service) => {
             const checkboxId = `provider-service-${service.id}`;

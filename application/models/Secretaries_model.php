@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -95,7 +97,7 @@ class Secretaries_model extends EA_Model
             empty($secretary['first_name']) ||
             empty($secretary['last_name']) ||
             empty($secretary['email']) ||
-            empty($secretary['phone_number'])
+            empty($secretary['mobile_phone_number'])
         ) {
             throw new InvalidArgumentException('Not all required fields are provided: ' . print_r($secretary, true));
         }

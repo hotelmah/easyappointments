@@ -311,6 +311,7 @@ $lang['customer_notifications'] = 'Customer Notifications';
 $lang['customer_notifications_hint'] = 'Defines whether the customer will receive email notifications whenever there is a schedule change on one of his appointments.';
 $lang['provider_notifications'] = 'Provider Notifications';
 $lang['provider_notifications_hint'] = 'Sets whether the provider will receive email notifications when a customer utilizes the booking portion of the app including reschedule changes to appointments.';
+$lang['notifications_hint'] = 'Sets whether this user will receive email notifications when a customer utilizes the booking portion of the app including reschedule changes to appointments by customer or provider.';
 $lang['date_format'] = 'Date Format';
 $lang['date_format_hint'] = 'Change the date display format (D - Date, M - Month, Y - Year).';
 $lang['time_format'] = 'Time Format';
@@ -564,4 +565,9 @@ $lang['select_date'] = 'Select a Date';
 $lang['toggle_working'] = 'Toggle working or not working';
 $lang['select_start_time'] = 'Select Start Time';
 $lang['select_end_time'] = 'Select End Time';
+$lang['search_secretaries_placeholder'] = 'Search secretaries by name, email or phone number...';
+$lang['search_secretaries_hint'] = 'Search Secretaries';
+$lang['add_secretary_hint'] = 'Add a new secretary to the database.';
+$lang['edit_secretary_hint'] = 'Edit the selected secretary in the database.';
+$lang['delete_secretary_hint'] = 'Delete the selected secretary from the database.';
 // End

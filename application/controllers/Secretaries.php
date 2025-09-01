@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -20,14 +22,13 @@
  */
 class Secretaries extends EA_Controller
 {
-    public array $allowed_provider_fields = ['id', 'first_name', 'last_name'];
     public array $allowed_secretary_fields = [
         'id',
         'first_name',
         'last_name',
         'email',
-        'alt_number',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
@@ -39,12 +40,21 @@ class Secretaries extends EA_Controller
         'ldap_dn',
         'id_roles',
         'settings',
-        'providers',
+        'providers'
     ];
-    public array $allowed_secretary_setting_fields = ['username', 'password', 'notifications', 'calendar_view'];
+
     public array $optional_secretary_fields = [
-        'providers' => [],
+        'providers' => []
     ];
+
+    public array $allowed_secretary_setting_fields = [
+        'username',
+        'password',
+        'notifications',
+        'calendar_view'
+    ];
+
+    public array $allowed_provider_fields = ['id', 'first_name', 'last_name'];
 
     /**
      * Secretaries constructor.
@@ -95,20 +105,21 @@ class Secretaries extends EA_Controller
         script_vars([
             'user_id' => $user_id,
             'role_slug' => $role_slug,
-            'timezones' => $this->timezones->to_array(),
             'min_password_length' => MIN_PASSWORD_LENGTH,
+            'timezones' => $this->timezones->to_array(),
             'providers' => $providers,
             'default_language' => setting('default_language'),
-            'default_timezone' => setting('default_timezone'),
+            'default_timezone' => setting('default_timezone')
         ]);
 
         html_vars([
             'page_title' => lang('secretaries'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_USERS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'grouped_timezones' => $this->timezones->to_grouped_array(),
             'privileges' => $this->roles_model->get_permissions_by_slug($role_slug),
-            'providers' => $this->providers_model->get(),
+            'providers' => $this->providers_model->get()
         ]);
 
         $this->load->view('pages/secretaries');

@@ -15,13 +15,14 @@
  * This module implements the functionality of the secretaries page.
  */
 App.Pages.Secretaries = (function () {
+    const $secretariesToolbar = $('#secretaries-toolbar');
     const $secretaries = $('#secretaries');
-    const $id = $('#id');
+    const $id = $('#secretary-id');
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $mobileNumber = $('#mobile-number');
-    const $phoneNumber = $('#phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
     const $state = $('#state');
@@ -35,7 +36,7 @@ App.Pages.Secretaries = (function () {
     const $passwordConfirmation = $('#password-confirm');
     const $notifications = $('#notifications');
     const $calendarView = $('#calendar-view');
-    const $filterSecretaries = $('#filter-secretaries');
+    const $filterSecretaries = $('#secretaries-filter');
     let filterResults = {};
     let filterLimit = 20;
 
@@ -68,12 +69,12 @@ App.Pages.Secretaries = (function () {
 
             App.Http.Account.validateUsername(secretaryId, username).done((response) => {
                 if (response.is_valid === 'false') {
-                    $input.addClass('is-invalid');
+                    $input.addClass('is-invalid border border-danger');
                     $input.attr('already-exists', 'true');
                     $input.parents().eq(3).find('.form-message').text(lang('username_already_exists'));
                     $input.parents().eq(3).find('.form-message').show();
                 } else {
-                    $input.removeClass('is-invalid');
+                    $input.removeClass('is-invalid border border-danger');
                     $input.attr('already-exists', 'false');
                     if ($input.parents().eq(3).find('.form-message').text() === lang('username_already_exists')) {
                         $input.parents().eq(3).find('.form-message').hide();
@@ -89,10 +90,10 @@ App.Pages.Secretaries = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $secretaries.on('submit', '#filter-secretaries form', (event) => {
+        $secretariesToolbar.on('submit', '#filter-secretaries-form', (event) => {
             event.preventDefault();
-            const key = $('#filter-secretaries .key').val();
-            $filterSecretaries.find('.selected').removeClass('selected');
+            const key = $('#secretaries-filter .key').val();
+            $secretaries.find('.selected').removeClass('selected');
             App.Pages.Secretaries.resetForm();
             App.Pages.Secretaries.filter(key);
         });
@@ -103,56 +104,60 @@ App.Pages.Secretaries = (function () {
          * Display the selected secretary data to the user.
          */
         $secretaries.on('click', '.secretary-row', (event) => {
-            if ($('#filter-secretaries .filter').prop('disabled')) {
-                $('#filter-secretaries .results').css('color', '#AAA');
+            if ($('#secretaries-filter .filter').prop('disabled')) {
+                $('#secretaries-list').css('color', '#AAA');
                 return; // exit because we are currently on edit mode
             }
 
             const secretaryId = $(event.currentTarget).attr('data-id');
-
             const secretary = filterResults.find((filterResult) => Number(filterResult.id) === Number(secretaryId));
 
-            App.Pages.Secretaries.display(secretary);
-
-            $('#filter-secretaries .selected').removeClass('selected');
-            $(event.currentTarget).addClass('selected');
             $('#edit-secretary, #delete-secretary').prop('disabled', false);
+            $secretaries.find('.selected').removeClass('selected');
+            $(event.currentTarget).addClass('selected');
+            App.Pages.Secretaries.display(secretary);
         });
 
         /**
          * Event: Add New Secretary Button "Click"
          */
-        $secretaries.on('click', '#add-secretary', () => {
+        $secretariesToolbar.on('click', '#add-secretary', () => {
             App.Pages.Secretaries.resetForm();
-            $filterSecretaries.find('button').prop('disabled', true);
-            $filterSecretaries.find('.results').css('color', '#AAA');
 
-            $secretaries.find('.add-edit-delete-group').hide();
-            $secretaries.find('.save-cancel-group').show();
-            $secretaries.find('.record-details').find('input, select, textarea').prop('disabled', false);
+            $secretariesToolbar.find('#add-edit-delete-group').hide();
+            $secretariesToolbar.find('#save-cancel-group').show();
+
+            $secretaries.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $secretaries.find('.record-details .form-label span').prop('hidden', false);
-            $('#password, #password-confirm').addClass('required');
+
+            $filterSecretaries.find('button').prop('disabled', true);
+            $secretaries.find('#secretaries-list').css('color', '#AAA');
+
             $('#secretary-providers input:checkbox').prop('disabled', false);
+            $('#password, #password-confirm').addClass('required');
         });
 
         /**
          * Event: Edit Secretary Button "Click"
          */
-        $secretaries.on('click', '#edit-secretary', () => {
-            $filterSecretaries.find('button').prop('disabled', true);
-            $filterSecretaries.find('.results').css('color', '#AAA');
-            $secretaries.find('.add-edit-delete-group').hide();
-            $secretaries.find('.save-cancel-group').show();
-            $secretaries.find('.record-details').find('input, select, textarea').prop('disabled', false);
+        $secretariesToolbar.on('click', '#edit-secretary', () => {
+            $secretariesToolbar.find('#add-edit-delete-group').hide();
+            $secretariesToolbar.find('#save-cancel-group').show();
+
+            $secretaries.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $secretaries.find('.record-details .form-label span').prop('hidden', false);
-            $('#password, #password-confirm').removeClass('required');
+
+            $filterSecretaries.find('button').prop('disabled', true);
+            $secretaries.find('#secretaries-list').css('color', '#AAA');
+
+            $('#password, #password-confirm').removeClass('required').parent().find('.text-danger').remove();
             $('#secretary-providers input:checkbox').prop('disabled', false);
         });
 
         /**
          * Event: Delete Secretary Button "Click"
          */
-        $secretaries.on('click', '#delete-secretary', () => {
+        $secretariesToolbar.on('click', '#delete-secretary', () => {
             const secretaryId = $id.val();
 
             const buttons = [
@@ -177,13 +182,17 @@ App.Pages.Secretaries = (function () {
         /**
          * Event: Save Secretary Button "Click"
          */
-        $secretaries.on('click', '#save-secretary', () => {
+        $secretariesToolbar.on('click', '#save-secretary', () => {
+            if (!App.Pages.Secretaries.validate()) {
+                return;
+            }
+
             const secretary = {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
                 email: $email.val(),
-                mobile_number: $mobileNumber.val(),
-                phone_number: $phoneNumber.val(),
+                mobile_phone_number: $mobilePhoneNumber.val(),
+                work_phone_number: $workPhoneNumber.val(),
                 address: $address.val(),
                 city: $city.val(),
                 state: $state.val(),
@@ -218,10 +227,6 @@ App.Pages.Secretaries = (function () {
                 secretary.id = $id.val();
             }
 
-            if (!App.Pages.Secretaries.validate()) {
-                return;
-            }
-
             App.Pages.Secretaries.save(secretary);
         });
 
@@ -230,12 +235,23 @@ App.Pages.Secretaries = (function () {
          *
          * Cancel add or edit of an secretary record.
          */
-        $secretaries.on('click', '#cancel-secretary', () => {
+        $secretariesToolbar.on('click', '#cancel-secretary', () => {
             const id = $id.val();
+
             resetForm();
+
             if (id) {
                 select(id, true);
             }
+        });
+
+        /**
+         * Event: Clear Secretaries Button "Click"
+         */
+        $secretariesToolbar.on('click', '#clear-secretaries', () => {
+            $filterSecretaries.find('.key').val('');
+            App.Pages.Secretaries.resetForm();
+            App.Pages.Secretaries.filter('');
         });
     }
 
@@ -274,21 +290,11 @@ App.Pages.Secretaries = (function () {
      */
     function validate() {
         $('#secretaries .is-invalid').removeClass('is-invalid');
-        $secretaries.find('.form-message').removeClass('alert-danger');
+        $secretaries.find('.form-message').removeClass('alert-danger').hide();
 
         try {
             // Validate required fields.
             let missingRequired = false;
-
-            $secretaries.find('.required').each((index, requiredField) => {
-                if (!$(requiredField).val()) {
-                    $(requiredField).addClass('is-invalid');
-                    missingRequired = true;
-                }
-            });
-            if (missingRequired) {
-                throw new Error(lang('fields_are_required'));
-            }
 
             // Validate passwords.
             if ($password.val() !== $passwordConfirmation.val()) {
@@ -308,18 +314,18 @@ App.Pages.Secretaries = (function () {
             }
 
             // Validate phone number.
-            const phoneNumber = $phoneNumber.val();
+            const workPhoneNumber = $workPhoneNumber.val();
 
-            if (phoneNumber && !App.Utils.Validation.phone(phoneNumber)) {
-                $phoneNumber.addClass('is-invalid');
+            if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
+                $workPhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
-            // Validate mobile number.
-            const mobileNumber = $mobileNumber.val();
+            // Validate phone number.
+            const mobilePhoneNumber = $mobilePhoneNumber.val();
 
-            if (mobileNumber && !App.Utils.Validation.phone(mobileNumber)) {
-                $mobileNumber.addClass('is-invalid');
+            if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
+                $mobilePhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
@@ -327,6 +333,17 @@ App.Pages.Secretaries = (function () {
             if ($username.attr('already-exists') === 'true') {
                 $username.addClass('is-invalid');
                 throw new Error(lang('username_already_exists'));
+            }
+
+            $secretaries.find('.required').each((index, requiredField) => {
+                if (!$(requiredField).val()) {
+                    $(requiredField).addClass('is-invalid');
+                    missingRequired = true;
+                }
+            });
+
+            if (missingRequired) {
+                throw new Error(lang('fields_are_required'));
             }
 
             return true;
@@ -340,21 +357,29 @@ App.Pages.Secretaries = (function () {
      * Resets the secretary tab form back to its initial state.
      */
     function resetForm() {
-        $filterSecretaries.find('.selected').removeClass('selected');
+        $secretaries.find('.selected').removeClass('selected');
         $filterSecretaries.find('button').prop('disabled', false);
-        $filterSecretaries.find('.results').css('color', '');
-        $secretaries.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $secretaries.find('#secretaries-list').css('color', '');
+
+        $secretaries.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $secretaries.find('.record-details .form-label span').prop('hidden', true);
         $secretaries.find('.record-details #calendar-view').val('default');
-        $secretaries.find('.record-details #timezone').val(vars('default_timezone'));
         $secretaries.find('.record-details #language').val(vars('default_language'));
-        $secretaries.find('.record-details #notifications').prop('checked', true);
-        $secretaries.find('.add-edit-delete-group').show();
-        $secretaries.find('.save-cancel-group').hide();
-        $secretaries.find('.form-message').hide();
-        $secretaries.find('.is-invalid').removeClass('is-invalid');
+        $secretaries.find('.record-details #timezone').val(vars('default_timezone'));
+        $secretaries.find('.record-details #notifications').prop('checked', true).prop('readonly', true);
+
+        $secretariesToolbar.find('#add-edit-delete-group').show();
+        $secretariesToolbar.find('#save-cancel-group').hide();
+
+        // $secretaries.find('.form-message').hide();
+        $secretaries.find('.record-details .is-invalid').removeClass('is-invalid').removeClass('is-invalid').addClass('border border-primary');
+
         $('#edit-secretary, #delete-secretary').prop('disabled', true);
         $('#secretary-providers input:checkbox').prop('disabled', true).prop('checked', false);
+
+        $('#secretary-providers').empty();
+        populateSecretaryProviders();
+        $('#secretary-providers input:checkbox').prop('disabled', true);
     }
 
     /**
@@ -367,8 +392,8 @@ App.Pages.Secretaries = (function () {
         $firstName.val(secretary.first_name);
         $lastName.val(secretary.last_name);
         $email.val(secretary.email);
-        $mobileNumber.val(secretary.mobile_number);
-        $phoneNumber.val(secretary.phone_number);
+        $mobilePhoneNumber.val(secretary.mobile_phone_number);
+        $workPhoneNumber.val(secretary.work_phone_number);
         $address.val(secretary.address);
         $city.val(secretary.city);
         $state.val(secretary.state);
@@ -380,9 +405,12 @@ App.Pages.Secretaries = (function () {
 
         $username.val(secretary.settings.username);
         $calendarView.val(secretary.settings.calendar_view);
-        $notifications.prop('checked', Boolean(Number(secretary.settings.notifications)));
+        $notifications.prop('checked', Boolean(Number(secretary.settings.notifications))).toggleClass('checked-state', Boolean(Number(secretary.settings.notifications)));
 
-        $('#secretary-providers input:checkbox').prop('checked', false);
+        // $('#secretary-providers input:checkbox').prop('checked', false);
+
+        $('#secretary-providers').empty();
+        populateSecretaryProviders();
 
         secretary.providers.forEach((secretaryProviderId) => {
             const $checkbox = $('#secretary-providers input[data-id="' + secretaryProviderId + '"]');
@@ -407,17 +435,17 @@ App.Pages.Secretaries = (function () {
         App.Http.Secretaries.search(keyword, filterLimit).done((response) => {
             filterResults = response;
 
-            $filterSecretaries.find('.results').empty();
+            $secretaries.find('#secretaries-list').empty();
 
             response.forEach((secretary) => {
-                $filterSecretaries
-                    .find('.results')
+                $secretaries
+                    .find('#secretaries-list')
                     .append(App.Pages.Secretaries.getFilterHtml(secretary))
                     .append($('<hr/>'));
             });
 
             if (!response.length) {
-                $('#filter-secretaries .results').append(
+                $secretaries.find('#secretaries-list').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),
@@ -431,7 +459,14 @@ App.Pages.Secretaries = (function () {
                         filterLimit += 20;
                         App.Pages.Customers.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-secretaries .results');
+                }).appendTo('#secretaries-list');
+            }
+
+            if (window.tippy) {
+                tippy('.secretary-row[data-tippy-content]', {
+                    placement: 'top',
+                    theme: 'light-border',
+                });
             }
 
             if (selectId) {
@@ -452,13 +487,14 @@ App.Pages.Secretaries = (function () {
 
         let info = secretary.email;
 
-        info = secretary.mobile_number ? info + ', ' + secretary.mobile_number : info;
+        info = secretary.mobile_phone_number ? info + ', ' + secretary.mobile_phone_number : info;
 
-        info = secretary.phone_number ? info + ', ' + secretary.phone_number : info;
+        info = secretary.work_phone_number ? info + ', ' + secretary.work_phone_number : info;
 
         return $('<div/>', {
             'class': 'secretary-row entry',
             'data-id': secretary.id,
+            'data-tippy-content': info,
             'html': [
                 $('<strong/>', {
                     'text': name,
@@ -481,9 +517,9 @@ App.Pages.Secretaries = (function () {
      * @param {Boolean} show Optional (false), if true the method will display the record in the form.
      */
     function select(id, show = false) {
-        $filterSecretaries.find('.selected').removeClass('selected');
+        $secretaries.find('.selected').removeClass('selected');
 
-        $('#filter-secretaries .secretary-row[data-id="' + id + '"]').addClass('selected');
+        $('#secretaries-list .secretary-row[data-id="' + id + '"]').addClass('selected');
 
         if (show) {
             const secretary = filterResults.find((filterResult) => Number(filterResult.id) === Number(id));
@@ -494,14 +530,7 @@ App.Pages.Secretaries = (function () {
         }
     }
 
-    /**
-     * Initialize the module.
-     */
-    function initialize() {
-        App.Pages.Secretaries.resetForm();
-        App.Pages.Secretaries.filter('');
-        App.Pages.Secretaries.addEventListeners();
-
+    function populateSecretaryProviders() {
         vars('providers').forEach((provider) => {
             const checkboxId = `provider-service-${provider.id}`;
 
@@ -513,7 +542,7 @@ App.Pages.Secretaries = (function () {
                         'html': [
                             $('<input/>', {
                                 'id': checkboxId,
-                                'class': 'form-check-input',
+                                'class': 'form-check-input border border-primary',
                                 'type': 'checkbox',
                                 'data-id': provider.id,
                                 'prop': {
@@ -532,6 +561,16 @@ App.Pages.Secretaries = (function () {
         });
     }
 
+
+    /**
+     * Initialize the module.
+     */
+    function initialize() {
+        App.Pages.Secretaries.resetForm();
+        App.Pages.Secretaries.filter('');
+        App.Pages.Secretaries.addEventListeners();
+    }
+
     document.addEventListener('DOMContentLoaded', initialize);
 
     return {
@@ -543,6 +582,6 @@ App.Pages.Secretaries = (function () {
         resetForm,
         display,
         select,
-        addEventListeners,
+        addEventListeners
     };
 })();
