@@ -595,8 +595,8 @@ class Secretaries_model extends EA_Model
             'firstName' => $secretary['first_name'],
             'lastName' => $secretary['last_name'],
             'email' => $secretary['email'],
-            'mobile' => $secretary['mobile_number'],
-            'phone' => $secretary['phone_number'],
+            'mobile' => $secretary['mobile_phone_number'],
+            'phone' => $secretary['work_phone_number'],
             'address' => $secretary['address'],
             'city' => $secretary['city'],
             'state' => $secretary['state'],
@@ -643,11 +643,11 @@ class Secretaries_model extends EA_Model
         }
 
         if (array_key_exists('mobile', $secretary)) {
-            $decoded_resource['mobile_number'] = $secretary['mobile'];
+            $decoded_resource['mobile_phone_number'] = $secretary['mobile'];
         }
 
         if (array_key_exists('phone', $secretary)) {
-            $decoded_resource['phone_number'] = $secretary['phone'];
+            $decoded_resource['work_phone_number'] = $secretary['phone'];
         }
 
         if (array_key_exists('address', $secretary)) {

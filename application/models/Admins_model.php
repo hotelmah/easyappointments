@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -95,7 +97,7 @@ class Admins_model extends EA_Model
             empty($admin['first_name']) ||
             empty($admin['last_name']) ||
             empty($admin['email']) ||
-            empty($admin['phone_number'])
+            empty($admin['mobile_phone_number'])
         ) {
             throw new InvalidArgumentException('Not all required fields are provided: ' . print_r($admin, true));
         }
@@ -363,7 +365,7 @@ class Admins_model extends EA_Model
 
         $this->set_settings($admin['id'], $settings);
 
-        return $admin['id'];
+        return (int) $admin['id'];
     }
 
     /**
@@ -502,8 +504,8 @@ class Admins_model extends EA_Model
             ->or_like('last_name', $keyword)
             ->or_like('CONCAT_WS(" ", first_name, last_name)', $keyword)
             ->or_like('email', $keyword)
-            ->or_like('phone_number', $keyword)
-            ->or_like('mobile_number', $keyword)
+            ->or_like('mobile_phone_number', $keyword)
+            ->or_like('work_phone_number', $keyword)
             ->or_like('address', $keyword)
             ->or_like('city', $keyword)
             ->or_like('state', $keyword)
@@ -549,8 +551,8 @@ class Admins_model extends EA_Model
             'firstName' => $admin['first_name'],
             'lastName' => $admin['last_name'],
             'email' => $admin['email'],
-            'mobile' => $admin['mobile_number'],
-            'phone' => $admin['phone_number'],
+            'mobile' => $admin['mobile_phone_number'],
+            'phone' => $admin['work_phone_number'],
             'address' => $admin['address'],
             'city' => $admin['city'],
             'state' => $admin['state'],
@@ -596,11 +598,11 @@ class Admins_model extends EA_Model
         }
 
         if (array_key_exists('mobile', $admin)) {
-            $decoded_resource['mobile_number'] = $admin['mobile'];
+            $decoded_resource['mobile_phone_number'] = $admin['mobile'];
         }
 
         if (array_key_exists('phone', $admin)) {
-            $decoded_resource['phone_number'] = $admin['phone'];
+            $decoded_resource['work_phone_number'] = $admin['phone'];
         }
 
         if (array_key_exists('address', $admin)) {

@@ -756,8 +756,8 @@ class Providers_model extends EA_Model
             'firstName' => $provider['first_name'],
             'lastName' => $provider['last_name'],
             'email' => $provider['email'],
-            'mobile' => $provider['mobile_number'],
-            'phone' => $provider['phone_number'],
+            'mobile' => $provider['mobile_phone_number'],
+            'phone' => $provider['work_phone_number'],
             'address' => $provider['address'],
             'city' => $provider['city'],
             'state' => $provider['state'],
@@ -844,11 +844,11 @@ class Providers_model extends EA_Model
         }
 
         if (array_key_exists('mobile', $provider)) {
-            $decoded_resource['mobile_number'] = $provider['mobile'];
+            $decoded_resource['mobile_phone_number'] = $provider['mobile'];
         }
 
         if (array_key_exists('phone', $provider)) {
-            $decoded_resource['phone_number'] = $provider['phone'];
+            $decoded_resource['work_phone_number'] = $provider['phone'];
         }
 
         if (array_key_exists('address', $provider)) {

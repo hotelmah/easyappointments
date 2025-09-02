@@ -674,7 +674,7 @@ body .form-horizontal .controls {
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
-#customers-page, #services-page, #service-categories-page, #providers-page, #secretaries-page {
+#customers-page, #services-page, #service-categories-page, #providers-page, #secretaries-page, #admins-page {
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -709,43 +709,43 @@ body .form-horizontal .controls {
 
 /* ===================================================================================================================== */
 
-#customers-toolbar, #services-toolbar, #service-categories-toolbar, #providers-toolbar, #secretaries-toolbar {
+#customers-toolbar, #services-toolbar, #service-categories-toolbar, #providers-toolbar, #secretaries-toolbar, #admins-toolbar {
     background-color: #353535;
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 20px;
 }
 
-#customers-filter, #services-filter, #service-categories-filter, #providers-filter, #secretaries-filter {
+#customers-filter, #services-filter, #service-categories-filter, #providers-filter, #secretaries-filter, #admins-filter {
     padding-right: 15px;
 }
 
-#customers-actions, #services-actions, #service-categories-actions, #providers-actions, #secretaries-actions {
+#customers-actions, #services-actions, #service-categories-actions, #providers-actions, #secretaries-actions, #admins-actions {
     text-align: left;
 }
 
-#customers-actions .btn, #services-actions .btn, #service-categories-actions .btn, #providers-actions .btn, #secretaries-actions .btn {
+#customers-actions .btn, #services-actions .btn, #service-categories-actions .btn, #providers-actions .btn, #secretaries-actions .btn, #admins-actions .btn {
     /* margin-right: 5px; */
     margin-bottom: 5px;
 }
 
-#customers-actions .btn:last-child, #services-actions .btn:last-child, #service-categories-actions .btn:last-child, #providers-actions .btn:last-child, #secretaries-actions .btn:last-child {
+#customers-actions .btn:last-child, #services-actions .btn:last-child, #service-categories-actions .btn:last-child, #providers-actions .btn:last-child, #secretaries-actions .btn:last-child, #admins-actions .btn:last-child {
     margin-right: 0;
 }
 
 /* Match calendar filter input styling */
-#customers-filter .form-control, #services-filter .form-control, #service-categories-filter .form-control, #providers-filter .form-control, #secretaries-filter .form-control {
+#customers-filter .form-control, #services-filter .form-control, #service-categories-filter .form-control, #providers-filter .form-control, #secretaries-filter .form-control, #admins-filter .form-control {
     max-width: 35vw;
     border-radius: 0.375rem 0 0 0.375rem;
 }
 
-#customers-filter .btn, #services-filter .btn, #service-categories-filter .btn, #providers-filter .btn, #secretaries-filter .btn {
+#customers-filter .btn, #services-filter .btn, #service-categories-filter .btn, #providers-filter .btn, #secretaries-filter .btn, #admins-filter .btn {
     margin-left: 6px;
     border-radius: 0 0.375rem 0.375rem 0;
 }
 
 /* Main customers container */
-#customers, #services, #service-categories, #providers, #secretaries {
+#customers, #services, #service-categories, #providers, #secretaries, #admins {
     margin-top: 20px;
 }
 
@@ -771,21 +771,21 @@ body .form-horizontal .controls {
     background: #fff;
 }
 
-#customers-list .entry, #services-list .entry, #service-categories-list .entry, #providers-list .entry, #secretaries-list .entry {
+#customers-list .entry, #services-list .entry, #service-categories-list .entry, #providers-list .entry, #secretaries-list .entry, #admins-list .entry {
     padding: 10px 7px;
 }
 
-#customers-list .entry:hover:not(.selected), #services-list .entry:hover:not(.selected), #service-categories-list .entry:hover:not(.selected), #providers-list .entry:hover:not(.selected), #secretaries-list .entry:hover:not(.selected) {
+#customers-list .entry:hover:not(.selected), #services-list .entry:hover:not(.selected), #service-categories-list .entry:hover:not(.selected), #providers-list .entry:hover:not(.selected), #secretaries-list .entry:hover:not(.selected), #admins-list .entry:hover:not(.selected) {
     background-color: #f3f3f3;
     cursor: pointer;
 }
 
-#customers-list .entry.selected, #services-list .entry.selected, #service-categories-list .entry.selected, #providers-list .entry.selected, #secretaries-list .entry.selected {
+#customers-list .entry.selected, #services-list .entry.selected, #service-categories-list .entry.selected, #providers-list .entry.selected, #secretaries-list .entry.selected, #admins-list .entry.selected {
     background-color: #f1eded;
     border-right: 5px solid #429a82;
 }
 
-#customers-list hr, #services-list hr, #service-categories-list hr, #providers-list hr, #secretaries-list hr {
+#customers-list hr, #services-list hr, #service-categories-list hr, #providers-list hr, #secretaries-list hr, #admins-list hr {
     margin: 5px 0;
 }
 
@@ -850,7 +850,6 @@ span[hidden] {
     border-radius: 0.375rem;
     margin-bottom: 1rem;
 }
-
 
 /* Notes textarea */
 #notes {
@@ -1059,10 +1058,6 @@ span[hidden] {
     margin-bottom: 15px;
 }
 
-#providers-page #providers .form-message {
-    clear: both;
-}
-
 #providers-page #providers .breaks.table,
 #settings-page .breaks.table {
     table-layout: fixed;
@@ -1082,7 +1077,7 @@ span[hidden] {
     min-height: 250px;
 }
 
-#providers-list, #secretaries-list {
+#providers-list, #secretaries-list, #admins-list {
     overflow-y: auto;
     max-height: 700px;
     max-width: 480px;

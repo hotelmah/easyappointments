@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -25,17 +27,17 @@ class Admins extends EA_Controller
         'first_name',
         'last_name',
         'email',
-        'mobile_number',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
         'zip_code',
         'notes',
-        'timezone',
         'language',
+        'timezone',
         'ldap_dn',
-        'settings',
+        'settings'
     ];
 
     public array $optional_admin_fields = [
@@ -90,14 +92,15 @@ class Admins extends EA_Controller
         script_vars([
             'user_id' => $user_id,
             'role_slug' => $role_slug,
-            'timezones' => $this->timezones->to_array(),
             'min_password_length' => MIN_PASSWORD_LENGTH,
+            'timezones' => $this->timezones->to_array(),
             'default_language' => setting('default_language'),
-            'default_timezone' => setting('default_timezone'),
+            'default_timezone' => setting('default_timezone')
         ]);
 
         html_vars([
             'page_title' => lang('admins'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_USERS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'grouped_timezones' => $this->timezones->to_grouped_array(),

@@ -59,7 +59,8 @@ App.Pages.Secretaries = (function () {
                 return;
             }
 
-            const secretaryId = $input.parents().eq(2).find('.record-id').val();
+            // const secretaryId = $input.parents().eq(2).find('.record-id').val();
+            const secretaryId = $('#secretary-id').val();
 
             if (!secretaryId) {
                 return;
@@ -68,16 +69,15 @@ App.Pages.Secretaries = (function () {
             const username = $input.val();
 
             App.Http.Account.validateUsername(secretaryId, username).done((response) => {
-                if (response.is_valid === 'false') {
-                    $input.addClass('is-invalid border border-danger');
+                if (response.is_valid === false) {
+                    $input.removeClass('border-primary').addClass('is-invalid border-danger');
                     $input.attr('already-exists', 'true');
-                    $input.parents().eq(3).find('.form-message').text(lang('username_already_exists'));
-                    $input.parents().eq(3).find('.form-message').show();
+                    $('.form-message').addClass('alert-danger').text(lang('username_already_exists')).show();
                 } else {
-                    $input.removeClass('is-invalid border border-danger');
+                    $input.removeClass('is-invalid border-danger').addClass('border-primary');
                     $input.attr('already-exists', 'false');
-                    if ($input.parents().eq(3).find('.form-message').text() === lang('username_already_exists')) {
-                        $input.parents().eq(3).find('.form-message').hide();
+                    if ($('.form-message').text() === lang('username_already_exists')) {
+                        $('.form-message').removeClass('alert-danger').hide();
                     }
                 }
             });
@@ -265,7 +265,7 @@ App.Pages.Secretaries = (function () {
         App.Http.Secretaries.save(secretary).done((response) => {
             App.Layouts.Backend.displayNotification(lang('secretary_saved'));
             App.Pages.Secretaries.resetForm();
-            $('#filter-secretaries .key').val('');
+            $('#secretaries-filter .key').val('');
             App.Pages.Secretaries.filter('', response.id, true);
         });
     }
@@ -279,7 +279,7 @@ App.Pages.Secretaries = (function () {
         App.Http.Secretaries.destroy(id).done(() => {
             App.Layouts.Backend.displayNotification(lang('secretary_deleted'));
             App.Pages.Secretaries.resetForm();
-            App.Pages.Secretaries.filter($('#filter-secretaries .key').val());
+            App.Pages.Secretaries.filter($('#secretaries-filter .key').val());
         });
     }
 
@@ -313,19 +313,19 @@ App.Pages.Secretaries = (function () {
                 throw new Error(lang('invalid_email'));
             }
 
+            // Validate mobile number.
+            const mobilePhoneNumber = $mobilePhoneNumber.val();
+
+            if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
+                $mobilePhoneNumber.addClass('is-invalid');
+                throw new Error(lang('invalid_phone'));
+            }
+
             // Validate phone number.
             const workPhoneNumber = $workPhoneNumber.val();
 
             if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
                 $workPhoneNumber.addClass('is-invalid');
-                throw new Error(lang('invalid_phone'));
-            }
-
-            // Validate phone number.
-            const mobilePhoneNumber = $mobilePhoneNumber.val();
-
-            if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
-                $mobilePhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
@@ -371,8 +371,9 @@ App.Pages.Secretaries = (function () {
         $secretariesToolbar.find('#add-edit-delete-group').show();
         $secretariesToolbar.find('#save-cancel-group').hide();
 
-        // $secretaries.find('.form-message').hide();
-        $secretaries.find('.record-details .is-invalid').removeClass('is-invalid').removeClass('is-invalid').addClass('border border-primary');
+        $secretaries.find('.form-message').hide();
+        $secretaries.find('.record-details .is-invalid').removeClass('is-invalid').addClass('border border-primary');
+        $secretaries.find('#username').removeClass('is-invalid border-danger').addClass('border-primary');
 
         $('#edit-secretary, #delete-secretary').prop('disabled', true);
         $('#secretary-providers input:checkbox').prop('disabled', true).prop('checked', false);

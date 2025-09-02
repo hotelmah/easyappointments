@@ -257,7 +257,7 @@ App.Pages.Providers = (function () {
         App.Http.Providers.save(provider).then((response) => {
             App.Layouts.Backend.displayNotification(lang('provider_saved'));
             App.Pages.Providers.resetForm();
-            $('#filter-providers .key').val('');
+            $('#providers-filter .key').val('');
             App.Pages.Providers.filter('', response.id, true);
         });
     }
@@ -271,7 +271,7 @@ App.Pages.Providers = (function () {
         App.Http.Providers.destroy(id).then(() => {
             App.Layouts.Backend.displayNotification(lang('provider_deleted'));
             App.Pages.Providers.resetForm();
-            App.Pages.Providers.filter($('#filter-providers .key').val());
+            App.Pages.Providers.filter($('#providers-filter .key').val());
         });
     }
 
