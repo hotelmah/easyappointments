@@ -177,26 +177,27 @@ App.Utils.CalendarSync = (function () {
 
     function enableCaldavSync(defaultCaldavUrl = '', defaultCaldavUsername = '', defaultCaldavPassword = '') {
         const $container = $(`
+            <hr/>
             <div>
                 <div class="mb-3">
-                    <label for="caldav-url" class="form-label">
+                    <label for="caldav-url" class="form-label mb-2">
                         ${lang('calendar_url')}
                     </label>
-                    <input type="text" class="form-control" id="caldav-url" value="${defaultCaldavUrl}"/>
-                </div> 
+                    <input id="caldav-url" type="text" class="form-control border border-primary" value="${defaultCaldavUrl}"/>
+                </div>
                 <div class="mb-3">
-                    <label for="caldav-username" class="form-label">
+                    <label for="caldav-username" class="form-label mb-2">
                         ${lang('username')}
                     </label>
-                    <input type="text" class="form-control" id="caldav-username" value="${defaultCaldavUsername}"/>
-                </div> 
+                    <input id="caldav-username" type="text" class="form-control border border-primary" value="${defaultCaldavUsername}"/>
+                </div>
                 <div class="mb-3">
-                    <label for="caldav-password" class="form-label">
+                    <label for="caldav-password" class="form-label mb-2">
                         ${lang('password')}
                     </label>
-                    <input type="password" class="form-control" id="caldav-password" value="${defaultCaldavPassword}"/>
-                </div>    
-                
+                    <input id="caldav-password" type="password" class="form-control border border-primary" value="${defaultCaldavPassword}"/>
+                </div>
+
                 <div class="alert alert-danger" hidden>
                     <!-- JS -->
                 </div>

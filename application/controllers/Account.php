@@ -27,15 +27,15 @@ class Account extends EA_Controller
         'first_name',
         'last_name',
         'email',
-        'mobile_number',
-        'phone_number',
+        'mobile_phone_number',
+        'work_phone_number',
         'address',
         'city',
         'state',
         'zip_code',
         'notes',
-        'timezone',
         'language',
+        'timezone',
         'settings',
     ];
 
@@ -56,17 +56,17 @@ class Account extends EA_Controller
     {
         parent::__construct();
 
-        $this->load->model('appointments_model');
-        $this->load->model('customers_model');
-        $this->load->model('services_model');
-        $this->load->model('providers_model');
-        $this->load->model('roles_model');
-        $this->load->model('settings_model');
+        // $this->load->model('appointments_model');
+        // $this->load->model('customers_model');
+        // $this->load->model('services_model');
+        // $this->load->model('providers_model');
+        // $this->load->model('roles_model');
+        // $this->load->model('settings_model');
 
         $this->load->library('accounts');
         // $this->load->library('google_sync');
         $this->load->library('notifications');
-        $this->load->library('synchronization');
+        // $this->load->library('synchronization');
         $this->load->library('timezones');
     }
 
@@ -92,11 +92,13 @@ class Account extends EA_Controller
         $account = $this->users_model->find($user_id);
 
         script_vars([
-            'account' => $account,
+            'min_password_length' => MIN_PASSWORD_LENGTH,
+            'account' => $account
         ]);
 
         html_vars([
             'page_title' => lang('settings'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SYSTEM_SETTINGS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'grouped_timezones' => $this->timezones->to_grouped_array(),

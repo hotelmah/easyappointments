@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -42,10 +44,10 @@ class Unavailabilities extends EA_Controller
         parent::__construct();
 
         $this->load->model('unavailabilities_model');
-        $this->load->model('roles_model');
+        // $this->load->model('roles_model');
 
-        $this->load->library('accounts');
-        $this->load->library('timezones');
+        // $this->load->library('accounts');
+        // $this->load->library('timezones');
         $this->load->library('webhooks_client');
     }
 
@@ -131,7 +133,7 @@ class Unavailabilities extends EA_Controller
     }
 
     /**
-     * Update a unavailability.
+     * Update an unavailability.
      */
     public function update(): void
     {

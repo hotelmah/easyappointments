@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -70,15 +72,16 @@ class Blocked_periods extends EA_Controller
             'role_slug' => $role_slug,
             'date_format' => setting('date_format'),
             'time_format' => setting('time_format'),
-            'first_weekday' => setting('first_weekday'),
+            'first_weekday' => setting('first_weekday')
         ]);
 
         html_vars([
             'page_title' => lang('blocked_periods'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_BLOCKED_PERIODS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'timezones' => $this->timezones->to_array(),
-            'privileges' => $this->roles_model->get_permissions_by_slug($role_slug),
+            'privileges' => $this->roles_model->get_permissions_by_slug($role_slug)
         ]);
 
         $this->load->view('pages/blocked_periods');

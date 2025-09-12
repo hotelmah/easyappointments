@@ -19,8 +19,8 @@ App.Pages.Account = (function () {
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $mobileNumber = $('#mobile-number');
-    const $phoneNumber = $('#phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
     const $state = $('#state');
@@ -32,7 +32,7 @@ App.Pages.Account = (function () {
     const $password = $('#password');
     const $retypePassword = $('#retype-password');
     const $calendarView = $('#calendar-view');
-    const notifications = $('#notifications');
+    const $notifications = $('#notifications');
     const $saveSettings = $('#save-settings');
     const $footerUserDisplayName = $('#footer-user-display-name');
 
@@ -42,12 +42,57 @@ App.Pages.Account = (function () {
      * @return {Boolean}
      */
     function isInvalid() {
+        $('#account .is-invalid').removeClass('is-invalid');
+        $('#account .form-message').removeClass('alert-danger').hide();
+
         try {
-            $('#account .is-invalid').removeClass('is-invalid');
-
             // Validate required fields.
-
             let missingRequiredFields = false;
+
+            // Validate passwords (if values provided).
+            if ($password.val() && $password.val() !== $retypePassword.val()) {
+                $password.addClass('is-invalid');
+                $retypePassword.addClass('is-invalid');
+                throw new Error(lang('passwords_mismatch'));
+            }
+
+            if ($password.val().length < vars('min_password_length') && $password.val() !== '') {
+                $password.addClass('is-invalid');
+                $retypePassword.addClass('is-invalid');
+                throw new Error(lang('password_length_notice').replace('$number', vars('min_password_length')));
+            }
+
+            // Validate user email.
+            if (!App.Utils.Validation.email($email.val())) {
+                $email.addClass('is-invalid');
+                throw new Error(lang('invalid_email'));
+            }
+
+            // Validate mobile number.
+            const mobilePhoneNumber = $mobilePhoneNumber.val();
+
+            if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
+                $mobilePhoneNumber.addClass('is-invalid');
+                throw new Error(lang('invalid_phone'));
+            }
+
+            // Validate phone number.
+            const workPhoneNumber = $workPhoneNumber.val();
+
+            if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
+                $workPhoneNumber.addClass('is-invalid');
+                throw new Error(lang('invalid_phone'));
+            }
+
+            // Check if username exists
+            if ($username.attr('already-exists') === 'true') {
+                $username.addClass('is-invalid');
+                throw new Error(lang('username_already_exists'));
+            }
+
+            if ($username.hasClass('is-invalid')) {
+                throw new Error(lang('username_already_exists'));
+            }
 
             $('#account .required').each((index, requiredField) => {
                 const $requiredField = $(requiredField);
@@ -62,30 +107,10 @@ App.Pages.Account = (function () {
                 throw new Error(lang('fields_are_required'));
             }
 
-            // Validate passwords (if values provided).
-
-            if ($password.val() && $password.val() !== $retypePassword.val()) {
-                $password.addClass('is-invalid');
-                $retypePassword.addClass('is-invalid');
-                throw new Error(lang('passwords_mismatch'));
-            }
-
-            // Validate user email.
-
-            const emailValue = $email.val();
-
-            if (!App.Utils.Validation.email(emailValue)) {
-                $email.addClass('is-invalid');
-                throw new Error(lang('invalid_email'));
-            }
-
-            if ($username.hasClass('is-invalid')) {
-                throw new Error(lang('username_already_exists'));
-            }
-
             return false;
         } catch (error) {
-            App.Layouts.Backend.displayNotification(error.message);
+            // App.Layouts.Backend.displayNotification(error.message);
+            $('#account .form-message').addClass('alert-danger').text(error.message).show();
             return true;
         }
     }
@@ -100,20 +125,20 @@ App.Pages.Account = (function () {
         $firstName.val(account.first_name);
         $lastName.val(account.last_name);
         $email.val(account.email);
-        $mobileNumber.val(account.mobile_number);
-        $phoneNumber.val(account.phone_number);
+        $mobilePhoneNumber.val(account.mobile_phone_number);
+        $workPhoneNumber.val(account.work_phone_number);
         $address.val(account.address);
         $city.val(account.city);
         $state.val(account.state);
         $zipCode.val(account.zip_code);
         $notes.val(account.notes);
-        $language.val(account.language);
-        $timezone.val(account.timezone);
         $username.val(account.settings.username);
         $password.val('');
         $retypePassword.val('');
         $calendarView.val(account.settings.calendar_view);
-        notifications.prop('checked', Boolean(Number(account.settings.notifications)));
+        $language.val(account.language);
+        $timezone.val(account.timezone);
+        $notifications.prop('checked', Boolean(Number(account.settings.notifications)));
     }
 
     /**
@@ -127,8 +152,8 @@ App.Pages.Account = (function () {
             first_name: $firstName.val(),
             last_name: $lastName.val(),
             email: $email.val(),
-            mobile_number: $mobileNumber.val(),
-            phone_number: $phoneNumber.val(),
+            mobile_phone_number: $mobilePhoneNumber.val(),
+            work_phone_number: $workPhoneNumber.val(),
             address: $address.val(),
             city: $city.val(),
             state: $state.val(),
@@ -140,7 +165,7 @@ App.Pages.Account = (function () {
                 username: $username.val(),
                 password: $password.val() || undefined,
                 calendar_view: $calendarView.val(),
-                notifications: Number(notifications.prop('checked')),
+                notifications: Number($notifications.prop('checked')),
             },
         };
     }
@@ -168,13 +193,32 @@ App.Pages.Account = (function () {
      * Make sure the username is unique.
      */
     function onUsernameChange() {
+        $('.form-message').removeClass('alert-danger').hide();
+
+        if ($username.prop('readonly') === true || $username.val() === '') {
+            return;
+        }
+
+        // const adminId = $input.parents().eq(2).find('.record-id').val();
+        const userId = $('#user-id').val();
+
+        if (!userId) {
+            return;
+        }
+
         const username = $username.val();
 
-        App.Http.Account.validateUsername(vars('user_id'), username).done((response) => {
-            const isValid = response.is_valid;
-            $username.toggleClass('is-invalid', !isValid);
-            if (!isValid) {
-                App.Layouts.Backend.displayNotification(lang('username_already_exists'));
+        App.Http.Account.validateUsername(userId, username).done((response) => {
+            if (response.is_valid === false) {
+                $username.removeClass('border-primary').addClass('is-invalid border-danger');
+                $username.attr('already-exists', 'true');
+                $('.form-message').addClass('alert-danger').text(lang('username_already_exists')).show();
+            } else {
+                $username.removeClass('is-invalid border-danger').addClass('border-primary');
+                $username.attr('already-exists', 'false');
+                if ($('.form-message').text() === lang('username_already_exists')) {
+                    $('.form-message').removeClass('alert-danger').hide();
+                }
             }
         });
     }

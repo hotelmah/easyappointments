@@ -227,6 +227,16 @@ App.Pages.BookingSettings = (function () {
         deserialize(bookingSettings);
 
         applyInitialState();
+
+        const urlSegments = document.URL.split('/');
+        const lastSegment = urlSegments[urlSegments.length - 1];
+
+        $('#settings-nav a').removeClass('active');
+        $('#settings-nav a#' + lastSegment).addClass('active');
+
+        $('.form-check-input').on('change', function () {
+            App.Utils.Validation.showFormFieldAlert(lang('settings_save_top'));
+        });
     }
 
     document.addEventListener('DOMContentLoaded', initialize);

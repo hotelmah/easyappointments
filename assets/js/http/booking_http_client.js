@@ -168,7 +168,7 @@ App.Http.Booking = (function () {
                 $captchaText.removeClass('border-primary');
                 $captchaText.addClass('is-invalid');
                 $captchaTitle.find('button').trigger('click');
-                App.Utils.Validation.showBookingAlert(lang('captcha_is_wrong'));
+                App.Utils.Validation.showFormFieldAlert(lang('captcha_is_wrong'));
 
                 return;
             }
@@ -231,7 +231,7 @@ App.Http.Booking = (function () {
                 $captchaText.removeClass('border-primary');
                 $captchaText.addClass('is-invalid');
 
-                App.Utils.Validation.showBookingAlert(lang('captcha_is_wrong'));
+                App.Utils.Validation.showFormFieldAlert(lang('captcha_is_wrong'));
                 $captchaText.trigger('focus'); // Set focus to captcha input
                 return false;
             }

@@ -15,16 +15,18 @@
  * This module implements the functionality of the webhooks page.
  */
 App.Pages.Webhooks = (function () {
+    const $webhooksToolbar = $('#webhooks-toolbar');
     const $webhooks = $('#webhooks');
-    const $id = $('#id');
+    const $id = $('#webhook-id');
     const $name = $('#name');
     const $url = $('#url');
-    const $actions = $('#actions');
     const $secretHeader = $('#secret-header');
     const $secretToken = $('#secret-token');
+    const $actions = $('#actions');
     const $isSslVerified = $('#is-ssl-verified');
     const $notes = $('#notes');
-    const $filterWebhooks = $('#filter-webhooks');
+    const $filterWebhooks = $('#webhooks-filter');
+
     let filterResults = {};
     let filterLimit = 20;
 
@@ -37,10 +39,10 @@ App.Pages.Webhooks = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $webhooks.on('submit', '#filter-webhooks form', (event) => {
+        $webhooksToolbar.on('submit', '#filter-webhooks-form', (event) => {
             event.preventDefault();
             const key = $filterWebhooks.find('.key').val();
-            $filterWebhooks.find('.selected').removeClass('selected');
+            $webhooks.find('.selected').removeClass('selected');
             App.Pages.Webhooks.resetForm();
             App.Pages.Webhooks.filter(key);
         });
@@ -52,32 +54,33 @@ App.Pages.Webhooks = (function () {
          */
         $webhooks.on('click', '.webhook-row', (event) => {
             if ($filterWebhooks.find('.filter').prop('disabled')) {
-                $filterWebhooks.find('.results').css('color', '#AAA');
+                $webhooks.find('.results').css('color', '#AAA');
                 return; // exit because we are on edit mode
             }
 
             const webhookId = $(event.currentTarget).attr('data-id');
-
             const webhook = filterResults.find((filterResult) => Number(filterResult.id) === Number(webhookId));
 
-            App.Pages.Webhooks.display(webhook);
-
-            $filterWebhooks.find('.selected').removeClass('selected');
-            $(event.currentTarget).addClass('selected');
             $('#edit-webhook, #delete-webhook').prop('disabled', false);
+            $webhooks.find('.selected').removeClass('selected');
+            $(event.currentTarget).addClass('selected');
+            App.Pages.Webhooks.display(webhook);
         });
 
         /**
          * Event: Add New Webhook Button "Click"
          */
-        $webhooks.on('click', '#add-webhook', () => {
+        $webhooksToolbar.on('click', '#add-webhook', () => {
             App.Pages.Webhooks.resetForm();
-            $webhooks.find('.add-edit-delete-group').hide();
-            $webhooks.find('.save-cancel-group').show();
-            $webhooks.find('.record-details').find('input, select, textarea').prop('disabled', false);
+
+            $webhooksToolbar.find('#add-edit-delete-group').hide();
+            $webhooksToolbar.find('#save-cancel-group').show();
+
+            $webhooks.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $webhooks.find('.record-details .form-label span').prop('hidden', false);
+
             $filterWebhooks.find('button').prop('disabled', true);
-            $filterWebhooks.find('.results').css('color', '#AAA');
+            $webhooks.find('.results').css('color', '#AAA');
         });
 
         /**
@@ -85,7 +88,7 @@ App.Pages.Webhooks = (function () {
          *
          * Cancel add or edit of a webhook record.
          */
-        $webhooks.on('click', '#cancel-webhook', () => {
+        $webhooksToolbar.on('click', '#cancel-webhook', () => {
             const id = $id.val();
 
             App.Pages.Webhooks.resetForm();
@@ -98,7 +101,11 @@ App.Pages.Webhooks = (function () {
         /**
          * Event: Save Webhook Button "Click"
          */
-        $webhooks.on('click', '#save-webhook', () => {
+        $webhooksToolbar.on('click', '#save-webhook', () => {
+            if (!App.Pages.Webhooks.validate()) {
+                return;
+            }
+
             const webhook = {
                 name: $name.val(),
                 url: $url.val(),
@@ -122,30 +129,29 @@ App.Pages.Webhooks = (function () {
                 webhook.id = $id.val();
             }
 
-            if (!App.Pages.Webhooks.validate()) {
-                return;
-            }
-
             App.Pages.Webhooks.save(webhook);
         });
 
         /**
          * Event: Edit Webhook Button "Click"
          */
-        $webhooks.on('click', '#edit-webhook', () => {
-            $webhooks.find('.add-edit-delete-group').hide();
-            $webhooks.find('.save-cancel-group').show();
-            $webhooks.find('.record-details').find('input, select, textarea').prop('disabled', false);
+        $webhooksToolbar.on('click', '#edit-webhook', () => {
+            $webhooksToolbar.find('#add-edit-delete-group').hide();
+            $webhooksToolbar.find('#save-cancel-group').show();
+
+            $webhooks.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $webhooks.find('.record-details .form-label span').prop('hidden', false);
+
             $filterWebhooks.find('button').prop('disabled', true);
-            $filterWebhooks.find('.results').css('color', '#AAA');
+            $webhooks.find('.results').css('color', '#AAA');
         });
 
         /**
          * Event: Delete Webhook Button "Click"
          */
-        $webhooks.on('click', '#delete-webhook', () => {
+        $webhooksToolbar.on('click', '#delete-webhook', () => {
             const webhookId = $id.val();
+
             const buttons = [
                 {
                     text: lang('cancel'),
@@ -163,6 +169,15 @@ App.Pages.Webhooks = (function () {
             ];
 
             App.Utils.Message.show(lang('delete_webhook'), lang('delete_record_prompt'), buttons);
+        });
+
+        /**
+         * Event: Clear Webhooks Button "Click"
+         */
+        $webhooksToolbar.on('click', '#clear-webhooks', () => {
+            $filterWebhooks.find('.key').val('');
+            App.Pages.Webhooks.resetForm();
+            App.Pages.Webhooks.filter('');
         });
     }
 
@@ -229,22 +244,22 @@ App.Pages.Webhooks = (function () {
      * Resets the webhook tab form back to its initial state.
      */
     function resetForm() {
-        $filterWebhooks.find('.selected').removeClass('selected');
+        $webhooks.find('.selected').removeClass('selected');
         $filterWebhooks.find('button').prop('disabled', false);
-        $filterWebhooks.find('.results').css('color', '');
+        $webhooks.find('.results').css('color', '');
 
-        $webhooks.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $webhooks.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $webhooks.find('.record-details .form-label span').prop('hidden', true);
         $webhooks.find('.record-details h3 a').remove();
 
-        $webhooks.find('.add-edit-delete-group').show();
-        $webhooks.find('.save-cancel-group').hide();
-        $('#edit-webhook, #delete-webhook').prop('disabled', true);
+        $webhooksToolbar.find('#add-edit-delete-group').show();
+        $webhooksToolbar.find('#save-cancel-group').hide();
 
-        $webhooks.find('.record-details .is-invalid').removeClass('is-invalid');
         $webhooks.find('.record-details .form-message').hide();
+        $webhooks.find('.record-details .is-invalid').removeClass('is-invalid border-danger').addClass('border border-primary');
 
         $actions.find('input:checkbox').prop('checked', false);
+        $('#edit-webhook, #delete-webhook').prop('disabled', true);
     }
 
     /**
@@ -258,9 +273,9 @@ App.Pages.Webhooks = (function () {
         $url.val(webhook.url);
         $secretHeader.val(webhook.secret_header);
         $secretToken.val(webhook.secret_token);
-        $isSslVerified.prop('checked', Boolean(Number(webhook.is_ssl_verified)));
-
         $actions.find('input:checkbox').prop('checked', false);
+        $isSslVerified.prop('checked', Boolean(Number(webhook.is_ssl_verified)));
+        $notes.val(webhook.notes);
 
         if (webhook.actions && webhook.actions.length) {
             const actions = webhook.actions.split(',');
@@ -280,14 +295,14 @@ App.Pages.Webhooks = (function () {
         App.Http.Webhooks.search(keyword, filterLimit).then((response) => {
             filterResults = response;
 
-            $filterWebhooks.find('.results').empty();
+            $webhooks.find('.results').empty();
 
             response.forEach((webhook) => {
-                $filterWebhooks.find('.results').append(App.Pages.Webhooks.getFilterHtml(webhook)).append($('<hr/>'));
+                $webhooks.find('.results').append(App.Pages.Webhooks.getFilterHtml(webhook)).append($('<hr/>'));
             });
 
             if (response.length === 0) {
-                $filterWebhooks.find('.results').append(
+                $webhooks.find('.results').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),
@@ -301,7 +316,14 @@ App.Pages.Webhooks = (function () {
                         filterLimit += 20;
                         App.Pages.Webhooks.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-webhooks .results');
+                }).appendTo('#webhooks .results');
+            }
+
+            if (window.tippy) {
+                tippy('.webhook-row[data-tippy-content]', {
+                    placement: 'top',
+                    theme: 'light-border',
+                });
             }
 
             if (selectId) {
@@ -351,9 +373,8 @@ App.Pages.Webhooks = (function () {
      * @param {Boolean} show Optional (false), if true then the method will display the record on the form.
      */
     function select(id, show = false) {
-        $filterWebhooks.find('.selected').removeClass('selected');
-
-        $filterWebhooks.find('.webhook-row[data-id="' + id + '"]').addClass('selected');
+        $webhooks.find('.selected').removeClass('selected');
+        $webhooks.find('.webhook-row[data-id="' + id + '"]').addClass('selected');
 
         if (show) {
             const webhook = filterResults.find((filterResult) => Number(filterResult.id) === Number(id));
@@ -384,6 +405,6 @@ App.Pages.Webhooks = (function () {
         resetForm,
         display,
         select,
-        addEventListeners,
+        addEventListeners
     };
 })();

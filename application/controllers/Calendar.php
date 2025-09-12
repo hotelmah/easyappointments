@@ -214,9 +214,11 @@ class Calendar extends EA_Controller
             'require_first_name' => setting('require_first_name'),
             'require_last_name' => setting('require_last_name'),
             'require_email' => setting('require_email'),
-            'require_phone_number' => setting('require_phone_number'),
+            'require_mobile_number' => setting('require_mobile_number'),
+            'require_work_number' => setting('require_work_number'),
             'require_address' => setting('require_address'),
             'require_city' => setting('require_city'),
+            'require_state' => setting('require_state'),
             'require_zip_code' => setting('require_zip_code'),
             'require_notes' => setting('require_notes'),
         ]);

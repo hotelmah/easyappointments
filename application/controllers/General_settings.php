@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -54,11 +56,11 @@ class General_settings extends EA_Controller
 
         $role_slug = session('role_slug');
 
-        $available_theme_files = glob(__DIR__ . '/../../assets/css/themes/*.min.css');
+        // $available_theme_files = glob(__DIR__ . '/../../assets/css/themes/*.min.css');
 
-        $available_themes = array_map(function ($available_theme_file) {
-            return str_replace('.min.css', '', basename($available_theme_file));
-        }, $available_theme_files);
+        // $available_themes = array_map(function ($available_theme_file) {
+            // return str_replace('.min.css', '', basename($available_theme_file));
+        // }, $available_theme_files);
 
         script_vars([
             'user_id' => $user_id,
@@ -69,10 +71,11 @@ class General_settings extends EA_Controller
 
         html_vars([
             'page_title' => lang('settings'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SYSTEM_SETTINGS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'grouped_timezones' => $this->timezones->to_grouped_array(),
-            'available_themes' => $available_themes,
+            // 'available_themes' => $available_themes,
         ]);
 
         $this->load->view('pages/general_settings');

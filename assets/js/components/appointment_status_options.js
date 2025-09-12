@@ -24,12 +24,12 @@ App.Components.AppointmentStatusOptions = (function () {
      */
     function renderListGroupItem(appointmentStatusOption = '') {
         return $(`
-            <li class="list-group-item d-flex justify-content-between align-items-center p-0 border-0 mb-3 appointment-status-option">
-                <label class="w-100 me-2">
-                    <input class="form-control" value="${appointmentStatusOption}">
+            <li class="appointment-status-option list-group-item d-flex justify-content-between align-items-center border-0 mb-3 p-2">
+                <label class="w-100 me-3">
+                    <input class="form-control border border-primary" value="${appointmentStatusOption}">
                 </label>
-    
-                <button type="button" class="btn btn-outline-danger delete-appointment-status-option">
+
+                <button type="button" class="delete-appointment-status-option btn btn-outline-danger" title="Delete" data-tippy-content="Delete">
                     <i class="fas fa-trash"></i>
                 </button>
             </li>
@@ -113,6 +113,15 @@ App.Components.AppointmentStatusOptions = (function () {
     function initialize() {
         $(document).on('click', '.delete-appointment-status-option', onDeleteAppointmentStatusOptionClick);
         $(document).on('click', '.add-appointment-status-option', onAddAppointmentStatusOptionClick);
+
+        // .add-appointment-status-option, .delete-appointment-status-option
+        $(document).on('change', '.appointment-status-option input', function () {
+            App.Utils.Validation.showFormFieldAlert(lang('settings_save_top'));
+        });
+
+        $(document).on('click', '.delete-appointment-status-option', function () {
+            App.Utils.Validation.showFormFieldAlert(lang('settings_save_top'));
+        });
     }
 
     document.addEventListener('DOMContentLoaded', initialize);

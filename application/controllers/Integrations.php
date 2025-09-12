@@ -29,18 +29,18 @@ class Integrations extends EA_Controller
     {
         parent::__construct();
 
-        $this->load->model('appointments_model');
-        $this->load->model('customers_model');
+        // $this->load->model('appointments_model');
+        // $this->load->model('customers_model');
         $this->load->model('services_model');
-        $this->load->model('providers_model');
+        // $this->load->model('providers_model');
         $this->load->model('roles_model');
-        $this->load->model('settings_model');
+        // $this->load->model('settings_model');
 
         $this->load->library('accounts');
         // $this->load->library('google_sync');
-        $this->load->library('notifications');
-        $this->load->library('synchronization');
-        $this->load->library('timezones');
+        // $this->load->library('notifications');
+        // $this->load->library('synchronization');
+        // $this->load->library('timezones');
     }
 
     /**
@@ -66,9 +66,10 @@ class Integrations extends EA_Controller
 
         html_vars([
             'page_title' => lang('integrations'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SYSTEM_SETTINGS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
-            'privileges' => $this->roles_model->get_permissions_by_slug($role_slug),
+            'privileges' => $this->roles_model->get_permissions_by_slug($role_slug)
         ]);
 
         $this->load->view('pages/integrations');

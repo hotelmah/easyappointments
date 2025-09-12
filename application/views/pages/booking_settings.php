@@ -11,126 +11,131 @@
             <div class="col-sm-6">
                 <form>
                     <fieldset>
-                        <div class="d-flex justify-content-between align-items-center border-bottom mb-4 py-2">
-                            <h4 class="text-black-50 mb-0 fw-light">
+                        <div class="settings-header border-bottom mb-3 py-3">
+                            <h3 class="text-black-50 mb-0">
                                 <?= lang('booking_settings') ?>
-                            </h4>
+                            </h3>
 
                             <?php if (can('edit', PRIV_SYSTEM_SETTINGS)) : ?>
-                                <button type="button" id="save-settings" class="btn btn-primary">
+                                <button id="save-settings" type="button" class="btn btn-primary">
                                     <i class="fas fa-check-square me-2"></i>
                                     <?= lang('save') ?>
                                 </button>
                             <?php endif; ?>
                         </div>
 
-                        <h5 class="text-black-50 mb-3 fw-light">
+                        <h4 class="text-black-50 border-bottom mb-3 py-3">
                             <?= lang('fields') ?>
-                        </h5>
+                        </h4>
 
                         <div class="row mb-5 fields-row">
                             <div class="col-lg-6">
                                 <div class="form-group mb-5">
-                                    <label for="first-name" class="form-label">
+                                    <label for="first-name" class="form-label mb-2">
                                         <?= lang('first_name') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-
-                                    <input type="text" id="first-name" class="form-control mb-2" readonly/>
-
+                                    <input id="first-name" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-first-name"
-                                                   data-field="display_first_name">
-                                            <label class="form-check-label" for="display-first-name">
+                                            <input id="display-first-name" type="checkbox" data-field="display_first_name" class="form-check-input display-switch">
+                                            <label for="display-first-name" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-first-name"
-                                                   data-field="require_first_name">
-                                            <label class="form-check-label" for="require-first-name">
+                                            <input id="require-first-name" type="checkbox" data-field="require_first_name" class="form-check-input require-switch">
+                                            <label for="require-first-name" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-5">
-                                    <label for="last-name" class="form-label">
+                                    <label for="last-name" class="form-label mb-2">
                                         <?= lang('last_name') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="last-name" class="form-control mb-2" readonly/>
+                                    <input id="last-name" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-last-name"
-                                                   data-field="display_last_name">
-                                            <label class="form-check-label" for="display-last-name">
+                                            <input id="display-last-name" type="checkbox" data-field="display_last_name" class="form-check-input display-switch">
+                                            <label for="display-last-name" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
 
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-last-name"
-                                                   data-field="require_last_name">
-                                            <label class="form-check-label" for="require-last-name">
+                                            <input id="require-last-name" type="checkbox" data-field="require_last_name" class="form-check-input require-switch">
+                                            <label for="require-last-name" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-5">
-                                    <label for="email" class="form-label">
+                                    <label for="email" class="form-label mb-2">
                                         <?= lang('email') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="email" class="form-control mb-2" readonly/>
+                                    <input id="email" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-email"
-                                                   data-field="display_email">
-                                            <label class="form-check-label" for="display-email">
+                                            <input id="display-email" type="checkbox" data-field="display_email" class="form-check-input display-switch">
+                                            <label for="display-email" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
 
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-email"
-                                                   data-field="require_email">
-                                            <label class="form-check-label" for="require-email">
+                                            <input id="require-email" type="checkbox" data-field="require_email" class="form-check-input require-switch">
+                                            <label for="require-email" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="phone-number" class="form-label">
-                                        <?= lang('phone_number') ?>
+
+                                <div class="form-group mb-5">
+                                    <label for="mobile-phone-number" class="form-label mb-2">
+                                        <?= lang('mobile_phone_number') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="phone-number" class="form-control mb-2" readonly/>
+                                    <input id="mobile-phone-number" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-phone-number"
-                                                   data-field="display_phone_number">
-                                            <label class="form-check-label" for="display-phone-number">
+                                            <input id="display-phone-number" type="checkbox" data-field="display_mobile_number" class="form-check-input display-switch">
+                                            <label for="display-phone-number" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-phone-number"
-                                                   data-field="require_phone_number">
-                                            <label class="form-check-label" for="require-phone-number">
+                                            <input id="require-phone-number" type="checkbox" data-field="require_mobile_number" class="form-check-input require-switch">
+                                            <label for="require-phone-number" class="form-check-label">
+                                                <?= lang('require') ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-5">
+                                    <label for="work-phone-number" class="form-label mb-2">
+                                        <?= lang('work_phone_number') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input id="work-phone-number" type="text" class="form-control mb-2" readonly>
+                                    <div class="d-flex">
+                                        <div class="form-check form-switch me-4">
+                                            <input id="display-work-number" type="checkbox" data-field="display_work_number" class="form-check-input display-switch">
+                                            <label for="display-work-number" class="form-check-label">
+                                                <?= lang('display') ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input id="require-work-number" type="checkbox" data-field="require_work_number" class="form-check-input require-switch">
+                                            <label for="require-work-number" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
@@ -140,104 +145,109 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group mb-5">
-                                    <label for="address" class="form-label">
+                                    <label for="address" class="form-label mt-2 mb-2">
                                         <?= lang('address') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="address" class="form-control mb-2" readonly/>
+                                    <input id="address" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-address"
-                                                   data-field="display_address">
-                                            <label class="form-check-label" for="display-address">
+                                            <input id="display-address" type="checkbox" data-field="display_address" class="form-check-input display-switch">
+                                            <label for="display-address" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-address"
-                                                   data-field="require_address">
-                                            <label class="form-check-label" for="require-address">
+                                            <input id="require-address" type="checkbox" data-field="require_address" class="form-check-input require-switch">
+                                            <label for="require-address" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-5">
-                                    <label for="city" class="form-label">
+                                    <label for="city" class="form-label mb-2">
                                         <?= lang('city') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="city" class="form-control mb-2" readonly/>
+                                    <input id="city" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-city"
-                                                   data-field="display_city">
-                                            <label class="form-check-label" for="display-city">
+                                            <input id="display-city" type="checkbox" data-field="display_city" class="form-check-input display-switch">
+                                            <label for="display-city" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-city"
-                                                   data-field="require_city">
-                                            <label class="form-check-label" for="require-city">
+                                            <input id="require-city" type="checkbox" data-field="require_city" class="form-check-input require-switch">
+                                            <label for="require-city" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-5">
-                                    <label for="zip-code" class="form-label">
+                                    <label for="state" class="form-label mb-2">
+                                        <?= lang('state') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input id="state" type="text" class="form-control mb-2" readonly>
+                                    <div class="d-flex">
+                                        <div class="form-check form-switch me-4">
+                                            <input id="display-state" type="checkbox" data-field="display_state" class="form-check-input display-switch">
+                                            <label for="display-state" class="form-check-label">
+                                                <?= lang('display') ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input id="require-state" type="checkbox" data-field="require_state" class="form-check-input require-switch">
+                                            <label for="require-state" class="form-check-label">
+                                                <?= lang('require') ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-5">
+                                    <label for="zip-code" class="form-label mb-2">
                                         <?= lang('zip_code') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="zip-code" class="form-control mb-2" readonly/>
+                                    <input id="zip-code" type="text" class="form-control mb-2" readonly>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-zip-code"
-                                                   data-field="display_zip_code">
-                                            <label class="form-check-label" for="display-zip-code">
+                                            <input id="display-zip-code" type="checkbox" data-field="display_zip_code" class="form-check-input display-switch">
+                                            <label for="display-zip-code" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-zip-code"
-                                                   data-field="require_zip_code">
-                                            <label class="form-check-label" for="require-zip-code">
+                                            <input id="require-zip-code" type="checkbox" data-field="require_zip_code" class="form-check-input require-switch">
+                                            <label for="require-zip-code" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="notes" class="form-label">
+
+                                <div class="form-group mb-5">
+                                    <label for="notes" class="form-label mb-2">
                                         <?= lang('notes') ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <textarea id="notes" class="form-control mb-2" rows="1" readonly></textarea>
                                     <div class="d-flex">
                                         <div class="form-check form-switch me-4">
-                                            <input class="form-check-input display-switch" type="checkbox"
-                                                   id="display-notes"
-                                                   data-field="display_notes">
-                                            <label class="form-check-label" for="display-notes">
+                                            <input id="display-notes" type="checkbox" data-field="display_notes" class="form-check-input display-switch">
+                                            <label for="display-notes" class="form-check-label">
                                                 <?= lang('display') ?>
                                             </label>
                                         </div>
-
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input require-switch" type="checkbox"
-                                                   id="require-notes"
-                                                   data-field="require_notes">
-                                            <label class="form-check-label" for="require-notes">
+                                            <input id="require-notes" type="checkbox" data-field="require_notes" class="form-check-input require-switch">
+                                            <label for="require-notes" class="form-check-label">
                                                 <?= lang('require') ?>
                                             </label>
                                         </div>
@@ -246,40 +256,29 @@
                             </div>
                         </div>
 
-                        <h5 class="text-black-50 mb-3 fw-light">
+                        <h4 class="text-black-50 border-bottom mb-3 py-3">
                             <?= lang('custom_fields') ?>
-                        </h5>
+                        </h4>
 
                         <div class="row mb-5 fields-row">
                             <?php for ($i = 1; $i <= 5; $i++) : ?>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-5">
-                                        <label for="first-name" class="form-label">
+                                        <label for="custom-field-<?= $i ?>" class="form-label mb-2">
                                             <?= lang('custom_field') ?> #<?= $i ?>
                                             <span class="text-danger">*</span>
                                         </label>
-
-                                        <input type="text" id="custom-field-<?= $i ?>" class="form-control mb-2"
-                                               placeholder="<?= lang('label') ?>"
-                                               data-field="label_custom_field_<?= $i ?>"
-                                               aria-label="label"
-                                        />
-
+                                        <input id="custom-field-<?= $i ?>" type="text" class="form-control mb-2" placeholder="<?= lang('label') ?>" data-field="label_custom_field_<?= $i ?>" aria-label="label">
                                         <div class="d-flex">
                                             <div class="form-check form-switch me-4">
-                                                <input class="form-check-input display-switch" type="checkbox"
-                                                       id="display-custom-field-<?= $i ?>"
-                                                       data-field="display_custom_field_<?= $i ?>">
-                                                <label class="form-check-label" for="display-custom-field-<?= $i ?>">
+                                                <input id="display-custom-field-<?= $i ?>" type="checkbox" data-field="display_custom_field_<?= $i ?>" class="form-check-input display-switch">
+                                                <label for="display-custom-field-<?= $i ?>" class="form-check-label">
                                                     <?= lang('display') ?>
                                                 </label>
                                             </div>
-
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input require-switch" type="checkbox"
-                                                       id="require-custom-field-<?= $i ?>"
-                                                       data-field="require_custom_field_<?= $i ?>">
-                                                <label class="form-check-label" for="require-custom-field-<?= $i ?>">
+                                                <input id="require-custom-field-<?= $i ?>" type="checkbox" data-field="require_custom_field_<?= $i ?>" class="form-check-input require-switch">
+                                                <label for="require-custom-field-<?= $i ?>" class="form-check-label">
                                                     <?= lang('require') ?>
                                                 </label>
                                             </div>
@@ -290,137 +289,118 @@
                         </div>
 
 
-                        <h5 class="text-black-50 mb-3 fw-light">
+                        <h4 class="text-black-50 border-bottom mb-3 py-3">
                             <?= lang('options') ?>
-                        </h5>
+                        </h4>
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="border rounded mb-3 p-3">
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="customer-notifications"
-                                                   data-field="customer_notifications">
-                                            <label class="form-check-label" for="customer-notifications">
-                                                <?= lang('customer_notifications') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('customer_notifications_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="limit-customer-access"
-                                                   data-field="limit_customer_access">
-                                            <label class="form-check-label" for="limit-customer-access">
-                                                <?= lang('limit_customer_access') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('limit_customer_access_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="require-captcha"
-                                                   data-field="require_captcha">
-                                            <label class="form-check-label" for="require-captcha">
-                                                CAPTCHA
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('require_captcha_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="display-any-provider"
-                                                   data-field="display_any_provider">
-                                            <label class="form-check-label" for="display-any-provider">
-                                                <?= lang('any_provider') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('display_any_provider_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="display-login-button"
-                                                   data-field="display_login_button">
-                                            <label class="form-check-label" for="display-login-button">
-                                                <?= lang('login_button') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('display_login_button_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox"
-                                                   id="display-delete-personal-information"
-                                                   data-field="display_delete_personal_information">
-                                            <label class="form-check-label" for="display-delete-personal-information">
-                                                <?= lang('delete_personal_information') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('delete_personal_information_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="disable-booking"
-                                                   data-field="disable_booking">
-                                            <label class="form-check-label" for="disable-booking">
-                                                <?= lang('disable_booking') ?>
-                                            </label>
-                                        </div>
-
-                                        <div class="form-text text-muted">
-                                            <small>
-                                                <?= lang('disable_booking_hint') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group mb-3" hidden>
-                                        <label class="form-label" for="disable-booking-message">
-                                            <?= lang('display_message') ?>
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="customer-notifications" type="checkbox" data-field="customer_notifications" class="form-check-input">
+                                        <label for="customer-notifications" class="form-check-label">
+                                            <?= lang('customer_notifications') ?>
                                         </label>
-                                        <textarea id="disable-booking-message" cols="30" rows="10"
-                                                  class="mb-3"></textarea>
                                     </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('customer_notifications_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="limit-customer-access" type="checkbox" data-field="limit_customer_access" class="form-check-input">
+                                        <label for="limit-customer-access" class="form-check-label">
+                                            <?= lang('limit_customer_access') ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('limit_customer_access_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="require-captcha" type="checkbox" data-field="require_captcha" class="form-check-input">
+                                        <label for="require-captcha" class="form-check-label">
+                                            CAPTCHA
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('require_captcha_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="display-any-provider" type="checkbox" data-field="display_any_provider" class="form-check-input">
+                                        <label for="display-any-provider" class="form-check-label">
+                                            <?= lang('any_provider') ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('display_any_provider_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="display-login-button" type="checkbox" data-field="display_login_button" class="form-check-input">
+                                        <label for="display-login-button" class="form-check-label">
+                                            <?= lang('login_button') ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('display_login_button_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="display-delete-personal-information" type="checkbox" data-field="display_delete_personal_information" class="form-check-input">
+                                        <label for="display-delete-personal-information" class="form-check-label">
+                                            <?= lang('delete_personal_information') ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('delete_personal_information_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded mb-4 p-3">
+                                    <div class="form-check form-switch">
+                                        <input id="disable-booking" type="checkbox" data-field="disable_booking" class="form-check-input">
+                                        <label for="disable-booking" class="form-check-label">
+                                            <?= lang('disable_booking') ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <small>
+                                            <?= lang('disable_booking_hint') ?>
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4 p-3" hidden>
+                                    <label for="disable-booking-message" class="form-label mb-2">
+                                        <?= lang('display_message') ?>
+                                    </label>
+                                    <textarea id="disable-booking-message" cols="30" rows="10"  class="border border-primary mb-3"></textarea>
                                 </div>
                             </div>
                         </div>
-
                         <?php slot('after_primary_fields'); ?>
                     </fieldset>
                 </form>
@@ -433,11 +413,7 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/utils/url.js') ?>"></script>
-<script src="<?= asset_url('assets/js/http/booking_settings_http_client.js') ?>"></script>
-<script src="<?= asset_url('assets/js/pages/booking_settings.js') ?>"></script>
+<script src="<?= asset_url('assets/js/http/booking_settings_http_client.js') ?>" type="text/javascript"></script>
+<script src="<?= asset_url('assets/js/pages/booking_settings.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>
-
-
-

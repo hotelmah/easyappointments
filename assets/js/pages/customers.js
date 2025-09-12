@@ -250,17 +250,17 @@ App.Pages.Customers = (function () {
             }
 
             // Validate phone number.
-            const $mobilePhoneNumber = $mobilePhoneNumber.val();
+            const mobilePhoneNumber = $mobilePhoneNumber.val();
 
-            if ($mobilePhoneNumber && !App.Utils.Validation.phone($mobilePhoneNumber)) {
+            if (mobilePhoneNumber && !App.Utils.Validation.isValidUSTelephone(mobilePhoneNumber)) {
                 $mobilePhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
 
             // Validate phone number.
-            const $workPhoneNumber = $workPhoneNumber.val();
+            const workPhoneNumber = $workPhoneNumber.val();
 
-            if ($workPhoneNumber && !App.Utils.Validation.phone($workPhoneNumber)) {
+            if (workPhoneNumber && !App.Utils.Validation.isValidUSTelephone(workPhoneNumber)) {
                 $workPhoneNumber.addClass('is-invalid');
                 throw new Error(lang('invalid_phone'));
             }
@@ -460,7 +460,7 @@ App.Pages.Customers = (function () {
 
         let info = customer.email || '[No Email]';
 
-        info = customer.phone_number ? info + ', ' + customer.phone_number : info;
+        info = customer.mobile_phone_number ? info + ', ' + customer.mobile_phone_number : info;
 
         return $('<div/>', {
             'class': 'customer-row entry',

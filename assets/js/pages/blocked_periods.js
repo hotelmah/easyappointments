@@ -15,13 +15,14 @@
  * This module implements the functionality of the blocked-periods page.
  */
 App.Pages.BlockedPeriods = (function () {
+    const $blockedPeriodsToolbar = $('#blocked-periods-toolbar');
     const $blockedPeriods = $('#blocked-periods');
-    const $filterBlockedPeriods = $('#filter-blocked-periods');
-    const $id = $('#id');
+    const $id = $('#blocked-period-id');
     const $name = $('#name');
     const $startDateTime = $('#start-date-time');
     const $endDateTime = $('#end-date-time');
     const $notes = $('#notes');
+    const $filterBlockedPeriods = $('#blocked-periods-filter');
     const moment = window.moment;
 
     let filterResults = {};
@@ -37,9 +38,9 @@ App.Pages.BlockedPeriods = (function () {
          *
          * @param {jQuery.Event} event
          */
-        $blockedPeriods.on('submit', '#filter-blocked-periods form', (event) => {
+        $blockedPeriodsToolbar.on('submit', '#filter-blocked-periods-form', (event) => {
             event.preventDefault();
-            const key = $('#filter-blocked-periods .key').val();
+            const key = $('#blocked-periods-filter .key').val();
             $('.selected').removeClass('selected');
             App.Pages.BlockedPeriods.resetForm();
             App.Pages.BlockedPeriods.filter(key);
@@ -53,34 +54,34 @@ App.Pages.BlockedPeriods = (function () {
          * @param {jQuery.Event} event
          */
         $blockedPeriods.on('click', '.blocked-period-row', (event) => {
-            if ($('#filter-blocked-periods .filter').prop('disabled')) {
-                $('#filter-blocked-periods .results').css('color', '#AAA');
+            if ($('#blocked-periods-filter .filter').prop('disabled')) {
+                $('#blocked-periods-list').css('color', '#AAA');
                 return; // exit because we are on edit mode
             }
 
             const blockedPeriodId = $(event.currentTarget).attr('data-id');
+            const blockedPeriod = filterResults.find((filterResult) => Number(filterResult.id) === Number(blockedPeriodId));
 
-            const blockedPeriod = filterResults.find(
-                (filterResult) => Number(filterResult.id) === Number(blockedPeriodId),
-            );
-
-            App.Pages.BlockedPeriods.display(blockedPeriod);
-            $('#filter-blocked-periods .selected').removeClass('selected');
-            $(event.currentTarget).addClass('selected');
             $('#edit-blocked-period, #delete-blocked-period').prop('disabled', false);
+            $blockedPeriods.find('.selected').removeClass('selected');
+            $(event.currentTarget).addClass('selected');
+            App.Pages.BlockedPeriods.display(blockedPeriod);
         });
 
         /**
          * Event: Add Blocked-Period Button "Click"
          */
-        $blockedPeriods.on('click', '#add-blocked-period', () => {
+        $blockedPeriodsToolbar.on('click', '#add-blocked-period', () => {
             App.Pages.BlockedPeriods.resetForm();
-            $blockedPeriods.find('.add-edit-delete-group').hide();
-            $blockedPeriods.find('.save-cancel-group').show();
-            $blockedPeriods.find('.record-details').find('input, select, textarea').prop('disabled', false);
+
+            $blockedPeriodsToolbar.find('#add-edit-delete-group').hide();
+            $blockedPeriodsToolbar.find('#save-cancel-group').show();
+
+            $blockedPeriods.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $blockedPeriods.find('.record-details .form-label span').prop('hidden', false);
+
             $filterBlockedPeriods.find('button').prop('disabled', true);
-            $filterBlockedPeriods.find('.results').css('color', '#AAA');
+            $blockedPeriods.find('#blocked-periods-list').css('color', '#AAA');
 
             App.Utils.UI.setDateTimePickerValue($startDateTime, moment('00:00', 'HH:mm').toDate());
             App.Utils.UI.setDateTimePickerValue($endDateTime, moment('00:00', 'HH:mm').add(1, 'day').toDate());
@@ -89,19 +90,21 @@ App.Pages.BlockedPeriods = (function () {
         /**
          * Event: Edit Blocked-Period Button "Click"
          */
-        $blockedPeriods.on('click', '#edit-blocked-period', () => {
-            $blockedPeriods.find('.add-edit-delete-group').hide();
-            $blockedPeriods.find('.save-cancel-group').show();
-            $blockedPeriods.find('.record-details').find('input, select, textarea').prop('disabled', false);
+        $blockedPeriodsToolbar.on('click', '#edit-blocked-period', () => {
+            $blockedPeriodsToolbar.find('#add-edit-delete-group').hide();
+            $blockedPeriodsToolbar.find('#save-cancel-group').show();
+
+            $blockedPeriods.find('.record-details').find('input, select, textarea').prop('disabled', false).removeClass('disabled');
             $blockedPeriods.find('.record-details .form-label span').prop('hidden', false);
+
             $filterBlockedPeriods.find('button').prop('disabled', true);
-            $filterBlockedPeriods.find('.results').css('color', '#AAA');
+            $blockedPeriods.find('#blocked-periods-list').css('color', '#AAA');
         });
 
         /**
          * Event: Delete Blocked-Period Button "Click"
          */
-        $blockedPeriods.on('click', '#delete-blocked-period', () => {
+        $blockedPeriodsToolbar.on('click', '#delete-blocked-period', () => {
             const blockedPeriodId = $id.val();
 
             const buttons = [
@@ -126,7 +129,11 @@ App.Pages.BlockedPeriods = (function () {
         /**
          * Event: Blocked period Save Button "Click"
          */
-        $blockedPeriods.on('click', '#save-blocked-period', () => {
+        $blockedPeriodsToolbar.on('click', '#save-blocked-period', () => {
+            if (!App.Pages.BlockedPeriods.validate()) {
+                return;
+            }
+
             const startDateTimeObject = App.Utils.UI.getDateTimePickerValue($startDateTime);
             const startDateTimeMoment = moment(startDateTimeObject);
             const endDateTimeObject = App.Utils.UI.getDateTimePickerValue($endDateTime);
@@ -143,19 +150,17 @@ App.Pages.BlockedPeriods = (function () {
                 blockedPeriod.id = $id.val();
             }
 
-            if (!App.Pages.BlockedPeriods.validate()) {
-                return;
-            }
-
             App.Pages.BlockedPeriods.save(blockedPeriod);
         });
 
         /**
          * Event: Cancel Blocked-Period Button "Click"
          */
-        $blockedPeriods.on('click', '#cancel-blocked-period', () => {
+        $blockedPeriodsToolbar.on('click', '#cancel-blocked-period', () => {
             const id = $id.val();
+
             App.Pages.BlockedPeriods.resetForm();
+
             if (id !== '') {
                 App.Pages.BlockedPeriods.select(id, true);
             }
@@ -181,6 +186,15 @@ App.Pages.BlockedPeriods = (function () {
             const newEndDateTimeMoment = endDateTimeMoment.clone().add(diff, 'milliseconds');
             App.Utils.UI.setDateTimePickerValue($endDateTime, newEndDateTimeMoment.toDate());
         });
+
+        /**
+         * Event: Clear Blocked Periods Button "Click"
+         */
+        $blockedPeriodsToolbar.on('click', '#clear-blocked-periods', () => {
+            $filterBlockedPeriods.find('.key').val('');
+            App.Pages.BlockedPeriods.resetForm();
+            App.Pages.BlockedPeriods.filter('');
+        });
     }
 
     /**
@@ -195,16 +209,14 @@ App.Pages.BlockedPeriods = (function () {
         App.Http.BlockedPeriods.search(keyword, filterLimit).then((response) => {
             filterResults = response;
 
-            $('#filter-blocked-periods .results').empty();
+            $('#blocked-periods-list').empty();
 
             response.forEach((blockedPeriod) => {
-                $('#filter-blocked-periods .results')
-                    .append(App.Pages.BlockedPeriods.getFilterHtml(blockedPeriod))
-                    .append($('<hr/>'));
+                $('#blocked-periods-list').append(App.Pages.BlockedPeriods.getFilterHtml(blockedPeriod)).append($('<hr/>'));
             });
 
             if (response.length === 0) {
-                $('#filter-blocked-periods .results').append(
+                $('#blocked-periods-list').append(
                     $('<em/>', {
                         'text': lang('no_records_found'),
                     }),
@@ -218,7 +230,14 @@ App.Pages.BlockedPeriods = (function () {
                         filterLimit += 20;
                         App.Pages.BlockedPeriods.filter(keyword, selectId, show);
                     },
-                }).appendTo('#filter-blocked-periods .results');
+                }).appendTo('#blocked-periods-list');
+            }
+
+            if (window.tippy) {
+                tippy('.blocked-period-row[data-tippy-content]', {
+                    placement: 'top',
+                    theme: 'light-border',
+                });
             }
 
             if (selectId) {
@@ -250,7 +269,7 @@ App.Pages.BlockedPeriods = (function () {
         App.Http.BlockedPeriods.destroy(id).then(() => {
             App.Layouts.Backend.displayNotification(lang('blocked_period_deleted'));
             App.Pages.BlockedPeriods.resetForm();
-            App.Pages.BlockedPeriods.filter($('#filter-blocked-periods .key').val());
+            App.Pages.BlockedPeriods.filter($('#blocked-periods-filter .key').val());
         });
     }
 
@@ -310,18 +329,20 @@ App.Pages.BlockedPeriods = (function () {
      * Bring the blocked-period form back to its initial state.
      */
     function resetForm() {
-        $filterBlockedPeriods.find('.selected').removeClass('selected');
+        $blockedPeriods.find('.selected').removeClass('selected');
         $filterBlockedPeriods.find('button').prop('disabled', false);
-        $filterBlockedPeriods.find('.results').css('color', '');
+        $('#blocked-periods-list').css('color', '');
 
-        $blockedPeriods.find('.add-edit-delete-group').show();
-        $blockedPeriods.find('.save-cancel-group').hide();
-        $blockedPeriods.find('.record-details').find('input, select, textarea').val('').prop('disabled', true);
+        $blockedPeriods.find('.record-details').find('input, select, textarea').val('').prop('disabled', true).addClass('disabled');
         $blockedPeriods.find('.record-details .form-label span').prop('hidden', true);
-        $('#edit-blocked-period, #delete-blocked-period').prop('disabled', true);
 
-        $blockedPeriods.find('.record-details .is-invalid').removeClass('is-invalid');
+        $blockedPeriodsToolbar.find('#add-edit-delete-group').show();
+        $blockedPeriodsToolbar.find('#save-cancel-group').hide();
+
         $blockedPeriods.find('.record-details .form-message').hide();
+        $blockedPeriods.find('.record-details .is-invalid').removeClass('is-invalid border-danger').addClass('border border-primary');
+
+        $('#edit-blocked-period, #delete-blocked-period').prop('disabled', true);
 
         backupStartDateTimeObject = undefined;
     }
@@ -355,9 +376,9 @@ App.Pages.BlockedPeriods = (function () {
      * @param {Boolean} show Optional (false), if true then the method will display the record on the form.
      */
     function select(id, show = false) {
-        $filterBlockedPeriods.find('.selected').removeClass('selected');
+        $blockedPeriods.find('.selected').removeClass('selected');
 
-        $filterBlockedPeriods.find('.blocked-period-row[data-id="' + id + '"]').addClass('selected');
+        $blockedPeriods.find('.blocked-period-row[data-id="' + id + '"]').addClass('selected');
 
         if (show) {
             const blockedPeriod = filterResults.find((blockedPeriod) => Number(blockedPeriod.id) === Number(id));
@@ -390,6 +411,6 @@ App.Pages.BlockedPeriods = (function () {
         resetForm,
         display,
         select,
-        addEventListeners,
+        addEventListeners
     };
 })();

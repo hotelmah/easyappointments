@@ -22,37 +22,36 @@
                         <input id="unavailability-id" type="hidden">
 
                         <div class="mb-3">
-                            <label for="unavailability-provider" class="form-label">
+                            <label for="unavailability-provider" class="form-label mb-2">
                                 <?= lang('provider') ?>
                             </label>
-                            <select id="unavailability-provider" class="form-select"></select>
+                            <select id="unavailability-provider" class="form-select border border-primary"></select>
                         </div>
 
                         <?php slot('after_select_appointment_provider'); ?>
-                     
+
                         <div class="mb-3">
-                            <label for="unavailability-start" class="form-label">
+                            <label for="unavailability-start" class="form-label mb-2 d-block">
                                 <?= lang('start') ?>
                                 <span class="text-danger">*</span>
                             </label>
-                            <input id="unavailability-start" class="form-control">
+                            <input id="unavailability-start" class="form-control border border-primary">
                         </div>
 
                         <div class="mb-3">
-                            <label for="unavailability-end" class="form-label">
+                            <label for="unavailability-end" class="form-label mb-2 d-block">
                                 <?= lang('end') ?>
                                 <span class="text-danger">*</span>
                             </label>
-                            <input id="unavailability-end" class="form-control">
+                            <input id="unavailability-end" class="form-control border border-primary">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">
+                            <label class="form-label mb-2">
                                 <?= lang('timezone') ?>
                             </label>
 
-                            <div
-                                class="border rounded d-flex justify-content-between align-items-center bg-light timezone-info">
+                            <div class="timezone-info border border-primary rounded d-flex justify-content-between align-items-center">
                                 <div class="border-end w-50 p-1 text-center">
                                     <small>
                                         <?= lang('provider') ?>:
@@ -73,20 +72,21 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="unavailability-notes" class="form-label">
+                            <label for="unavailability-notes" class="form-label mb-2">
                                 <?= lang('notes') ?>
                             </label>
-                            <textarea id="unavailability-notes" rows="3" class="form-control"></textarea>
+                            <textarea id="unavailability-notes" rows="3" class="form-control border border-primary"></textarea>
                         </div>
 
                         <?php slot('after_primary_unavailability_fields'); ?>
                     </fieldset>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-light">
                 <?php slot('after_unavailability_actions'); ?>
-                
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
+
+                <button class="btn btn-info" data-bs-dismiss="modal">
+                    <i class="fas fa-times-circle me-2"></i>
                     <?= lang('cancel') ?>
                 </button>
                 <button id="save-unavailability" class="btn btn-primary">
@@ -100,6 +100,6 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/components/unavailabilities_modal.js') ?>"></script>
+<script src="<?= asset_url('assets/js/components/unavailabilities_modal.js') ?>" type="text/javascript"></script>
 
-<?php end_section('scripts'); ?> 
+<?php end_section('scripts'); ?>

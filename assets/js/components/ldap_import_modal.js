@@ -27,7 +27,8 @@ App.Components.LdapImportModal = (function () {
     const $firstName = $('#ldap-import-first-name');
     const $lastName = $('#ldap-import-last-name');
     const $email = $('#ldap-import-email');
-    const $phoneNumber = $('#ldap-import-phone-number');
+    const $mobilePhoneNumber = $('#ldap-import-mobile-phone-number');
+    const $workPhoneNumber = $('#ldap-import-work-phone-number');
     const $username = $('#ldap-import-username');
     const $ldapDn = $('#ldap-import-ldap-dn');
     const $roleSlug = $('#ldap-import-role-slug');
@@ -90,7 +91,7 @@ App.Components.LdapImportModal = (function () {
             first_name: $firstName.val(),
             last_name: $lastName.val(),
             email: $email.val(),
-            phone_number: $phoneNumber.val(),
+            mobile_phone_number: $mobilePhoneNumber.val(),
             ldap_dn: $ldapDn.val(),
         };
 
@@ -116,7 +117,8 @@ App.Components.LdapImportModal = (function () {
         $firstName.val(entry?.[ldapFieldMapping?.first_name] ?? '');
         $lastName.val(entry?.[ldapFieldMapping?.last_name] ?? '');
         $email.val(entry?.[ldapFieldMapping?.email] ?? '');
-        $phoneNumber.val(entry?.[ldapFieldMapping?.phone_number] ?? '');
+        $mobilePhoneNumber.val(entry?.[ldapFieldMapping?.mobile_phone_number] ?? '');
+        $workPhoneNumber.val(entry?.[ldapFieldMapping?.work_phone_number] ?? '');
         $username.val(entry?.[ldapFieldMapping?.username] ?? '');
         $password.val('');
     }

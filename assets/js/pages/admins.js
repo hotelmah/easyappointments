@@ -74,7 +74,7 @@ App.Pages.Admins = (function () {
                     $input.attr('already-exists', 'true');
                     $('.form-message').addClass('alert-danger').text(lang('username_already_exists')).show();
                 } else {
-                    $input.removeClass('is-invalid boreder-danger').addClass('border-primary');
+                    $input.removeClass('is-invalid border-danger').addClass('border-primary');
                     $input.attr('already-exists', 'false');
                     if ($('.form-message').text() === lang('username_already_exists')) {
                         $('.form-message').removeClass('alert-danger').hide();
@@ -215,7 +215,6 @@ App.Pages.Admins = (function () {
                 admin.id = $id.val();
             }
 
-
             App.Pages.Admins.save(admin);
         });
 
@@ -227,10 +226,10 @@ App.Pages.Admins = (function () {
         $adminsToolbar.on('click', '#cancel-admin', () => {
             const id = $id.val();
 
-            App.Pages.Admins.resetForm();
+            resetForm();
 
             if (id) {
-                App.Pages.Admins.select(id, true);
+                select(id, true);
             }
         });
 
@@ -390,7 +389,7 @@ App.Pages.Admins = (function () {
 
         $username.val(admin.settings.username);
         $calendarView.val(admin.settings.calendar_view);
-        $notifications.prop('checked', Boolean(Number(admin.settings.notifications))).toggleClass('checked-state', Boolean(Number(secretary.settings.notifications)));
+        $notifications.prop('checked', Boolean(Number(admin.settings.notifications))).toggleClass('checked-state', Boolean(Number(admin.settings.notifications)));
     }
 
     /**
@@ -489,7 +488,6 @@ App.Pages.Admins = (function () {
         $admins.find('.selected').removeClass('selected');
 
         $admins.find('.admin-row[data-id="' + id + '"]').addClass('selected');
-
         if (show) {
             const admin = filterResults.find((filterResult) => Number(filterResult.id) === Number(id));
 

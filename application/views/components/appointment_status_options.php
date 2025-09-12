@@ -4,12 +4,12 @@
  */
 ?>
 
-<div class="appointment-status-options" <?= $attributes ?? '' ?>>
+<div <?= $attributes ?? '' ?> class="appointment-status-options">
     <ul class="list-group">
         <!-- JS -->
     </ul>
 
-    <button type="button" class="btn btn-outline-primary btn-sm add-appointment-status-option">
+    <button type="button" class="add-appointment-status-option btn btn-primary" title="<?= lang('add') ?>" data-tippy-content="<?= lang('add') ?>">
         <i class="fas fa-plus-square me-2"></i>
         <?= lang('add') ?>
     </button>
@@ -17,6 +17,6 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/components/appointment_status_options.js') ?>"></script>
+<script src="<?= asset_url('assets/js/components/appointment_status_options.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>

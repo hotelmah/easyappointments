@@ -169,6 +169,12 @@ class Notifications
                 $subject = $manage_mode ? lang('admins_appointment_details_changed') : lang('appointment_added_to_system');
                 $message = $manage_mode ? lang('fields_changed') .  ' ' . $tableBuilder : lang('appointment_link_description');
 
+
+                log_message('debug', 'Admin email: ' . $admin['email'] . ', Admin Timezone: ' . $admin['timezone'] . ', Appointment ID: ' . ($appointment['id'] ?? '-'));
+
+
+
+
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,
                     $provider,
@@ -202,6 +208,9 @@ class Notifications
                 $this->CI->lang->load('translations');
                 $subject = $manage_mode ? lang('admins_appointment_details_changed') : lang('appointment_added_to_system');
                 $message = $manage_mode ? lang('fields_changed') . ' ' . $tableBuilder : lang('appointment_link_description');
+
+
+                log_message('debug', 'Secretary email: ' . $secretary['email'] . ', Secretary Timezone: ' . $secretary['timezone'] . ', Appointment ID: ' . ($appointment['id'] ?? '-'));
 
                 $this->CI->email_messages->send_appointment_saved(
                     $appointment,

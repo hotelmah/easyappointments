@@ -227,9 +227,11 @@ App.Utils.CalendarTableView = (function () {
                 $appointmentsModal.find('#first-name').val(customer.first_name);
                 $appointmentsModal.find('#last-name').val(customer.last_name);
                 $appointmentsModal.find('#email').val(customer.email);
-                $appointmentsModal.find('#phone-number').val(customer.phone_number);
+                $appointmentsModal.find('#mobile-phone-number').val(customer.mobile_phone_number);
+                $appointmentsModal.find('#work-phone-number').val(customer.work_phone_number);
                 $appointmentsModal.find('#address').val(customer.address);
                 $appointmentsModal.find('#city').val(customer.city);
+                $appointmentsModal.find('#state').val(customer.state);
                 $appointmentsModal.find('#zip-code').val(customer.zip_code);
                 $appointmentsModal.find('#language').val(customer.language);
                 $appointmentsModal.find('#timezone').val(customer.timezone);
@@ -1427,11 +1429,21 @@ App.Utils.CalendarTableView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('phone'),
+                        'text': lang('mobile_phone_number'),
                     }),
-                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.phone_number),
+                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.mobile_phone_number),
                     $('<span/>', {
-                        'text': info.event.extendedProps.data.customer.phone_number || '-',
+                        'text': info.event.extendedProps.data.customer.mobile_phone_number || '-',
+                    }),
+                    $('<br/>'),
+
+                    $('<strong/>', {
+                        'class': 'd-inline-block me-2',
+                        'text': lang('work_phone_number'),
+                    }),
+                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.work_phone_number),
+                    $('<span/>', {
+                        'text': info.event.extendedProps.data.customer.work_phone_number || '-',
                     }),
                     $('<br/>'),
 

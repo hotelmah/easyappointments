@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -80,6 +82,7 @@ class Webhooks extends EA_Controller
 
         html_vars([
             'page_title' => lang('webhooks'),
+            'company_name' => setting('company_name'),
             'active_menu' => PRIV_SYSTEM_SETTINGS,
             'user_display_name' => $this->accounts->get_user_display_name($user_id),
             'timezones' => $this->timezones->to_array(),
@@ -155,7 +158,7 @@ class Webhooks extends EA_Controller
 
             json_response([
                 'success' => true,
-                'id' => $webhook_id,
+                'id' => $webhook_id
             ]);
         } catch (Throwable $e) {
             json_exception($e);
@@ -182,7 +185,7 @@ class Webhooks extends EA_Controller
 
             json_response([
                 'success' => true,
-                'id' => $webhook_id,
+                'id' => $webhook_id
             ]);
         } catch (Throwable $e) {
             json_exception($e);
@@ -204,7 +207,7 @@ class Webhooks extends EA_Controller
             $this->webhooks_model->delete($webhook_id);
 
             json_response([
-                'success' => true,
+                'success' => true
             ]);
         } catch (Throwable $e) {
             json_exception($e);

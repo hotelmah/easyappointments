@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -36,14 +38,14 @@ class Users_model extends EA_Model
         'firstName' => 'first_name',
         'lastName' => 'last_name',
         'email' => 'email',
-        'mobile' => 'mobile_number',
-        'phone' => 'phone_number',
+        'mobile' => 'mobile_phone_number',
+        'phone' => 'work_phone_number',
         'address' => 'address',
         'city' => 'city',
         'state' => 'state',
         'zip' => 'zip_code',
-        'timezone' => 'timezone',
         'language' => 'language',
+        'timezone' => 'timezone',
         'ldapDn' => 'ldap_dn',
         'notes' => 'notes',
         'roleId' => 'id_roles',
@@ -95,7 +97,7 @@ class Users_model extends EA_Model
             empty($user['first_name']) ||
             empty($user['last_name']) ||
             empty($user['email']) ||
-            empty($user['phone_number'])
+            empty($user['mobile_phone_number'])
         ) {
             throw new InvalidArgumentException('Not all required fields are provided: ' . print_r($user, true));
         }

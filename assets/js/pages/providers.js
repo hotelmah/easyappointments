@@ -47,6 +47,45 @@ App.Pages.Providers = (function () {
      */
     function addEventListeners() {
         /**
+         * Event: Provider Username "Blur"
+         *
+         * When the provider leaves the username input field we will need to check if the username
+         * is not taken by another record in the system.
+         *
+         * @param {jQuery.Event} event
+         */
+        $providers.on('blur', '#username', (event) => {
+            const $input = $(event.target);
+
+            if ($input.prop('readonly') === true || $input.val() === '') {
+                return;
+            }
+
+            // const providerId = $input.parents().eq(2).find('.record-id').val();
+            const providerId = $('#provider-id').val();
+
+            if (!providerId) {
+                return;
+            }
+
+            const username = $input.val();
+
+            App.Http.Account.validateUsername(providerId, username).done((response) => {
+                if (response.is_valid === false) {
+                    $input.removeClass('border-primary').addClass('is-invalid border-danger');
+                    $input.attr('already-exists', 'true');
+                    $('.form-message').addClass('alert-danger').text(lang('username_already_exists')).show();
+                } else {
+                    $input.removeClass('is-invalid border-danger').addClass('border-primary');
+                    $input.attr('already-exists', 'false');
+                    if ($('.form-message').text() === lang('username_already_exists')) {
+                        $('.form-message').removeClass('alert-danger').hide();
+                    }
+                }
+            });
+        });
+
+        /**
          * Event: Filter Providers Form "Submit"
          *
          * Filter the provider records with the given key string.

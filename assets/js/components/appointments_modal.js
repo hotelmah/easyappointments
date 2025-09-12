@@ -25,9 +25,11 @@ App.Components.AppointmentsModal = (function () {
     const $firstName = $('#first-name');
     const $lastName = $('#last-name');
     const $email = $('#email');
-    const $phoneNumber = $('#phone-number');
+    const $mobilePhoneNumber = $('#mobile-phone-number');
+    const $workPhoneNumber = $('#work-phone-number');
     const $address = $('#address');
     const $city = $('#city');
+    const $state = $('#state');
     const $zipCode = $('#zip-code');
     const $language = $('#language');
     const $timezone = $('#timezone');
@@ -114,9 +116,11 @@ App.Components.AppointmentsModal = (function () {
                 first_name: $firstName.val(),
                 last_name: $lastName.val(),
                 email: $email.val(),
-                phone_number: $phoneNumber.val(),
+                mobile_phone_number: $mobilePhoneNumber.val(),
+                work_phone_number: $workPhoneNumber.val(),
                 address: $address.val(),
                 city: $city.val(),
+                state: $state.val(),
                 zip_code: $zipCode.val(),
                 language: $language.val(),
                 timezone: $timezone.val(),
@@ -258,9 +262,11 @@ App.Components.AppointmentsModal = (function () {
                 $firstName.val(customer.first_name);
                 $lastName.val(customer.last_name);
                 $email.val(customer.email);
-                $phoneNumber.val(customer.phone_number);
+                $mobilePhoneNumber.val(customer.mobile_phone_number);
+                $workPhoneNumber.val(customer.work_phone_number);
                 $address.val(customer.address);
                 $city.val(customer.city);
+                $state.val(customer.state);
                 $zipCode.val(customer.zip_code);
                 $language.val(customer.language);
                 $timezone.val(customer.timezone);
@@ -325,9 +331,11 @@ App.Components.AppointmentsModal = (function () {
                                 customer.first_name.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.last_name.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.email.toLowerCase().indexOf(keyword) !== -1 ||
-                                customer.phone_number.toLowerCase().indexOf(keyword) !== -1 ||
+                                customer.mobile_phone_number.toLowerCase().indexOf(keyword) !== -1 ||
+                                customer.work_phone_number.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.address.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.city.toLowerCase().indexOf(keyword) !== -1 ||
+                                customer.state.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.zip_code.toLowerCase().indexOf(keyword) !== -1 ||
                                 customer.notes.toLowerCase().indexOf(keyword) !== -1
                             ) {
@@ -420,9 +428,11 @@ App.Components.AppointmentsModal = (function () {
             $firstName.val('');
             $lastName.val('');
             $email.val('');
-            $phoneNumber.val('');
+            $mobilePhoneNumber.val('');
+            $workPhoneNumber.val('');
             $address.val('');
             $city.val('');
+            $state.val('');
             $zipCode.val('');
             $language.val(vars('default_language'));
             $timezone.val(vars('default_timezone'));

@@ -18,15 +18,18 @@
  */
 App.Utils.CalendarDefaultView = (function () {
     const $calendarPage = $('#calendar-page');
-    const $reloadAppointments = $('#reload-appointments');
-    const $calendar = $('#calendar');
+    const $calendarToolbar = $('#calendar-toolbar');
     const $selectFilterItem = $('#select-filter-item');
+    const $reloadAppointments = $('#reload-appointments');
+
+    const $calendar = $('#calendar');
+
     const $appointmentsModal = $('#appointments-modal');
     const $unavailabilitiesModal = $('#unavailabilities-modal');
     const $header = $('#header');
     const $footer = $('#footer');
     const $notification = $('#notification');
-    const $calendarToolbar = $('#calendar-toolbar');
+
     const FILTER_TYPE_ALL = 'all';
     const FILTER_TYPE_PROVIDER = 'provider';
     const FILTER_TYPE_SERVICE = 'service';
@@ -64,7 +67,7 @@ App.Utils.CalendarDefaultView = (function () {
                 $selectFilterItem.val(),
                 $selectFilterItem.find('option:selected').attr('type'),
                 calendarView.activeStart,
-                calendarView.activeEnd,
+                calendarView.activeEnd
             );
         });
 
@@ -160,15 +163,18 @@ App.Utils.CalendarDefaultView = (function () {
                 $appointmentsModal.find('#first-name').val(customer.first_name);
                 $appointmentsModal.find('#last-name').val(customer.last_name);
                 $appointmentsModal.find('#email').val(customer.email);
-                $appointmentsModal.find('#phone-number').val(customer.phone_number);
+                $appointmentsModal.find('#mobile-phone-number').val(customer.mobile_phone_number);
+                $appointmentsModal.find('#work-phone-number').val(customer.work_phone_number);
                 $appointmentsModal.find('#address').val(customer.address);
                 $appointmentsModal.find('#city').val(customer.city);
+                $appointmentsModal.find('#state').val(customer.state);
                 $appointmentsModal.find('#zip-code').val(customer.zip_code);
                 $appointmentsModal.find('#language').val(customer.language);
                 $appointmentsModal.find('#timezone').val(customer.timezone);
                 $appointmentsModal.find('#appointment-location').val(appointment.location);
                 $appointmentsModal.find('#appointment-status').val(appointment.status);
                 $appointmentsModal.find('#appointment-notes').val(appointment.notes);
+                $appointmentsModal.find('.provider-timezone').text(lastFocusedEventData.extendedProps.data.provider.timezone);
                 $appointmentsModal.find('#customer-notes').val(customer.notes);
                 $appointmentsModal.find('#custom-field-1').val(customer.custom_field_1);
                 $appointmentsModal.find('#custom-field-2').val(customer.custom_field_2);
@@ -178,7 +184,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                 App.Components.ColorSelection.setColor(
                     $appointmentsModal.find('#appointment-color'),
-                    appointment.color,
+                    appointment.color
                 );
 
                 $appointmentsModal.modal('show');
@@ -206,6 +212,7 @@ App.Utils.CalendarDefaultView = (function () {
                 $unavailabilitiesModal.find('#unavailability-id').val(unavailability.id);
                 $unavailabilitiesModal.find('#unavailability-provider').val(unavailability.id_users_provider);
                 $unavailabilitiesModal.find('#unavailability-notes').val(unavailability.notes);
+                $unavailabilitiesModal.find('.provider-timezone').text(unavailability.provider.timezone);
                 $unavailabilitiesModal.modal('show');
             }
         });
@@ -400,7 +407,7 @@ App.Utils.CalendarDefaultView = (function () {
                 'html': [
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('provider'),
+                        'text': lang('provider') + ': ',
                     }),
                     $('<span/>', {
                         'text': `${provider.first_name} ${provider.last_name}`,
@@ -409,7 +416,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('start'),
+                        'text': lang('start') + ': ',
                     }),
                     $('<span/>', {
                         'text': App.Utils.Date.format(
@@ -423,7 +430,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('end'),
+                        'text': lang('end') + ': ',
                     }),
                     $('<span/>', {
                         'text': App.Utils.Date.format(
@@ -437,7 +444,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('notes'),
+                        'text': lang('notes') + ': ',
                     }),
                     $('<span/>', {
                         'text': getEventNotes(info.event),
@@ -452,7 +459,7 @@ App.Utils.CalendarDefaultView = (function () {
                         'class': 'd-flex justify-content-center',
                         'html': [
                             $('<button/>', {
-                                'class': 'close-popover btn btn-outline-secondary me-2',
+                                'class': 'close-popover btn btn-info me-2',
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-ban me-2',
@@ -463,7 +470,7 @@ App.Utils.CalendarDefaultView = (function () {
                                 ],
                             }),
                             $('<button/>', {
-                                'class': 'delete-popover btn btn-outline-secondary ' + displayDelete,
+                                'class': 'delete-popover btn btn-danger ' + displayDelete,
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-trash-alt me-2',
@@ -500,7 +507,7 @@ App.Utils.CalendarDefaultView = (function () {
                 'html': [
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('provider'),
+                        'text': lang('provider') + ': ',
                     }),
                     $('<span/>', {
                         'text': `${provider.first_name} ${provider.last_name}`,
@@ -509,7 +516,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('start'),
+                        'text': lang('start') + ': ',
                     }),
                     $('<span/>', {
                         'text': startTime
@@ -525,7 +532,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('end'),
+                        'text': lang('end') + ': ',
                     }),
                     $('<span/>', {
                         'text': endTime
@@ -541,7 +548,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('timezone'),
+                        'text': lang('timezone') + ': ',
                     }),
                     $('<span/>', {
                         'text': startTime ? vars('timezones')[provider.timezone] : '-',
@@ -556,7 +563,7 @@ App.Utils.CalendarDefaultView = (function () {
                         'class': 'd-flex justify-content-between',
                         'html': [
                             $('<button/>', {
-                                'class': 'close-popover btn btn-outline-secondary me-2',
+                                'class': 'close-popover btn btn-info me-2',
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-ban me-2',
@@ -567,7 +574,7 @@ App.Utils.CalendarDefaultView = (function () {
                                 ],
                             }),
                             $('<button/>', {
-                                'class': 'delete-popover btn btn-outline-secondary ' + displayDelete,
+                                'class': 'delete-popover btn btn-danger ' + displayDelete,
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-trash-alt me-2',
@@ -610,7 +617,7 @@ App.Utils.CalendarDefaultView = (function () {
                 'html': [
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('start'),
+                        'text': lang('start') + ': ',
                     }),
                     $('<span/>', {
                         'text': App.Utils.Date.format(
@@ -624,7 +631,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('end'),
+                        'text': lang('end') + ': ',
                     }),
                     $('<span/>', {
                         'text': App.Utils.Date.format(
@@ -638,7 +645,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('timezone'),
+                        'text': lang('timezone') + ': ',
                     }),
                     $('<span/>', {
                         'text': vars('timezones')[info.event.extendedProps.data.provider.timezone],
@@ -647,7 +654,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('status'),
+                        'text': lang('status') + ': ',
                     }),
                     $('<span/>', {
                         'text': info.event.extendedProps.data.status || '-',
@@ -656,7 +663,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('service'),
+                        'text': lang('service') + ': ',
                     }),
                     $('<span/>', {
                         'text': info.event.extendedProps.data.service.name,
@@ -665,7 +672,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('provider'),
+                        'text': lang('provider') + ': ',
                     }),
                     App.Utils.CalendarEventPopover.renderMapIcon(info.event.extendedProps.data.provider),
                     $('<span/>', {
@@ -678,7 +685,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('customer'),
+                        'text': lang('customer') + ': ',
                     }),
                     App.Utils.CalendarEventPopover.renderMapIcon(info.event.extendedProps.data.customer),
                     $('<span/>', {
@@ -689,7 +696,7 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('email'),
+                        'text': lang('email') + ': ',
                     }),
                     App.Utils.CalendarEventPopover.renderMailIcon(info.event.extendedProps.data.customer.email),
                     $('<span/>', {
@@ -700,18 +707,29 @@ App.Utils.CalendarDefaultView = (function () {
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('phone'),
+                        'text': lang('mobile_phone_number') + ': ',
                     }),
-                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.phone_number),
+                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.mobile_phone_number),
                     $('<span/>', {
                         'class': 'd-inline-block',
-                        'text': info.event.extendedProps.data.customer.phone_number || '-',
+                        'text': info.event.extendedProps.data.customer.mobile_phone_number || '-',
                     }),
                     $('<br/>'),
 
                     $('<strong/>', {
                         'class': 'd-inline-block me-2',
-                        'text': lang('notes'),
+                        'text': lang('work_phone_number') + ': ',
+                    }),
+                    App.Utils.CalendarEventPopover.renderPhoneIcon(info.event.extendedProps.data.customer.work_phone_number),
+                    $('<span/>', {
+                        'class': 'd-inline-block',
+                        'text': info.event.extendedProps.data.customer.work_phone_number || '-',
+                    }),
+                    $('<br/>'),
+
+                    $('<strong/>', {
+                        'class': 'd-inline-block me-2',
+                        'text': lang('notes') + ': ',
                     }),
                     $('<span/>', {
                         'text': getEventNotes(info.event),
@@ -726,7 +744,7 @@ App.Utils.CalendarDefaultView = (function () {
                         'class': 'd-flex justify-content-center',
                         'html': [
                             $('<button/>', {
-                                'class': 'close-popover btn btn-outline-secondary me-2',
+                                'class': 'close-popover btn btn-info me-2',
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-ban me-2',
@@ -737,7 +755,7 @@ App.Utils.CalendarDefaultView = (function () {
                                 ],
                             }),
                             $('<button/>', {
-                                'class': 'delete-popover btn btn-outline-secondary ' + displayDelete,
+                                'class': 'delete-popover btn btn-danger ' + displayDelete,
                                 'html': [
                                     $('<i/>', {
                                         'class': 'fas fa-trash-alt me-2',
@@ -785,6 +803,8 @@ App.Utils.CalendarDefaultView = (function () {
         if ($popover.length > 0 && $popover.position().top < 200) {
             $popover.css('top', '200px');
         }
+
+         $popover.find('.popover-header').addClass('text-white bg-dark');
     }
 
     /**
@@ -1623,9 +1643,11 @@ App.Utils.CalendarDefaultView = (function () {
             $appointmentsModal.find('#first-name').val(customer.first_name);
             $appointmentsModal.find('#last-name').val(customer.last_name);
             $appointmentsModal.find('#email').val(customer.email);
-            $appointmentsModal.find('#phone-number').val(customer.phone_number);
+            $appointmentsModal.find('#mobile-phone-number').val(customer.mobile_phone_number);
+            $appointmentsModal.find('#work-phone-number').val(customer.work_phone_number);
             $appointmentsModal.find('#address').val(customer.address);
             $appointmentsModal.find('#city').val(customer.city);
+            $appointmentsModal.find('#state').val(customer.state);
             $appointmentsModal.find('#zip-code').val(customer.zip_code);
             $appointmentsModal.find('#language').val(customer.language);
             $appointmentsModal.find('#timezone').val(customer.timezone);

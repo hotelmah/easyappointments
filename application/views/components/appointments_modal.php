@@ -28,18 +28,18 @@
 
                 <form>
                     <fieldset>
-                        <h5 class="text-black-50 mb-3 fw-light"><?= lang('appointment_details_title') ?></h5>
+                        <h5 class="text-black-50 border-bottom mb-3 py-1"><?= lang('appointment_details_title') ?></h5>
 
                         <input id="appointment-id" type="hidden">
 
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="select-service" class="form-label">
+                                    <label for="select-service" class="form-label mb-2">
                                         <?= lang('service') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <select id="select-service" class="required form-select">
+                                    <select id="select-service" class="required form-select border border-primary">
                                         <?php
                                         // Group services by category, only if there is at least one service
                                         // with a parent category.
@@ -109,13 +109,13 @@
                                 </div>
 
                                 <?php slot('after_select_appointment_service'); ?>
-                              
+
                                 <div class="mb-3">
-                                    <label for="select-provider" class="form-label">
+                                    <label for="select-provider" class="form-label mb-2">
                                         <?= lang('provider') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <select id="select-provider" class="required form-select"></select>
+                                    <select id="select-provider" class="required form-select border border-primary"></select>
                                 </div>
 
                                 <?php slot('after_select_appointment_provider'); ?>
@@ -125,18 +125,18 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="appointment-location" class="form-label">
+                                    <label for="appointment-location" class="form-label mb-2">
                                         <?= lang('location') ?>
                                     </label>
-                                    <input id="appointment-location" class="form-control">
+                                    <input id="appointment-location" class="form-control border border-primary">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="appointment-status" class="form-label">
+                                    <label for="appointment-status" class="form-label mb-2">
                                         <?= lang('status') ?>
                                     </label>
-                                    <select id="appointment-status" class="form-select">
-                                        <?php foreach ($appointment_status_options as $appointment_status_option): ?>
+                                    <select id="appointment-status" class="form-select border border-primary">
+                                        <?php foreach ($appointment_status_options as $appointment_status_option) : ?>
                                             <option value="<?= e($appointment_status_option) ?>">
                                                 <?= e($appointment_status_option) ?>
                                             </option>
@@ -147,23 +147,21 @@
 
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="start-datetime"
-                                           class="form-label"><?= lang('start_date_time') ?></label>
-                                    <input id="start-datetime" class="required form-control">
+                                    <label for="start-datetime" class="form-label mb-2 d-block"><?= lang('start_date_time') ?></label>
+                                    <input id="start-datetime" class="required form-control border border-primary">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="end-datetime" class="form-label"><?= lang('end_date_time') ?></label>
-                                    <input id="end-datetime" class="required form-control">
+                                    <label for="end-datetime" class="form-label mb-2 d-block"><?= lang('end_date_time') ?></label>
+                                    <input id="end-datetime" class="required form-control border border-primary">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">
+                                    <label class="form-label mb-2">
                                         <?= lang('timezone') ?>
                                     </label>
 
-                                    <div
-                                        class="border rounded d-flex justify-content-between align-items-center bg-light timezone-info">
+                                    <div class="timezone-info d-flex justify-content-between align-items-center border border-primary rounded w-75">
                                         <div class="border-end w-50 p-1 text-center">
                                             <small>
                                                 <?= lang('provider') ?>:
@@ -184,8 +182,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="appointment-notes" class="form-label"><?= lang('notes') ?></label>
-                                    <textarea id="appointment-notes" class="form-control" rows="3"></textarea>
+                                    <label for="appointment-notes" class="form-label mb-2"><?= lang('notes') ?></label>
+                                    <textarea id="appointment-notes" class="form-control border border-primary" rows="4"></textarea>
                                 </div>
 
                                 <?php slot('after_primary_appointment_fields'); ?>
@@ -198,86 +196,85 @@
                     <br>
 
                     <fieldset>
-                        <h5 class="text-black-50 mb-3 fw-light">
+                        <h5 class="text-black-50 border-bottom mb-3 py-1">
                             <?= lang('customer_details_title') ?>
-                            <button id="new-customer" class="btn btn-outline-secondary btn-sm" type="button"
-                                    data-tippy-content="<?= lang('clear_fields_add_existing_customer_hint') ?>">
+                        </h5>
+                        <div class="border-bottom mb-2 py-2">
+                            <button id="new-customer" type="button" class="btn btn-primary" data-tippy-content="<?= lang('clear_fields_add_existing_customer_hint') ?>">
                                 <i class="fas fa-plus-square me-2"></i>
                                 <?= lang('new') ?>
                             </button>
-                            <button id="select-customer" class="btn btn-outline-secondary btn-sm" type="button"
-                                    data-tippy-content="<?= lang('pick_existing_customer_hint') ?>">
+                            <button id="select-customer" type="button" class="btn btn-primary" data-tippy-content="<?= lang('pick_existing_customer_hint') ?>">
                                 <i class="fas fa-hand-pointer me-2"></i>
-                                <span>
-                                    <?= lang('select') ?>
-                                </span>
+                                <?= lang('select') ?>
                             </button>
 
-                            <input id="filter-existing-customers"
-                                   placeholder="<?= lang('type_to_filter_customers') ?>"
-                                   style="display: none;" class="input-sm form-control">
-                        </h5>
+                            <input id="filter-existing-customers" placeholder="<?= lang('type_to_filter_customers') ?>" style="display: none;" class="form-control border border-primary">
+                        </div>
 
-                        <div id="existing-customers-list" style="display: none;"></div>
+                        <div id="existing-customers-list" class="border rounded py-2" style="display: none;"></div>
 
                         <input id="customer-id" type="hidden">
 
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="first-name" class="form-label">
+                                    <label for="first-name" class="form-label mb-2">
                                         <?= lang('first_name') ?>
-                                        <?php if ($require_first_name): ?>
+                                        <?php if ($require_first_name) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="first-name"
-                                           class="<?= $require_first_name ? 'required' : '' ?> form-control"
-                                           maxlength="100"/>
+                                    <input id="first-name" type="text" class="<?= $require_first_name ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="last-name" class="form-label">
+                                    <label for="last-name" class="form-label mb-2">
                                         <?= lang('last_name') ?>
-                                        <?php if ($require_last_name): ?>
+                                        <?php if ($require_last_name) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="last-name"
-                                           class="<?= $require_last_name ? 'required' : '' ?> form-control"
-                                           maxlength="120"/>
+                                    <input id="last-name" type="text" class="<?= $require_last_name ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">
+                                    <label for="email" class="form-label mb-2">
                                         <?= lang('email') ?>
-                                        <?php if ($require_email): ?>
+                                        <?php if ($require_email) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="email"
-                                           class="<?= $require_email ? 'required' : '' ?> form-control"
-                                           maxlength="120"/>
+                                    <input id="email" type="email" class="<?= $require_email ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="phone-number" class="form-label">
-                                        <?= lang('phone_number') ?>
-                                        <?php if ($require_phone_number): ?>
+                                    <label for="mobile-phone-number" class="form-label mb-2">
+                                        <?= lang('mobile_phone_number') ?>
+                                        <?php if ($require_mobile_number) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="phone-number" maxlength="60"
-                                           class="<?= $require_phone_number ? 'required' : '' ?> form-control"/>
+                                    <input id="mobile-phone-number" type="tel" maxlength="60" class="<?= $require_mobile_number ? 'required' : '' ?> form-control border border-primary">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="language">
+                                    <label for="work-phone-number" class="form-label mb-2">
+                                        <?= lang('work_phone_number') ?>
+                                        <?php if ($require_work_number) : ?>
+                                            <span class="text-danger">*</span>
+                                        <?php endif; ?>
+                                    </label>
+                                    <input id="work-phone-number" type="tel" maxlength="60" class="<?= $require_work_number ? 'required' : '' ?> form-control border border-primary">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="language" class="form-label mb-2">
                                         <?= lang('language') ?>
                                         <span class="text-danger" hidden>*</span>
                                     </label>
-                                    <select id="language" class="form-select required">
-                                        <?php foreach (vars('available_languages') as $available_language): ?>
+                                    <select id="language" class="required form-select border border-primary">
+                                        <?php foreach (vars('available_languages') as $available_language) : ?>
                                             <option value="<?= $available_language ?>">
                                                 <?= ucfirst($available_language) ?>
                                             </option>
@@ -291,61 +288,64 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="address" class="form-label">
+                                    <label for="address" class="form-label mb-2">
                                         <?= lang('address') ?>
-                                        <?php if ($require_address): ?>
+                                        <?php if ($require_address) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="address"
-                                           class="<?= $require_address ? 'required' : '' ?> form-control"
-                                           maxlength="120"/>
+                                    <input id="address" type="text" class="<?= $require_address ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="city" class="form-label">
+                                    <label for="city" class="form-label mb-2">
                                         <?= lang('city') ?>
-                                        <?php if ($require_city): ?>
+                                        <?php if ($require_city) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="city"
-                                           class="<?= $require_city ? 'required' : '' ?> form-control"
-                                           maxlength="120"/>
+                                    <input id="city" type="text" class="<?= $require_city ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="zip-code" class="form-label">
+                                    <label for="state" class="form-label mb-2">
+                                        <?= lang('state') ?>
+                                        <?php if ($require_state) : ?>
+                                            <span class="text-danger">*</span>
+                                        <?php endif; ?>
+                                    </label>
+                                    <input id="state" type="text" class="<?= $require_state ? 'required' : '' ?> form-control border border-primary" maxlength="100">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="zip-code" class="form-label mb-2">
                                         <?= lang('zip_code') ?>
-                                        <?php if ($require_zip_code): ?>
+                                        <?php if ($require_zip_code) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <input type="text" id="zip-code"
-                                           class="<?= $require_zip_code ? 'required' : '' ?> form-control"
-                                           maxlength="120"/>
+                                    <input id="zip-code" type="text" class="<?= $require_zip_code ? 'required' : '' ?> form-control border border-primary" maxlength="100">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="timezone">
+                                    <label for="timezone" class="form-label mb-2">
                                         <?= lang('timezone') ?>
                                         <span class="text-danger" hidden>*</span>
                                     </label>
                                     <?php component('timezone_dropdown', [
-                                        'attributes' => 'id="timezone" class="form-control required"',
+                                        'attributes' => 'id="timezone" class="required form-select border border-primary"',
                                         'grouped_timezones' => vars('grouped_timezones'),
                                     ]); ?>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="customer-notes" class="form-label">
+                                    <label for="customer-notes" class="form-label mb-2">
                                         <?= lang('notes') ?>
-                                        <?php if ($require_notes): ?>
+                                        <?php if ($require_notes) : ?>
                                             <span class="text-danger">*</span>
                                         <?php endif; ?>
                                     </label>
-                                    <textarea id="customer-notes" rows="2"
-                                              class="<?= $require_notes ? 'required' : '' ?> form-control"></textarea>
+                                    <textarea id="customer-notes" rows="2" class="<?= $require_notes ? 'required' : '' ?> form-control border border-primary"></textarea>
                                 </div>
 
                                 <?php slot('after_primary_customer_fields'); ?>
@@ -357,10 +357,11 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer bg-light">
                 <?php slot('before_appointment_actions'); ?>
-                
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
+
+                <button class="btn btn-info" data-bs-dismiss="modal">
+                    <i class="fas fa-times-circle me-2"></i>
                     <?= lang('cancel') ?>
                 </button>
                 <button id="save-appointment" class="btn btn-primary">
@@ -374,6 +375,6 @@
 
 <?php section('scripts'); ?>
 
-<script src="<?= asset_url('assets/js/components/appointments_modal.js') ?>"></script>
+<script src="<?= asset_url('assets/js/components/appointments_modal.js') ?>" type="text/javascript"></script>
 
 <?php end_section('scripts'); ?>
