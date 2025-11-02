@@ -1,11 +1,13 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
 | TESTING ROUTES
 | -------------------------------------------------------------------------
-| The following routes are defined in order for CI to be able to process 
-| test execution requests via the CLI. 
+| The following routes are defined in order for CI to be able to process
+| test execution requests via the CLI.
 |
 | The Test controller class is used as a placeholder for this purpose.
 |

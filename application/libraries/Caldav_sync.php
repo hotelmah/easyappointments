@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -574,7 +576,7 @@ class Caldav_sync
                 $formatted_start_date_time .
                 '" end="' .
                 $formatted_end_date_time .
-                '"/>	
+                '"/>
                             </c:comp-filter>
                         </c:comp-filter>
                     </c:filter>

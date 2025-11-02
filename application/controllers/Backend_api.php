@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler
@@ -16,17 +18,17 @@
 | Deprecation Notice
 |------------------------------------------------------------------------------
 |
-| This file is still in the project for backwards compatibility reasons and for 
-| providing additional information on how to migrate your code to the latest   
-| codebase state. 
+| This file is still in the project for backwards compatibility reasons and for
+| providing additional information on how to migrate your code to the latest
+| codebase state.
 |
-| Visit the Easy!Appointments Developers website for more information:  
+| Visit the Easy!Appointments Developers website for more information:
 |
 |   https://developers.easyappointments.org
 |
-| Since v1.5, the methods of this controller were ported to standalone controller 
-| classes, that can both handle the page rendering and all asynchronous HTTP  
-| requests. 
+| Since v1.5, the methods of this controller were ported to standalone controller
+| classes, that can both handle the page rendering and all asynchronous HTTP
+| requests.
 |
 */
 

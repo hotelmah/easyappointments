@@ -1,6 +1,8 @@
-<?php use JetBrains\PhpStorm\NoReturn;
+<?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+
+use JetBrains\PhpStorm\NoReturn;
 
 /* ----------------------------------------------------------------------------
  * Easy!Appointments - Online Appointment Scheduler

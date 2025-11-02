@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +132,7 @@ const LDAP_DEFAULT_FIELD_MAPPING = [
 | Webhook Actions
 |--------------------------------------------------------------------------
 |
-| External application endpoints can subscribe to these webhook actions.  
+| External application endpoints can subscribe to these webhook actions.
 |
 */
 

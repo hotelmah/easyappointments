@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -61,16 +63,16 @@ $route['translate_uri_dashes'] = false;
 | -------------------------------------------------------------------------
 | FRAME OPTIONS HEADERS
 | -------------------------------------------------------------------------
-| Set the appropriate headers so that iframe control and permissions are 
+| Set the appropriate headers so that iframe control and permissions are
 | properly configured.
 |
-| Enable this if you want to disable use of Easy!Appointments within an 
+| Enable this if you want to disable use of Easy!Appointments within an
 | iframe.
 |
 | Options:
 |
-|   - DENY 
-|   - SAMEORIGIN 
+|   - DENY
+|   - SAMEORIGIN
 |
 */
 
@@ -80,8 +82,8 @@ $route['translate_uri_dashes'] = false;
 | -------------------------------------------------------------------------
 | CORS HEADERS
 | -------------------------------------------------------------------------
-| Set the appropriate headers so that CORS requirements are met and any 
-| incoming preflight options request succeeds. 
+| Set the appropriate headers so that CORS requirements are met and any
+| incoming preflight options request succeeds.
 |
 */
 
@@ -106,9 +108,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS
 | -------------------------------------------------------------------------
 | REST API ROUTING
 | -------------------------------------------------------------------------
-| Define the API resource routes using the routing helper function. By 
-| default, each resource will have by default the following actions: 
-| 
+| Define the API resource routes using the routing helper function. By
+| default, each resource will have by default the following actions:
+|
 |   - index [GET]
 |
 |   - show/:id [GET]
@@ -119,8 +121,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS
 |
 |   - destroy [DELETE]
 |
-| Some resources like the availabilities and the settings do not follow this 
-| pattern and are explicitly defined. 
+| Some resources like the availabilities and the settings do not follow this
+| pattern and are explicitly defined.
 |
 */
 
@@ -155,7 +157,7 @@ $route['api/v1/availabilities']['get'] = 'api/v1/availabilities_api_v1/get';
 | CUSTOM ROUTING
 | -------------------------------------------------------------------------
 | You can add custom routes to the following section to define URL patterns
-| that are later mapped to the available controllers in the filesystem. 
+| that are later mapped to the available controllers in the filesystem.
 |
 */
 
