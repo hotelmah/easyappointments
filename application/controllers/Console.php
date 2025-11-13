@@ -40,7 +40,7 @@ class Console extends EA_Controller
 
         $this->load->library('instance');
 
-        $this->load->model('admins_model');
+        // $this->load->model('admins_model');
         $this->load->model('customers_model');
         $this->load->model('providers_model');
         $this->load->model('services_model');

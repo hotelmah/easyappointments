@@ -38,7 +38,7 @@ class Webhooks_client
 
         $this->CI->load->model('providers_model');
         $this->CI->load->model('secretaries_model');
-        $this->CI->load->model('admins_model');
+        // $this->CI->load->model('admins_model');
         $this->CI->load->model('appointments_model');
         $this->CI->load->model('settings_model');
         $this->CI->load->model('webhooks_model');

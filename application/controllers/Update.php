@@ -29,7 +29,7 @@ class Update extends EA_Controller
     {
         parent::__construct();
 
-        $this->load->model('admins_model');
+        // $this->load->model('admins_model');
         $this->load->model('settings_model');
         $this->load->model('services_model');
         $this->load->model('providers_model');

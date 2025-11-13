@@ -34,7 +34,7 @@ class Availability
     {
         $this->CI = &get_instance();
 
-        $this->CI->load->model('admins_model');
+        // $this->CI->load->model('admins_model');
         $this->CI->load->model('appointments_model');
         $this->CI->load->model('providers_model');
         $this->CI->load->model('secretaries_model');
